@@ -16,8 +16,7 @@ public class Piece {
             }
         }
     }
-    public void InitChessPlay(){
-        GamePlay ui = new GamePlay();
+    public void InitChessPlay(GamePlay ui){
         for (int j = 0; j < 8; j++) {
             // White pawns on row 1
             Pawn whitePawn = new Pawn(1, j, Color.WHITE);

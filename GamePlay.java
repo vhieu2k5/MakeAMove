@@ -38,7 +38,7 @@ public class GamePlay extends javax.swing.JFrame {
        
        add(chessBoard,BorderLayout.CENTER);
        add(controlPanel,BorderLayout.SOUTH);
-       piece.InitChessPlay();
+       piece.InitChessPlay(this);
     }
     public static void main(String args[]) {
        java.awt.EventQueue.invokeLater(() -> new GamePlay().setVisible(true));
