@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import  java.util.List;
+import static jvtest.GamePlay.squares;
 
 /**
  *
@@ -16,21 +17,48 @@ import  java.util.List;
 public abstract class ChessPiece { //Lớp đặc tính chung của các quân cờ
     
         int x, y;
+        boolean is_Chess = false;
         Color color; //black or white
         String symbol;
         String name;
         public abstract List<point> ValidMoves();
-        public point currentMove(){
-            return new point(x,y); 
-        }
-        public void setMove (int i, int j){ //Set là ô đã có quân cờ đặt
+        public abstract void showValidMove(GamePlay ui);
+        public abstract void deleteValidMove(GamePlay ui);
+
+    public void setIs_Chess(boolean is_Chess) {
+        this.is_Chess = is_Chess;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+        public void setMove (point pre, int i, int j){ //Set là ô đã có quân cờ đặt
+            if (pre!=null && pre.i>=0 && pre.j>=0) {
+               Board.chessBoard[pre.i][pre.j] = new NullChess(pre.i,pre.j);
+            }
+            Board.chessBoard[i][j]=this;
             this.x = i;
-            this.y = j;
-            int index = 8*i +j;
-            Board.chessBoard.get(index).occupied = true;
-            Board.chessBoard.get(index).piece = name;
-            Board.chessBoard.get(index).c = color;
+            this.y=j;
         }
+
+    public Color getColor() {
+        return color;
+    }
+
+
     }
     
     

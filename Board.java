@@ -16,21 +16,20 @@ import jvtest.point;
  * @author ADMIN
  */
 public class Board { //Lớp bàn cờ
-    public static List<point> chessBoard = new ArrayList<>(64);
+    public static ChessPiece[][] chessBoard = new ChessPiece[8][8];
 
     public Board() {
-        chessBoard.clear();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 point p = new point(i, j);
-                chessBoard.add(p);
+                chessBoard[i][j] = new NullChess(i,j);
             }
         }
     }
     public void InitChessPlay(GamePlay ui){
         for (int j = 0; j < 8; j++) {
-            Pawn whitePawn = new Pawn(1, j, Color.WHITE); //Tạo một quân tốt ở vị trí ô (1,j) màu trắng
-            whitePawn.setMove(1, j);
+            Pawn whitePawn = new Pawn(1,j,Color.WHITE); //Tạo một quân tốt ở vị trí ô (1,j) màu trắng
+            whitePawn.setMove(null, 1, j);
             
             
             //Cài đặt UI tốt trắng
@@ -39,8 +38,8 @@ public class Board { //Lớp bàn cờ
             ui.squares[1][j].setForeground(whitePawn.color);
 
             // Black pawns on row 6
-            Pawn blackPawn = new Pawn(6, j, Color.BLACK);
-            blackPawn.setMove(6, j);
+            Pawn blackPawn = new Pawn(6, j,Color.BLACK);
+            blackPawn.setMove(null, 6, j);
             ui.squares[6][j].setText(blackPawn.symbol);
             ui.squares[6][j].setFont(new Font("Serif", Font.BOLD, 36));
             ui.squares[6][j].setForeground(blackPawn.color);

@@ -14,12 +14,6 @@ public class point { //Lớp vị trí của quân cờ
         boolean occupied=false;
         String piece = null; //Quân cờ nào đang ở đây
         Color c = Color.ORANGE;
-        public point(int i, int j, ChessPiece p){
-            this.i = i;
-            this.j=j;
-            this.piece = p.name;
-            this.c = p.color;
-        }
         public point(int i,int j) {
             this.i=i;
             this.j=j;

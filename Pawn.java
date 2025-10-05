@@ -5,8 +5,10 @@
 package jvtest;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.BorderFactory;
 
 /**
  *
@@ -14,25 +16,6 @@ import java.util.List;
  */
 public class Pawn extends ChessPiece { //Quân tốt
 
-    @Override
-    public List<point> ValidMoves(){
-            List<point> res = new ArrayList<>(); //
-            if (color == Color.WHITE) 
-            {
-                int index= (x+1)*8+y;
-                if (Board.chessBoard.get(index).occupied==false){
-                    res.add(new point(x+1,y));
-                }
-            } 
-            else 
-            {
-                int index= (x-1)*8+y;
-                if (Board.chessBoard.get(index).occupied==false){
-                    res.add(new point(x-1,y));
-                }
-            }            
-            return res;
-        }
     public Pawn(int i, int j, Color color) {
             this.x = i;
             this.y = j;
@@ -40,4 +23,163 @@ public class Pawn extends ChessPiece { //Quân tốt
             this.symbol = "♙";
             this.name = "Pawn";
         }
+
+    @Override
+    public List<point> ValidMoves() {
+        List<point> res = new ArrayList<point>();
+        int reverse=1;
+        if (this.color==Color.WHITE) {
+            if (this.x ==1) {
+                point p = new point(this.x+1*reverse,this.y);
+                if (Board.chessBoard[p.i][p.j].getName()==null) {
+                    res.add(p);
+                }
+                point p2 = new point(this.x+2*reverse,this.y);
+                if (Board.chessBoard[p2.i][p2.j].getName()==null) {
+                    res.add(p2);
+                } 
+                //Check Move ăn
+                switch (this.y) {
+                    case 0:
+                       point p3 = new point(this.x+1*reverse,this.y+1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                        }
+                    break;
+                    case 7:
+                       p3 = new point(this.x+1*reverse,this.y-1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                        }
+                       break;
+                    default:
+                        p3 = new point(this.x+1*reverse,this.y-1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                       }
+                       point p4 = new point(this.x+1*reverse,this.y+1);
+                       if (Board.chessBoard[p4.i][p4.j].getName()!=null && Board.chessBoard[p4.i][p4.j].getColor()!=this.color) {
+                        res.add(p4);
+                        }
+                        break;
+                }
+            }
+            else {
+                point p3 = new point(this.x+1*reverse,this.y);
+                 if (Board.chessBoard[p3.i][p3.j].getName()==null) {
+                    res.add(p3);
+                }
+                switch (this.y) {
+                    case 0:
+                       p3 = new point(this.x+1*reverse,this.y+1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                        }
+                    break;
+                    case 7:
+                       p3 = new point(this.x+1*reverse,this.y-1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                        }
+                       break;
+                    default:
+                        p3 = new point(this.x+1*reverse,this.y-1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                       }
+                       point p4 = new point(this.x+1*reverse,this.y+1);
+                       if (Board.chessBoard[p4.i][p4.j].getName()!=null && Board.chessBoard[p4.i][p4.j].getColor()!=this.color) {
+                        res.add(p4);
+                        }
+                        break;
+                }
+            }
+        }
+        else {
+            reverse=-1;
+            if (this.x ==6) {
+                point p = new point(this.x+1*reverse,this.y);
+                if (Board.chessBoard[p.i][p.j].getName()==null) {
+                    res.add(p);
+                }
+                point p2 = new point(this.x+2*reverse,this.y);
+                if (Board.chessBoard[p2.i][p2.j].getName()==null) {
+                    res.add(p2);
+                }
+                switch (this.y) {
+                    case 0:
+                       point p3 = new point(this.x+1*reverse,this.y+1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                        }
+                    break;
+                    case 7:
+                       p3 = new point(this.x+1*reverse,this.y-1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                        }
+                       break;
+                    default:
+                        p3 = new point(this.x+1*reverse,this.y-1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                       }
+                       point p4 = new point(this.x+1*reverse,this.y+1);
+                       if (Board.chessBoard[p4.i][p4.j].getName()!=null && Board.chessBoard[p4.i][p4.j].getColor()!=this.color) {
+                        res.add(p4);
+                        }
+                        break;
+                }
+            }
+            else {
+                point p3 = new point(this.x+1*reverse,this.y);
+                 if (Board.chessBoard[p3.i][p3.j].getName()==null) {
+                    res.add(p3);
+                }
+                switch (this.y) {
+                    case 0:
+                       p3 = new point(this.x+1*reverse,this.y+1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                        }
+                    break;
+                    case 7:
+                       p3 = new point(this.x+1*reverse,this.y-1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                        }
+                       break;
+                    default:
+                        p3 = new point(this.x+1*reverse,this.y-1);
+                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                        res.add(p3);
+                       }
+                       point p4 = new point(this.x+1*reverse,this.y+1);
+                       if (Board.chessBoard[p4.i][p4.j].getName()!=null && Board.chessBoard[p4.i][p4.j].getColor()!=this.color) {
+                        res.add(p4);
+                        }
+                        break;
+                }
+            }
+        }
+        return res;
+    }
+    
+    @Override
+    public void showValidMove(GamePlay ui) {
+        List<point> p = this.ValidMoves();
+        for (point po:p) {
+            //System.out.println(po.i + " " + po.j);
+            ui.squares[po.i][po.j].setBorderPainted(true);
+            ui.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+        }
+    }
+    
+    @Override
+    public void deleteValidMove(GamePlay ui) {
+        List<point> p = this.ValidMoves();
+        for (point po:p) {
+            ui.squares[po.i][po.j].setBorderPainted(false);
+        }
+    }
 }
