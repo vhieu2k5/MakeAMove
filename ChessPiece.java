@@ -5,10 +5,8 @@
 package jvtest;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.util.ArrayList;
 import  java.util.List;
-import static jvtest.GamePlay.squares;
+import javax.swing.BorderFactory;
 
 /**
  *
@@ -22,8 +20,20 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
         String symbol;
         String name;
         public abstract List<point> ValidMoves();
-        public abstract void showValidMove(GamePlay ui);
-        public abstract void deleteValidMove(GamePlay ui);
+        public void showValidMove(GamePlay ui) {
+            List<point> p = this.ValidMoves();
+        for (point po:p) {
+            //System.out.println(po.i + " " + po.j);
+            ui.squares[po.i][po.j].setBorderPainted(true);
+            ui.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+        }
+        }
+        public void deleteValidMove(GamePlay ui) {
+            List<point> p = this.ValidMoves();
+        for (point po:p) {
+            ui.squares[po.i][po.j].setBorderPainted(false);
+        }
+        }
 
     public void setIs_Chess(boolean is_Chess) {
         this.is_Chess = is_Chess;

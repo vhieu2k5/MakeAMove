@@ -165,21 +165,4 @@ public class Pawn extends ChessPiece { //Quân tốt
         return res;
     }
     
-    @Override
-    public void showValidMove(GamePlay ui) {
-        List<point> p = this.ValidMoves();
-        for (point po:p) {
-            //System.out.println(po.i + " " + po.j);
-            ui.squares[po.i][po.j].setBorderPainted(true);
-            ui.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
-        }
-    }
-    
-    @Override
-    public void deleteValidMove(GamePlay ui) {
-        List<point> p = this.ValidMoves();
-        for (point po:p) {
-            ui.squares[po.i][po.j].setBorderPainted(false);
-        }
-    }
 }
