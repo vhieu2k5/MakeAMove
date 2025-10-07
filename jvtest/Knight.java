@@ -19,11 +19,12 @@ public class Knight extends ChessPiece {
             this.color = color;
             this.symbol = "♘";
             this.name = "Knight";
+            this.is_Chess=true;
         }
     @Override
     public List<point> ValidMoves() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        List<point> res = new ArrayList<point>();
+        List<point> res = new ArrayList<>();
         
         int i;
         int j;
@@ -127,5 +128,4 @@ public class Knight extends ChessPiece {
     
     return res;
     }
-    
 }

@@ -20,10 +20,11 @@ public class Bishop extends ChessPiece {
             this.color = color;
             this.symbol = "♗";
             this.name = "Bishop";
+            this.is_Chess=true;
         }
     @Override
     public List<point> ValidMoves() {
-        List<point> res = new ArrayList<point>();
+        List<point> res = new ArrayList<>();
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
        if (this.x>0 && this.y>0) {
        //Check chéo trên trái
@@ -115,4 +116,5 @@ public class Bishop extends ChessPiece {
        
        return res;
     }
+   
 }

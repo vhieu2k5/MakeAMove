@@ -4,7 +4,6 @@
  */
 package jvtest;
 
-import java.awt.Color;
 import java.util.List;
 
 /**
@@ -25,9 +24,9 @@ public class NullChess extends ChessPiece {
         this.x = i;
         this.y = j;
         //this.setColor(Color.ORANGE);
-        this.setIs_Chess(false);
-        this.setName(null);
-        this.setSymbol(null);
+        this.is_Chess=false;
+        this.name=null;
+        this.symbol=null;
     }
 
     /**
@@ -35,11 +34,11 @@ public class NullChess extends ChessPiece {
      * @param ui
      */
     @Override
-    public void showValidMove(GamePlay ui) {
+    public void showValidMove() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     @Override
-    public void deleteValidMove(GamePlay ui) {
+    public void deleteValidMove() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    } 
 }

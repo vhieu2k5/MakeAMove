@@ -19,12 +19,13 @@ public class Rock extends ChessPiece {
             this.color = color;
             this.symbol = "♜";
             this.name = "Rock";
+            this.is_Chess=true;
         }
 
     @Override
     public List<point> ValidMoves() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        List<point> res = new ArrayList<point>();
+        List<point> res = new ArrayList<>();
         int j=this.y;
             //Check từ trên xuống
             for (int i=this.x-1;i>=0;i--) {

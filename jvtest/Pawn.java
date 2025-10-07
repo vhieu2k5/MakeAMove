@@ -5,10 +5,8 @@
 package jvtest;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.BorderFactory;
 
 /**
  *
@@ -22,11 +20,12 @@ public class Pawn extends ChessPiece { //Quân tốt
             this.color = color;
             this.symbol = "♙";
             this.name = "Pawn";
+            this.is_Chess=true;
         }
 
     @Override
     public List<point> ValidMoves() {
-        List<point> res = new ArrayList<point>();
+        List<point> res = new ArrayList<>();
         int reverse=1;
         if (this.color==Color.WHITE) {
             if (this.x ==1) {

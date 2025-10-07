@@ -1,17 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package jvtest;
 
 import java.awt.Color;
 import  java.util.List;
 import javax.swing.BorderFactory;
 
-/**
- *
- * @author ADMIN
- */
 public abstract class ChessPiece { //Lớp đặc tính chung của các quân cờ
     
         int x, y;
@@ -20,18 +13,19 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
         String symbol;
         String name;
         public abstract List<point> ValidMoves();
-        public void showValidMove(GamePlay ui) {
+
+        public void showValidMove() {
             List<point> p = this.ValidMoves();
         for (point po:p) {
-            //System.out.println(po.i + " " + po.j);
-            ui.squares[po.i][po.j].setBorderPainted(true);
-            ui.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+          //  System.out.println(this.name +":" + po.i + " " + po.j);
+            GamePlay.squares[po.i][po.j].setBorderPainted(true);
+            GamePlay.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
         }
         }
-        public void deleteValidMove(GamePlay ui) {
+        public void deleteValidMove() {
             List<point> p = this.ValidMoves();
         for (point po:p) {
-            ui.squares[po.i][po.j].setBorderPainted(false);
+            GamePlay.squares[po.i][po.j].setBorderPainted(false);
         }
         }
 
@@ -60,6 +54,9 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
                Board.chessBoard[pre.i][pre.j] = new NullChess(pre.i,pre.j);
             }
             Board.chessBoard[i][j]=this;
+            // for (point p: Board.chessBoard[i][j].ValidMoves()){
+            //     System.out.println("Potential move of "+this.name+": "+p.i+" "+p.j);
+            // }
             this.x = i;
             this.y=j;
         }
