@@ -56,6 +56,7 @@ public class GamePlay extends javax.swing.JFrame {
         controlPanel.add(CMtext, BorderLayout.EAST);
         ArchievePanel.add(BlackArchieve, BorderLayout.WEST);
         ArchievePanel.add(WhiteArchieve, BorderLayout.EAST);
+        ArchievePanel.setBackground(Color.gray);
         add(chessBoard, BorderLayout.CENTER);
         add(controlPanel, BorderLayout.SOUTH);
         add(ArchievePanel, BorderLayout.NORTH);
@@ -96,15 +97,16 @@ public class GamePlay extends javax.swing.JFrame {
                 for (point t : vlm) //Xét tất cả point hợp lệ để xem cái vị trí bấm có đúng với validMove hiện tại không
                 {
                     if (t.i == r && t.j == c) {
+                        String sym = Board.chessBoard[r][c].symbol;
+                        System.out.println(sym);
+                       if (Board.chessBoard[r][c].is_Chess) SetArchieve(sym);
                         Board.chessBoard[currPo.i][currPo.j].deleteValidMove();
-                        if (Board.chessBoard[r][c].is_Chess) SetArchieve();
                         Board.chessBoard[currPo.i][currPo.j].setMove(currPo, r, c);
                         //System.out.println("Da move");
                         squares[currPo.i][currPo.j].setText(""); //Sau khi thay đổi xong trong mảng dữ liệu, cập nhật lại ui
                         squares[r][c].setText(Board.chessBoard[r][c].symbol);
                         squares[r][c].setFont(new Font("Serif", Font.BOLD, 36));
                         squares[r][c].setForeground(Board.chessBoard[r][c].color);
-                        
                         //System.out.println("UI xong");
                         currPo = new point(-1, -1);
                         clickedAChess = false;
@@ -137,13 +139,13 @@ public class GamePlay extends javax.swing.JFrame {
         }
     }
 
-    public void SetArchieve() {
-        if (turn == Color.BLACK) {
-            BlackArchieve.setText(BlackArchieve.getText() + Board.chessBoard[currPo.i][currPo.j].symbol);
-            BlackArchieve.setForeground(turn);
+    public void SetArchieve(String sym) {
+        if (turn != Color.BLACK) {
+            BlackArchieve.setText(BlackArchieve.getText() + sym);
+            BlackArchieve.setForeground(Color.BLACK);
         } else {
-            WhiteArchieve.setText(WhiteArchieve.getText() + Board.chessBoard[currPo.i][currPo.j].symbol);
-            WhiteArchieve.setForeground(turn);
+            WhiteArchieve.setText(WhiteArchieve.getText() + sym);
+            WhiteArchieve.setForeground(Color.white);
         }
     }
 
