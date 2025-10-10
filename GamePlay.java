@@ -137,6 +137,11 @@ public class GamePlay extends javax.swing.JFrame {
                             String sym = Board.chessBoard[r][c].symbol;
                             if (Board.chessBoard[r][c].is_Chess) SetArchieve(sym);
                             Board.chessBoard[currPo.i][currPo.j].setMove(currPo, r, c);
+                            ChessPiece moved = Board.chessBoard[r][c];
+                            if (moved.name.equals("Pawn") && (r == 0 || r == 7)) {
+                                promotePawn(r, c, moved.color);
+                                }
+
                         }
                         squares[currPo.i][currPo.j].setText(""); //Sau khi thay đổi xong trong mảng dữ liệu, cập nhật lại ui
                         squares[r][c].setText(Board.chessBoard[r][c].symbol);
@@ -187,4 +192,35 @@ public class GamePlay extends javax.swing.JFrame {
     public static void Result() {
         //System.out.print(Ches);
     }
+    
+    private void promotePawn(int r, int c, Color color) {
+    String[] options = {"Queen", "Rock", "Bishop", "Knight"};
+    String choice = (String) JOptionPane.showInputDialog(
+            this,
+            "Chọn quân để phong cấp:",
+            "Phong cấp tốt",
+            JOptionPane.PLAIN_MESSAGE,
+            null,
+            options,
+            "Queen"
+    );
+
+    if (choice != null) {
+        ChessPiece newPiece = switch (choice) {
+            case "Rock" -> new Rock(r, c, color);
+            case "Bishop" -> new Bishop(r, c, color);
+            case "Knight" -> new Knight(r, c, color);
+            default -> new Queen(r, c, color);
+        };
+
+        // Cập nhật trong mảng dữ liệu
+        Board.chessBoard[r][c] = newPiece;
+
+        // Cập nhật giao diện
+        squares[r][c].setText(newPiece.symbol);
+        squares[r][c].setFont(new Font("Serif", Font.BOLD, 36));
+        squares[r][c].setForeground(color);
+    }
+}
+
 }
