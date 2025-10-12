@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package jvtest;
 
 import java.awt.Color;
@@ -20,7 +17,6 @@ public class Queen extends ChessPiece {
             this.color = color;
             this.symbol = "♕";
             this.name = "Queen";
-            this.is_Chess=true;
         }
     @Override
     public List<point> ValidMoves() {
@@ -80,7 +76,7 @@ public class Queen extends ChessPiece {
             
             //Check bên phải
             for (j=this.y+1;j<8;j++) {
-                if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
@@ -120,7 +116,7 @@ if (this.x>0 && this.y>0) {
            //Check chéo trên phải
         i=this.x-1;
         j=this.y+1;
-       while (i>0 && j<8) {
+       while (i>=0 && j<8) {
            if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
