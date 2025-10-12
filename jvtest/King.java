@@ -9,10 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- *
- * @author ADMIN
- */
 public class King extends ChessPiece {
     int moveCount=0;
     public King(int i, int j, Color color) {
@@ -36,23 +32,26 @@ public class King extends ChessPiece {
             //Check bên phải
             for (int j=this.y+1;j<8;j++) {
                 ChessPiece c = Board.chessBoard[this.x][j];
-                if (c.name.equals("Rock")) {
-                    if (c.name!=null) {
+                if (c!=null && c.name!=null)
+                {
+                      if (!c.name.equals("Rock")) {
                         break;
-                    }
                 }
                 else {
                     Rock r = (Rock) c;
                     if (r.color==this.color && r.CanCastle()) {
-                        res.add(new point(this.x,this.y+2));
-                      //  res.add(new point(this.x,this.y+2,"Castle")); Thien's
+                        res.add(new point(this.x,this.y+2,"Castle")); 
                     }
                 }
+                }
+              
             }
             //Check bên trái
             for (int j=this.y-1;j>=0;j--) {
                 ChessPiece c = Board.chessBoard[this.x][j];
-                if (c.name.equals("Rock")) {
+                if (c!=null && c.name!=null)
+                {
+                     if (!c.name.equals("Rock")) {
                     if (c.name!=null) {
                         break;
                     }
@@ -60,8 +59,9 @@ public class King extends ChessPiece {
                 else {
                     Rock r = (Rock) c;
                     if (r.color==this.color && r.CanCastle()) {
-                        res.add(new point(this.x,this.y-2));
+                        res.add(new point(this.x,this.y-2,"Castle"));
                     }
+                } 
                 }
             }
         }

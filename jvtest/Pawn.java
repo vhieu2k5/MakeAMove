@@ -20,7 +20,6 @@ public class Pawn extends ChessPiece { //Quân tốt
             this.color = color;
             this.symbol = "♙";
             this.name = "Pawn";
-            this.is_Chess=true;
         }
 
     @Override

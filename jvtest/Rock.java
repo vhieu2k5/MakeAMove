@@ -30,6 +30,7 @@ public class Rock extends ChessPiece {
         int j=this.y;
             //Check từ trên xuống
             for (int i=this.x-1;i>=0;i--) {
+
                 if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }

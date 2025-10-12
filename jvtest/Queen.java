@@ -20,7 +20,6 @@ public class Queen extends ChessPiece {
         }
     @Override
     public List<point> ValidMoves() {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         List<point> res = new ArrayList<>();
         int j=this.y;
             //Check từ trên xuống
