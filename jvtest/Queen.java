@@ -20,11 +20,9 @@ public class Queen extends ChessPiece {
             this.color = color;
             this.symbol = "♕";
             this.name = "Queen";
-            this.is_Chess=true;
         }
     @Override
     public List<point> ValidMoves() {
-        //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         List<point> res = new ArrayList<>();
         int j=this.y;
             //Check từ trên xuống
@@ -120,7 +118,7 @@ if (this.x>0 && this.y>0) {
            //Check chéo trên phải
         i=this.x-1;
         j=this.y+1;
-       while (i>0 && j<8) {
+       while (i>=0 && j<8) {
            if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
