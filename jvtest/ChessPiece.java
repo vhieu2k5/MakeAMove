@@ -64,7 +64,10 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
     public Color getColor() {
         return color;
     }
-
+public void makeMove(int toX, int toY){
+    Board.chessBoard[toX][toY]= Board.chessBoard[this.x][this.y];
+    Board.chessBoard[this.x][this.y] = new NullChess(this.x,this.y);
+}
 
     }
     

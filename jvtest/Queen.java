@@ -80,7 +80,7 @@ public class Queen extends ChessPiece {
             
             //Check bên phải
             for (j=this.y+1;j<8;j++) {
-                if (Board.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {

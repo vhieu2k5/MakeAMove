@@ -108,7 +108,7 @@ public class King extends ChessPiece {
             //Check trái
             int i = this.x;
             int j = this.y - 1;
-            if (Board.chessBoard[i][j].getColor() == this.color) {
+            if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -121,7 +121,7 @@ public class King extends ChessPiece {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {                                                                                       
                 ChessPiece cp = Board.chessBoard[i][j];
-                if (cp.is_Chess && cp!=this && cp.color != GamePlay.turn) {
+                if (cp !=null && cp.is_Chess && cp!=this && cp.color != GamePlay.turn) {
                     List<point> moves = cp.ValidMoves();
                     
                     // for (point pt: moves){
@@ -129,7 +129,7 @@ public class King extends ChessPiece {
                     // }
                     if (moves != null) {
                         for(point p:moves){
-                            System.out.println(p.i+"&"+x+"-" +p.j+"&"+y);
+                           // System.out.println(p.i+"&"+x+"-" +p.j+"&"+y);
                             if (p.i==x && p.j==y) return false; 
                         }
                     }

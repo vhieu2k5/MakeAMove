@@ -29,7 +29,7 @@ public class Rock extends ChessPiece {
         int j=this.y;
             //Check từ trên xuống
             for (int i=this.x-1;i>=0;i--) {
-                if (Board.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j]==null) {
                     res.add(new point(i,j));
                 }
                 else {
@@ -46,7 +46,7 @@ public class Rock extends ChessPiece {
             
             //Check từ vị trí hiện tại xuống dưới
             for (int i=this.x+1;i<8;i++) {
-                if (Board.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j]==null) {
                     res.add(new point(i,j));
                 }
                 else {
@@ -64,7 +64,7 @@ public class Rock extends ChessPiece {
             //Check từ trái sang
             int i=this.x;
             for (j=this.y-1;j>=0;j--) {
-                if (Board.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j]==null) {
                     res.add(new point(i,j));
                 }
                 else {
@@ -80,7 +80,7 @@ public class Rock extends ChessPiece {
             
             //Check bên phải
             for (j=this.y+1;j<8;j++) {
-                if (Board.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j]==null) {
                     res.add(new point(i,j));
                 }
                 else {

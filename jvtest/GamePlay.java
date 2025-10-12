@@ -63,10 +63,14 @@ public class GamePlay extends javax.swing.JFrame {
         board.InitChessPlay();
     }
 
-    public static void Warning(Board board) {
+    public void Warning(Board board) {
         if (board.blackKing4.isCheckMate()) {
-            CMtext.setText("CHECKMATE!"); 
-        }else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
+            CMtext.setText("CHECKMATE!");
+            boolean check = isLose();
+            if (check) {
+                CMtext.setText("You Lose!!!!!!");
+            }
+        } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
             CMtext.setText("");
         }
     }
@@ -99,7 +103,9 @@ public class GamePlay extends javax.swing.JFrame {
                     if (t.i == r && t.j == c) {
                         String sym = Board.chessBoard[r][c].symbol;
                         System.out.println(sym);
-                       if (Board.chessBoard[r][c].is_Chess) SetArchieve(sym);
+                        if (Board.chessBoard[r][c].is_Chess) {
+                            SetArchieve(sym);
+                        }
                         Board.chessBoard[currPo.i][currPo.j].deleteValidMove();
                         Board.chessBoard[currPo.i][currPo.j].setMove(currPo, r, c);
                         //System.out.println("Da move");
@@ -152,4 +158,40 @@ public class GamePlay extends javax.swing.JFrame {
     public static void Result() {
         //System.out.print(Ches);
     }
+
+public boolean isLose() {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            ChessPiece piece = Board.chessBoard[i][j];
+            if (piece == null || !piece.is_Chess) continue;
+            if (piece.color != turn) continue;
+
+            List<point> validMoves = piece.ValidMoves();
+            if (validMoves == null || validMoves.isEmpty()) continue;
+
+            point fromPoint = new point(piece.x, piece.y);
+
+            for (point p : validMoves) {
+                ChessPiece captured = Board.chessBoard[p.i][p.j];
+                piece.makeMove(p.i, p.j);
+                System.out.println("Moved " + piece.name + " to " + p.i + " " + p.j);
+                boolean check = board.blackKing4.isCheckMate();
+                //Undo
+                Board.chessBoard[p.i][p.j] = captured; 
+                Board.chessBoard[fromPoint.i][fromPoint.j] = piece;
+                piece.x = fromPoint.i;
+                piece.y = fromPoint.j;
+                System.out.println("Moved back to " + fromPoint.i + " " + fromPoint.j);
+                if (!check)
+                {
+                    System.out.println("You can move the "+Board.chessBoard[i][j].name + "-"+Board.chessBoard[i][j].color +" to "+p.i+" "+p.j);
+                   return false;  
+                }
+                 
+            }
+        }
+    }
+    return true; // every possible move keeps king in check
+}
+
 }

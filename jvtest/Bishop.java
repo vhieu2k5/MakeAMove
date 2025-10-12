@@ -75,7 +75,7 @@ public class Bishop extends ChessPiece {
        int i=this.x+1;
        int j=this.y-1;
        while (i<8 && j>=0) {
-           if (Board.chessBoard[i][j].getName()==null) {
+           if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
