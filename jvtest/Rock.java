@@ -13,18 +13,20 @@ import java.util.List;
  * @author ADMIN
  */
 public class Rock extends ChessPiece {
+    int moveCount=0;
         public Rock(int i, int j, Color color) {
             this.x = i;
             this.y = j;
             this.color = color;
             this.symbol = "♜";
             this.name = "Rock";
+            this.is_Chess=true;
         }
 
     @Override
     public List<point> ValidMoves() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        List<point> res = new ArrayList<point>();
+        List<point> res = new ArrayList<>();
         int j=this.y;
             //Check từ trên xuống
             for (int i=this.x-1;i>=0;i--) {
@@ -93,6 +95,9 @@ public class Rock extends ChessPiece {
                 }
             }
         return res;
+    }
+    public boolean CanCastle() {
+        return moveCount==0;
     }
 }
 
