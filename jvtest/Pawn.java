@@ -20,7 +20,6 @@ public class Pawn extends ChessPiece { //Quân tốt
             this.color = color;
             this.symbol = "♙";
             this.name = "Pawn";
-            this.is_Chess=true;
         }
 
     @Override
@@ -38,7 +37,7 @@ public class Pawn extends ChessPiece { //Quân tốt
                     res.add(p2);
                 } 
                 //Check Move ăn
-                switch(this.y) {
+                switch (this.y) {
                     case 0:
                        point p3 = new point(this.x+1*reverse,this.y+1);
                        if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {

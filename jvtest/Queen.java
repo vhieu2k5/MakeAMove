@@ -120,7 +120,7 @@ if (this.x>0 && this.y>0) {
            //Check chéo trên phải
         i=this.x-1;
         j=this.y+1;
-       while (i>0 && j<8) {
+       while (i>=0 && j<8) {
            if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
@@ -142,7 +142,7 @@ if (this.x>0 && this.y>0) {
            //Check chéo dưới trái
         i=this.x+1;
         j=this.y-1;
-       while (i<8 && j>0) {
+       while (i<8 && j>=0) {
            if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }

@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
  */
 public class King extends ChessPiece {
 
+    int moveCount = 0;
+
     public King(int i, int j, Color color) {
         this.x = i;
         this.y = j;
@@ -22,11 +24,48 @@ public class King extends ChessPiece {
         this.symbol = "♔";
         this.name = "King";
         this.is_Chess = true;
+        this.moveCount = 0;
+    }
+
+    public void setMoveCount(int moveCount) {
+        this.moveCount = moveCount;
     }
 
     @Override
     public List<point> ValidMoves() {
         List<point> res = new ArrayList<>();
+        if (this.moveCount == 0) {
+            //Check bên phải
+            for (int j = this.y + 1; j < 8; j++) {
+                ChessPiece c = Board.chessBoard[this.x][j];
+                if (c != null && c.name != null) {
+                    if (!c.name.equals("Rock")) {
+                        break;
+                    } else {
+                        Rock r = (Rock) c;
+                        if (r.color == this.color && r.CanCastle()) {
+                            res.add(new point(this.x, this.y + 2, "Castle"));
+                        }
+                    }
+                }
+
+            }
+            //Check bên trái
+            for (int j = this.y - 1; j >= 0; j--) {
+                ChessPiece c = Board.chessBoard[this.x][j];
+                if (c != null && c.name != null) {
+                    if (!c.name.equals("Rock")) {
+                        break;
+                    } else {
+                        Rock r = (Rock) c;
+                        if (r.color == this.color && r.CanCastle()) {
+                            res.add(new point(this.x, this.y - 2, "Castle"));
+                        }
+                    }
+                }
+
+            }
+        }
         if (this.x > 0) {
             //Check ở trên
             int i = this.x - 1;
@@ -108,7 +147,7 @@ public class King extends ChessPiece {
             //Check trái
             int i = this.x;
             int j = this.y - 1;
-            if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getColor() == this.color) {
+            if (Board.chessBoard[i][j] == null || Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -117,30 +156,34 @@ public class King extends ChessPiece {
         res = res.stream().filter(pi -> CheckMateSingleMove(pi.i, pi.j)).collect(Collectors.toList());
         return res;
     }
+
     public boolean CheckMateSingleMove(int x, int y) {
         for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {                                                                                       
+            for (int j = 0; j < 8; j++) {
                 ChessPiece cp = Board.chessBoard[i][j];
-                if (cp !=null && cp.is_Chess && cp!=this && cp.color != GamePlay.turn) {
+                if (cp != null && cp.is_Chess && cp != this && cp.color != GamePlay.turn) {
                     List<point> moves = cp.ValidMoves();
-                    
+
                     // for (point pt: moves){
                     //     System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
                     // }
                     if (moves != null) {
-                        for(point p:moves){
-                           // System.out.println(p.i+"&"+x+"-" +p.j+"&"+y);
-                            if (p.i==x && p.j==y) return false; 
+                        for (point p : moves) {
+                            // System.out.println(p.i+"&"+x+"-" +p.j+"&"+y);
+                            if (p.i == x && p.j == y) {
+                                return false;
+                            }
                         }
                     }
                     //else 
-                   // System.out.println(cp.name +" "+ x+" "+y+ " Khong co cho nao de doa!");
+                    // System.out.println(cp.name +" "+ x+" "+y+ " Khong co cho nao de doa!");
                 }
             }
         }
         return true;
     }
-    public boolean isCheckMate(){
+
+    public boolean isCheckMate() {
         return !CheckMateSingleMove(this.x, this.y);
     }
 }
