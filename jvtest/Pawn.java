@@ -31,13 +31,14 @@ public class Pawn extends ChessPiece { //Quân tốt
                 point p = new point(this.x+1*reverse,this.y);
                 if (Board.chessBoard[p.i][p.j].getName()==null) {
                     res.add(p);
-                }
-                point p2 = new point(this.x+2*reverse,this.y);
-                if (Board.chessBoard[p2.i][p2.j].getName()==null) {
+                    point p2 = new point(this.x+2*reverse,this.y);
+                    if (Board.chessBoard[p2.i][p2.j].getName()==null) {
                     res.add(p2);
                 } 
+                }
+                
                 //Check Move ăn
-                switch (this.y) {
+                switch(this.y) {
                     case 0:
                        point p3 = new point(this.x+1*reverse,this.y+1);
                        if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {

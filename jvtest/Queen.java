@@ -17,6 +17,7 @@ public class Queen extends ChessPiece {
             this.color = color;
             this.symbol = "♕";
             this.name = "Queen";
+            this.is_Chess = true;
         }
     @Override
     public List<point> ValidMoves() {
