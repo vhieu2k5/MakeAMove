@@ -1,0 +1,11 @@
+[33mf77361a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mhieu[m[33m, [m[1;31morigin/hieu[m[33m)[m HEAD@{0}: checkout: moving from DNT to hieu
+[33mae87970[m[33m ([m[1;31morigin/DNT[m[33m, [m[1;32mDNT[m[33m)[m HEAD@{1}: checkout: moving from KienK to DNT
+[33m6afb396[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/KienK[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32mKienK[m[33m)[m HEAD@{2}: reset: moving to HEAD
+[33m6afb396[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/KienK[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32mKienK[m[33m)[m HEAD@{3}: checkout: moving from 5067eef40fbc10b166bf6d967b25164855ddb76f to KienK
+[33m5067eef[m HEAD@{4}: checkout: moving from 3ba3998af3dd385799f7da9383fd0ade56e63b72 to 5067eef40fbc10b166bf6d967b25164855ddb76f
+[33m3ba3998[m HEAD@{5}: pull origin hieu: Fast-forward
+[33m5067eef[m HEAD@{6}: checkout: moving from 3ba3998af3dd385799f7da9383fd0ade56e63b72 to 5067eef40fbc10b166bf6d967b25164855ddb76f
+[33m3ba3998[m HEAD@{7}: pull origin hieu: Fast-forward
+[33m5067eef[m HEAD@{8}: checkout: moving from hieu to 5067eef40fbc10b166bf6d967b25164855ddb76f
+[33m3ba3998[m HEAD@{9}: checkout: moving from main to hieu
+[33m6afb396[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/KienK[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32mKienK[m[33m)[m HEAD@{10}: clone: from https://github.com/vhieu2k5/MakeAMove.git
