@@ -61,6 +61,7 @@ public class GamePlay extends javax.swing.JFrame {
         add(controlPanel, BorderLayout.SOUTH);
         add(ArchievePanel, BorderLayout.NORTH);
         board.InitChessPlay();
+        WhiteBotMove();
     }
 
     public void Warning(Board board) {
@@ -72,6 +73,24 @@ public class GamePlay extends javax.swing.JFrame {
             }
         } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
             CMtext.setText("");
+        }
+    }
+
+    public void WhiteBotMove() {
+        ChessBot bot = new ChessBot();
+        Move bestMove = bot.findBestMove(board); // Depth can be adjusted
+
+        if (bestMove != null) {
+            ChessPiece piece = Board.chessBoard[bestMove.fromX][bestMove.fromY];
+            piece.setMove(new point(piece.x, piece.y), bestMove.toX, bestMove.toY);
+
+            // Update UI
+            squares[bestMove.fromX][bestMove.fromY].setText("");
+            squares[bestMove.toX][bestMove.toY].setText(piece.symbol);
+            squares[bestMove.toX][bestMove.toY].setFont(new Font("Serif", Font.BOLD, 36));
+            squares[bestMove.toX][bestMove.toY].setForeground(piece.color);
+
+            turn = SwitchTurn(turn);
         }
     }
 
@@ -107,7 +126,7 @@ public class GamePlay extends javax.swing.JFrame {
                             SetArchieve(sym);
                         }
                         Board.chessBoard[currPo.i][currPo.j].deleteValidMove();
-                        if (t.name!=null && t.name.equals("Castle") ) {
+                        if (t.name != null && t.name.equals("Castle")) {
                             int co = 0; //Màu để biết nên lấy con xe ở hàng nào
                             if (Board.chessBoard[currPo.i][currPo.j].color == Color.BLACK) {
                                 co = 7;
@@ -138,7 +157,7 @@ public class GamePlay extends javax.swing.JFrame {
                                 k.setMoveCount(1);
                             }
                             ChessPiece moved = Board.chessBoard[r][c];
-                            if (moved.name!=null && moved.name.equals("Pawn") && (r == 0 || r == 7)) {
+                            if (moved.name != null && moved.name.equals("Pawn") && (r == 0 || r == 7)) {
                                 promotePawn(r, c, moved.color);
                             }
 
@@ -152,7 +171,7 @@ public class GamePlay extends javax.swing.JFrame {
                         //System.out.println("UI xong");
                         currPo = new point(-1, -1);
                         clickedAChess = false;
-                        turn = SwitchTurn(turn);
+                        //turn = SwitchTurn(turn);
                         Warning(board); //Warning Chieeus Tuowngs!
                         //System.out.println(turn.toString());
                     }
@@ -236,32 +255,37 @@ public class GamePlay extends javax.swing.JFrame {
     }
 
     private void promotePawn(int r, int c, Color color) {
-    String[] options = {"Queen", "Rock", "Bishop", "Knight"};
-    String choice = (String) JOptionPane.showInputDialog(
-            this,
-            "Chọn quân để phong cấp:",
-            "Phong cấp tốt",
-            JOptionPane.PLAIN_MESSAGE,
-            null,
-            options,
-            "Queen"
-    );
+        String[] options = {"Queen", "Rock", "Bishop", "Knight"};
+        String choice = (String) JOptionPane.showInputDialog(
+                this,
+                "Chọn quân để phong cấp:",
+                "Phong cấp tốt",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                options,
+                "Queen"
+        );
 
-    if (choice != null) {
-        ChessPiece newPiece = switch (choice) {
-            case "Rock" -> new Rock(r, c, color);
-            case "Bishop" -> new Bishop(r, c, color);
-            case "Knight" -> new Knight(r, c, color);
-            default -> new Queen(r, c, color);
-        };
+        if (choice != null) {
+            ChessPiece newPiece = switch (choice) {
+                case "Rock" ->
+                    new Rock(r, c, color);
+                case "Bishop" ->
+                    new Bishop(r, c, color);
+                case "Knight" ->
+                    new Knight(r, c, color);
+                default ->
+                    new Queen(r, c, color);
+            };
 
-        // Cập nhật trong mảng dữ liệu
-        Board.chessBoard[r][c] = newPiece;
+            // Cập nhật trong mảng dữ liệu
+            Board.chessBoard[r][c] = newPiece;
 
-        // Cập nhật giao diện
-        squares[r][c].setText(newPiece.symbol);
-        squares[r][c].setFont(new Font("Serif", Font.BOLD, 36));
-        squares[r][c].setForeground(color);
+            // Cập nhật giao diện
+            squares[r][c].setText(newPiece.symbol);
+            squares[r][c].setFont(new Font("Serif", Font.BOLD, 36));
+            squares[r][c].setForeground(color);
+        }
     }
-}
+
 }

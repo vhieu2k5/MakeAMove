@@ -6,6 +6,8 @@ package jvtest;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -153,4 +155,36 @@ public void InitChessPlay() {
             GamePlay.squares[6][j].setForeground(blackPawn.color);
         }
     }
+public List<point> getAllValidMoves(String color) {
+    List<point> validMoves = new ArrayList<>();
+    for (int i=0;i<8;i++) {
+        for (int j=0;j<8;j++) {
+            if (chessBoard[i][j].getColor()!=null) {
+                if (chessBoard[i][j].getColor().toString().equalsIgnoreCase(color)) {
+                    validMoves.addAll(chessBoard[i][j].ValidMoves());
+                }
+            }
+        }
+    }
+    return validMoves;
+}
+public static boolean isGameOver() {
+    boolean whiteKingAlive = false;
+    boolean blackKingAlive = false;
+    for (int i=0;i<8;i++) {
+        for (int j=0;j<8;j++) {
+            if (chessBoard[i][j].getName()!=null) {
+                if (chessBoard[i][j].getName().equals("King")) {
+                    if (chessBoard[i][j].getColor()==Color.WHITE) {
+                        whiteKingAlive=true;
+                    }
+                    else if (chessBoard[i][j].getColor()==Color.BLACK) {
+                        blackKingAlive=true;
+                    }
+                }
+            }
+        }
+    }
+    return !(whiteKingAlive && blackKingAlive);
+}
 }
