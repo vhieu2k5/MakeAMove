@@ -159,19 +159,19 @@ public class King extends ChessPiece {
                 if (cp != null && cp.is_Chess && cp != this && cp.color != GamePlay.turn) {
                     List<point> moves = cp.ValidMoves();
 
-                     for (point pt: moves){
-                         System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
-                     }
+                    //  for (point pt: moves){
+                    //     System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
+                    //  }
                     if (moves != null) {
                         for (point p : moves) {
-                             System.out.println(p.i+"&"+x+"-" +p.j+"&"+y);
+                            // System.out.println(p.i+"&"+x+"-" +p.j+"&"+y);
                             if (p.i == x && p.j == y) {
                                 return false;
                             }
                         }
                     }
-                    else 
-                    System.out.println(cp.name +" "+ x+" "+y+ " Khong co cho nao de doa!");
+                    // else 
+                    // System.out.println(cp.name +" "+ x+" "+y+ " Khong co cho nao de doa!");
                 }
             }
         }

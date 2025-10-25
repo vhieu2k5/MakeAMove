@@ -78,7 +78,7 @@ public class GamePlay extends javax.swing.JFrame {
 
     public void WhiteBotMove() {
         ChessBot bot = new ChessBot();
-        Move bestMove = bot.findBestMove(board); // Depth can be adjusted
+        Move bestMove = bot.findBestMove(Board.chessBoard); // Depth can be adjusted
 
         if (bestMove != null) {
             ChessPiece piece = Board.chessBoard[bestMove.fromX][bestMove.fromY];
@@ -89,9 +89,10 @@ public class GamePlay extends javax.swing.JFrame {
             squares[bestMove.toX][bestMove.toY].setText(piece.symbol);
             squares[bestMove.toX][bestMove.toY].setFont(new Font("Serif", Font.BOLD, 36));
             squares[bestMove.toX][bestMove.toY].setForeground(piece.color);
-
-            turn = SwitchTurn(turn);
+            
         }
+        turn = SwitchTurn(turn);
+        System.out.println("Black's turn!");
     }
 
     public static void main(String args[]) {
@@ -100,7 +101,10 @@ public class GamePlay extends javax.swing.JFrame {
 
     private void onSquareClicked(int r, int c) {
         //System.out.println(r + " " + c);
+        if(Board.chessBoard[r][c].getName() == null) System.out.println("Null chosen one!");
+
         if (Board.chessBoard[r][c].getName() != null && Board.chessBoard[r][c].getColor() == turn) {
+            System.out.println("Choosing in "+ Board.chessBoard[r][c].getName()+ " "+ turn.toString());
             if (clickedAChess == false) { //Trường hợp chưa chọn quân nào
                 currPo = new point(r, c);
                 Board.chessBoard[r][c].showValidMove();
@@ -171,7 +175,9 @@ public class GamePlay extends javax.swing.JFrame {
                         //System.out.println("UI xong");
                         currPo = new point(-1, -1);
                         clickedAChess = false;
-                        //turn = SwitchTurn(turn);
+                        turn = SwitchTurn(turn);
+                        System.out.println("White's turn!");
+                        WhiteBotMove();
                         Warning(board); //Warning Chieeus Tuowngs!
                         //System.out.println(turn.toString());
                     }
