@@ -14,6 +14,12 @@ import java.util.List;
  */
 public class Pawn extends ChessPiece { //Quân tốt
 
+    public Pawn(Color color) {
+        this.color = color;
+        this.symbol = "♙";
+        this.name = "Pawn";
+    }
+    
     public Pawn(int i, int j, Color color) {
             this.x = i;
             this.y = j;

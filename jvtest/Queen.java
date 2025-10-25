@@ -10,6 +10,13 @@ import java.util.List;
  * @author ADMIN
  */
 public class Queen extends ChessPiece {
+    
+    public Queen(Color color) {
+        this.color = color;
+        this.symbol = "♕";
+        this.name = "Queen";
+        this.is_Chess = true;
+    } 
 
     public Queen(int i, int j, Color color) {
             this.x = i;
@@ -17,6 +24,7 @@ public class Queen extends ChessPiece {
             this.color = color;
             this.symbol = "♕";
             this.name = "Queen";
+            this.is_Chess = true;
         }
     @Override
     public List<point> ValidMoves() {
@@ -137,7 +145,7 @@ if (this.x>0 && this.y>0) {
            //Check chéo dưới trái
         i=this.x+1;
         j=this.y-1;
-       while (i<8 && j>0) {
+       while (i<8 && j>=0) {
            if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }

@@ -13,6 +13,14 @@ import java.util.List;
  * @author ADMIN
  */
 public class Knight extends ChessPiece {
+    
+    public Knight(Color color) {
+        this.color = color;
+        this.symbol = "♘";
+        this.name = "Knight";
+        this.is_Chess=true;
+    }
+    
     public Knight(int i, int j, Color color) {
             this.x = i;
             this.y = j;

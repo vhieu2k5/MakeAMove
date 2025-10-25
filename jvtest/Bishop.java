@@ -14,6 +14,12 @@ import java.util.List;
  */
 public class Bishop extends ChessPiece {
 
+    public Bishop(Color color) {
+        this.color = color;
+        this.symbol = "♗";
+        this.name = "Bishop";
+        this.is_Chess=true;
+    }
     public Bishop(int i, int j, Color color) {
             this.x = i;
             this.y = j;

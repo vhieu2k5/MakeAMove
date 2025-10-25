@@ -12,20 +12,21 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
         Color color; //black or white
         String symbol;
         String name;
+        boolean firstMove = true;
         public abstract List<point> ValidMoves();
 
         public void showValidMove() {
             List<point> p = this.ValidMoves();
         for (point po:p) {
           //  System.out.println(this.name +":" + po.i + " " + po.j);
-            GamePlay.squares[po.i][po.j].setBorderPainted(true);
-            GamePlay.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+            GamePlay2.squares[po.i][po.j].setBorderPainted(true);
+            GamePlay2.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
         }
         }
         public void deleteValidMove() {
             List<point> p = this.ValidMoves();
         for (point po:p) {
-            GamePlay.squares[po.i][po.j].setBorderPainted(false);
+            GamePlay2.squares[po.i][po.j].setBorderPainted(false);
         }
         }
 

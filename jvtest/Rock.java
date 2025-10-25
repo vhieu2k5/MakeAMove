@@ -14,6 +14,14 @@ import java.util.List;
  */
 public class Rock extends ChessPiece {
     int moveCount=0;
+    
+    public Rock(Color color) {
+        this.color = color;
+        this.symbol = "♜";
+        this.name = "Rock";
+        this.is_Chess=true; 
+    }
+    
         public Rock(int i, int j, Color color) {
             this.x = i;
             this.y = j;
@@ -31,7 +39,7 @@ public class Rock extends ChessPiece {
             //Check từ trên xuống
             for (int i=this.x-1;i>=0;i--) {
 
-                if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
@@ -48,7 +56,7 @@ public class Rock extends ChessPiece {
             
             //Check từ vị trí hiện tại xuống dưới
             for (int i=this.x+1;i<8;i++) {
-                if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
@@ -66,7 +74,7 @@ public class Rock extends ChessPiece {
             //Check từ trái sang
             int i=this.x;
             for (j=this.y-1;j>=0;j--) {
-                if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
@@ -82,7 +90,7 @@ public class Rock extends ChessPiece {
             
             //Check bên phải
             for (j=this.y+1;j<8;j++) {
-                if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
@@ -101,4 +109,3 @@ public class Rock extends ChessPiece {
         return moveCount==0;
     }
 }
-
