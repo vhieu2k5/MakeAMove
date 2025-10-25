@@ -13,15 +13,16 @@ public class ChessBot {
             for (int j = 0; j < 8; j++) {
                 if (chessboard[i][j].getColor() != null) {
                     ChessPiece captured = chessboard[i][j];
-                    if (chessboard[i][j].getColor().toString().equalsIgnoreCase(Color.WHITE.toString())) {
+                   if (Color.WHITE.equals(chessboard[i][j].getColor())) {
                         for (point move : chessboard[i][j].ValidMoves()) {
+                            ChessPiece temp = chessboard[move.i][move.j];
 
-                            chessboard[i][j] = chessboard[move.i][move.j];
-                            chessboard[move.i][move.j] = captured; // Make move
+                            chessboard[move.i][move.j] = captured;
+                            chessboard[i][j] = temp; // Make move
 
                             int boardValue = minimax(chessboard, MAX_DEPTH - 1, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
 
-                            chessboard[move.i][move.j] = chessboard[i][j];
+                            chessboard[move.i][move.j] = temp;
                             chessboard[i][j] = captured; // Undo move
 
                             if (boardValue > bestValue) {
@@ -35,76 +36,76 @@ public class ChessBot {
         }
         return bestMove;
     }
-
-    private int minimax(ChessPiece[][] chessboard, int depth, int alpha, int beta, boolean isMaximizing) {
-        if (depth == 0 || Board.isGameOver()) {
-            return evaluateBoard(chessboard);
-        }
-
-        if (isMaximizing) { // White bot's turn
-            int maxEval = Integer.MIN_VALUE;
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if (chessboard[i][j].getColor() != null) {
-                        ChessPiece captured = chessboard[i][j];
-                        if (chessboard[i][j].getColor().toString().equalsIgnoreCase(Color.WHITE.toString())) {
-                            for (point move : chessboard[i][j].ValidMoves()) {
-
-                                chessboard[i][j] = chessboard[move.i][move.j];
-                                chessboard[move.i][move.j] = captured; // Make move
-
-                                int eval = minimax(chessboard, depth - 1, alpha, beta, false);
-
-                                chessboard[move.i][move.j] = chessboard[i][j];
-                                chessboard[i][j] = captured; // Undo move
-
-                                maxEval = Math.max(maxEval, eval);
-                                alpha = Math.max(alpha, eval);
-                                if (beta <= alpha) {
-                                    break; // Beta cut-off
-
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return maxEval;
-
-        } else { // Black player's turn
-            int minEval = Integer.MAX_VALUE;
-            for (int i = 0; i < 8; i++) {
-                for (int j = 0; j < 8; j++) {
-                    if (chessboard[i][j].getColor() != null) {
-                        ChessPiece captured = chessboard[i][j];
-                        if (chessboard[i][j].getColor().toString().equalsIgnoreCase(Color.BLACK.toString())) {
-                            for (point move : chessboard[i][j].ValidMoves()) {
-                                chessboard[i][j] = chessboard[move.i][move.j];
-                                chessboard[move.i][move.j] = captured; // Make move
-                                int eval = minimax(chessboard, depth - 1, alpha, beta, true);
-                                chessboard[move.i][move.j] = chessboard[i][j];
-                                chessboard[i][j] = captured; // Undo move
-                                minEval = Math.min(minEval, eval);
-                                beta = Math.min(beta, eval);
-                                if (beta <= alpha) {
-                                    break; // Alpha cut-off
-
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return minEval;
-        }
+private int minimax(ChessPiece[][] board, int depth, int alpha, int beta, boolean isMaximizing) {
+    if (depth == 0 || Board.isGameOver()) {
+        return evaluateBoard(board);
     }
+
+    if (isMaximizing) { // White (bot)
+        int maxEval = Integer.MIN_VALUE;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                ChessPiece piece = board[i][j];
+                if (piece == null || !Color.WHITE.equals(piece.getColor())) continue;
+
+                for (point move : piece.ValidMoves()) {
+                    ChessPiece captured = board[move.i][move.j];
+
+                    // make move
+                    board[move.i][move.j] = piece;
+                    board[i][j] = null;
+
+                    int eval = minimax(board, depth - 1, alpha, beta, false);
+
+                    // undo
+                    board[i][j] = piece;
+                    board[move.i][move.j] = captured;
+
+                    maxEval = Math.max(maxEval, eval);
+                    alpha = Math.max(alpha, eval);
+                    if (beta <= alpha) break;
+                }
+            }
+        }
+        return maxEval;
+
+    } else { // Black (human)
+        int minEval = Integer.MAX_VALUE;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                ChessPiece piece = board[i][j];
+                if (piece == null || !Color.BLACK.equals(piece.getColor())) continue;
+
+                for (point move : piece.ValidMoves()) {
+                    ChessPiece captured = board[move.i][move.j];
+
+                    // make move
+                    board[move.i][move.j] = piece;
+                    board[i][j] = new NullChess(i, j);
+
+                    int eval = minimax(board, depth - 1, alpha, beta, true);
+
+                    // undo
+                    board[i][j] = piece;
+                    board[move.i][move.j] = captured;
+
+                    minEval = Math.min(minEval, eval);
+                    beta = Math.min(beta, eval);
+                    if (beta <= alpha) break;
+                }
+            }
+        }
+        return minEval;
+    }
+}
+
 
     private int evaluateBoard(ChessPiece[][] chessboard) {
         int score = 0;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (chessboard[i][j].getColor() != null) {
-                    if (chessboard[i][j].getColor().toString().equalsIgnoreCase(Color.WHITE.toString())) {
+                if (chessboard[i][j]!=null && chessboard[i][j].getColor() != null) {
+                  if (Color.WHITE.equals(chessboard[i][j].getColor())) {
                         score += getPieceValue(chessboard[i][j]);
                     } else if (chessboard[i][j].getColor().toString().equalsIgnoreCase(Color.BLACK.toString())) {
                         score -= getPieceValue(chessboard[i][j]);

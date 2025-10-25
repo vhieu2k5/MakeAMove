@@ -173,7 +173,7 @@ public static boolean isGameOver() {
     boolean blackKingAlive = false;
     for (int i=0;i<8;i++) {
         for (int j=0;j<8;j++) {
-            if (chessBoard[i][j].getName()!=null) {
+            if (chessBoard[i][j]!=null && chessBoard[i][j].getName()!=null) {
                 if (chessBoard[i][j].getName().equals("King")) {
                     if (chessBoard[i][j].getColor()==Color.WHITE) {
                         whiteKingAlive=true;
