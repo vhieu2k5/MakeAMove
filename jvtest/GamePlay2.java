@@ -8,17 +8,20 @@ import java.util.Random;
 public class GamePlay2 extends javax.swing.JFrame {
 
     public static JButton[][] squares = new JButton[8][8];
-    public static JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    public static JPanel ArchievePanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+    public JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    public JPanel ArchievePanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
     boolean clickedAChess = false; //Kiểm tra xem đã bấm vào chess hay chưa
     point currPo = new point(-1, -1);
     Board2 board = new Board2();
-    public static JLabel CMtext = new JLabel("");
-    public static JLabel BlackArchieve = new JLabel(" ");
-    public static JLabel WhiteArchieve = new JLabel(" ");
+    public JLabel CMtext = new JLabel("");
+    public JLabel BlackArchieve = new JLabel(" ");
+    public JLabel WhiteArchieve = new JLabel(" ");
     Random randomGenerator = new Random();
 
     public static Color turn = Color.WHITE; //Check xem bên nào đang đi true là trắng, false là đen
+
+    // public GameTimer timerChess;
+    // public JLabel whiteTimerLabel, blackTimerLabel;
 
     public GamePlay2() {
         
@@ -26,6 +29,7 @@ public class GamePlay2 extends javax.swing.JFrame {
         setSize(600, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
 
         //Tạo bàn cờ
         JPanel chessBoard = new JPanel(new GridLayout(8, 8));
@@ -54,8 +58,8 @@ public class GamePlay2 extends javax.swing.JFrame {
         }
 
         // ===================Control Panel================
-        JButton replayBtn = new JButton("Replay");
-        controlPanel.add(replayBtn, BorderLayout.CENTER);
+        JButton pauseBtn = new JButton("Pause");
+        controlPanel.add(pauseBtn, BorderLayout.CENTER);
         controlPanel.add(CMtext, BorderLayout.EAST);
         ArchievePanel.add(BlackArchieve, BorderLayout.WEST);
         ArchievePanel.add(WhiteArchieve, BorderLayout.EAST);
@@ -64,8 +68,15 @@ public class GamePlay2 extends javax.swing.JFrame {
         add(controlPanel, BorderLayout.SOUTH);
         add(ArchievePanel, BorderLayout.NORTH);
         board.InitChessPlay();
-    }
 
+        // PauseBtn
+        pauseBtn.addActionListener(e -> {
+            // if(timerChess != null){
+            //     timerChess.stop();
+            // }
+            new PausePanel2(this).setVisible(true);
+        });
+    }
     public void Warning(Board2 board) {
         if (board.blackKing4.isCheckMate()) {
             CMtext.setText("CHECKMATE!");

@@ -115,6 +115,13 @@ public class MenuGame extends JFrame {
                 
                     case "Chơi Cờ úp": check=2;break;
                 }
+
+                if(check == 2){
+                    new GamePlay2().setVisible(true);
+                }
+                if(check == 1){
+                    
+                }
             }
         });
 

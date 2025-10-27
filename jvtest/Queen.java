@@ -10,8 +10,6 @@ import java.util.List;
  * @author ADMIN
  */
 public class Queen extends ChessPiece {
-<<<<<<< HEAD
-=======
     
     public Queen(Color color) {
         this.color = color;
@@ -19,7 +17,6 @@ public class Queen extends ChessPiece {
         this.name = "Queen";
         this.is_Chess = true;
     } 
->>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
 
     public Queen(int i, int j, Color color) {
             this.x = i;
@@ -27,10 +24,8 @@ public class Queen extends ChessPiece {
             this.color = color;
             this.symbol = "♕";
             this.name = "Queen";
-<<<<<<< HEAD
-=======
             this.is_Chess = true;
->>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
+
         }
     @Override
     public List<point> ValidMoves() {
@@ -38,19 +33,11 @@ public class Queen extends ChessPiece {
         int j=this.y;
             //Check từ trên xuống
             for (int i=this.x-1;i>=0;i--) {
-<<<<<<< HEAD
-                if (Board.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
-=======
                 if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
                     if (Board2.chessBoard[i][j].getColor()==this.color) {
->>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
                         break;
                     }
                     else {
@@ -63,19 +50,11 @@ public class Queen extends ChessPiece {
             
             //Check từ vị trí hiện tại xuống dưới
             for (int i=this.x+1;i<8;i++) {
-<<<<<<< HEAD
-                if (Board.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
-=======
                 if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
                     if (Board2.chessBoard[i][j].getColor()==this.color) {
->>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
                         break;
                     }
                     else {
@@ -89,19 +68,11 @@ public class Queen extends ChessPiece {
             //Check từ trái sang
             int i=this.x;
             for (j=this.y-1;j>=0;j--) {
-<<<<<<< HEAD
-                if (Board.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
-=======
                 if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
                     if (Board2.chessBoard[i][j].getColor()==this.color) {
->>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
                         break;
                     }
                     else {
@@ -113,19 +84,11 @@ public class Queen extends ChessPiece {
             
             //Check bên phải
             for (j=this.y+1;j<8;j++) {
-<<<<<<< HEAD
-                if (Board.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
-=======
                 if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
                     if (Board2.chessBoard[i][j].getColor()==this.color) {
->>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
                         break;
                     }
                     else {
@@ -140,19 +103,11 @@ if (this.x>0 && this.y>0) {
          i=this.x-1;
         j=this.y-1;
        while (i>=0 && j>=0) {
-<<<<<<< HEAD
-           if (Board.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
-=======
            if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
                     if (Board2.chessBoard[i][j].getColor()==this.color) {
->>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
                         break;
                     }
                     else {
@@ -170,19 +125,11 @@ if (this.x>0 && this.y>0) {
         i=this.x-1;
         j=this.y+1;
        while (i>=0 && j<8) {
-<<<<<<< HEAD
-           if (Board.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
-=======
            if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
                     if (Board2.chessBoard[i][j].getColor()==this.color) {
->>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
                         break;
                     }
                     else {
@@ -200,19 +147,11 @@ if (this.x>0 && this.y>0) {
         i=this.x+1;
         j=this.y-1;
        while (i<8 && j>=0) {
-<<<<<<< HEAD
-           if (Board.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
-=======
            if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
                     if (Board2.chessBoard[i][j].getColor()==this.color) {
->>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
                         break;
                     }
                     else {
@@ -230,19 +169,11 @@ if (this.x>0 && this.y>0) {
         i=this.x+1;
         j=this.y+1;
        while (i<8 && j<8) {
-<<<<<<< HEAD
-           if (Board.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
-=======
            if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
                     if (Board2.chessBoard[i][j].getColor()==this.color) {
->>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
                         break;
                     }
                     else {
