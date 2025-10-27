@@ -13,6 +13,17 @@ import java.util.List;
  * @author ADMIN
  */
 public class Knight extends ChessPiece {
+<<<<<<< HEAD
+=======
+    
+    public Knight(Color color) {
+        this.color = color;
+        this.symbol = "♘";
+        this.name = "Knight";
+        this.is_Chess=true;
+    }
+    
+>>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
     public Knight(int i, int j, Color color) {
             this.x = i;
             this.y = j;
@@ -33,7 +44,11 @@ public class Knight extends ChessPiece {
             //Check chéo trên phải 1
         i=this.x-2;
         j=this.y+1;
+<<<<<<< HEAD
         if (Board.chessBoard[i][j].getColor()==this.color) {
+=======
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
+>>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
             
             }
             else {
@@ -45,7 +60,11 @@ public class Knight extends ChessPiece {
             //Check chéo trên phải 2
         i=this.x-1;
         j=this.y+2;
+<<<<<<< HEAD
         if (Board.chessBoard[i][j].getColor()==this.color) {
+=======
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
+>>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
             
             }
             else {
@@ -57,7 +76,11 @@ public class Knight extends ChessPiece {
             //Check chéo dưới phải 1
         i=this.x+1;
         j=this.y+2;
+<<<<<<< HEAD
         if (Board.chessBoard[i][j].getColor()==this.color) {
+=======
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
+>>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
             
             }
             else {
@@ -69,7 +92,11 @@ public class Knight extends ChessPiece {
             //Check chéo dưới phải 2
         i=this.x+2;
         j=this.y+1;
+<<<<<<< HEAD
         if (Board.chessBoard[i][j].getColor()==this.color) {
+=======
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
+>>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
             
             }
             else {
@@ -81,7 +108,11 @@ public class Knight extends ChessPiece {
             //Check chéo dưới trái 1
         i=this.x+2;
         j=this.y-1;
+<<<<<<< HEAD
         if (Board.chessBoard[i][j].getColor()==this.color) {
+=======
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
+>>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
             
             }
             else {
@@ -93,7 +124,11 @@ public class Knight extends ChessPiece {
             //Check chéo dưới trái 2
         i=this.x+1;
         j=this.y-2;
+<<<<<<< HEAD
         if (Board.chessBoard[i][j].getColor()==this.color) {
+=======
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
+>>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
             
             }
             else {
@@ -105,7 +140,11 @@ public class Knight extends ChessPiece {
             //Check chéo trên trái 1
         i=this.x-1;
         j=this.y-2;
+<<<<<<< HEAD
         if (Board.chessBoard[i][j].getColor()==this.color) {
+=======
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
+>>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
             
             }
             else {
@@ -117,7 +156,11 @@ public class Knight extends ChessPiece {
             //Check chéo trên trái 2
         i=this.x-2;
         j=this.y-1;
+<<<<<<< HEAD
         if (Board.chessBoard[i][j].getColor()==this.color) {
+=======
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
+>>>>>>> f3ae1d26ca71d8f51bce23a135d334dfb9b6e40d
             
             }
             else {
