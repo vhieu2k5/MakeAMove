@@ -43,7 +43,7 @@ public class MenuGame extends JFrame {
         playButton.setBounds(235, 200, 130, 45);
         bgLabel.add(playButton);
 
-        play2Button = new JButton("Hidden Chess");
+        play2Button = new JButton("Mode");
         play2Button.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 14));
         play2Button.setBackground(new Color(217, 170, 110));
         play2Button.setForeground(Color.WHITE);
@@ -93,6 +93,28 @@ public class MenuGame extends JFrame {
                     dispose(); 
                 }
                
+            }
+        });
+
+        play2Button.addActionListener((ActionEvent e) -> {
+            String[] modeGame = {"Chơi với máy", "Chơi Cờ úp"};
+            String optionMode = (String) JOptionPane.showInputDialog(
+                    MenuGame.this,
+                    "⏳ Chọn chế độ chơi: ",
+                    "Mode Game",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    modeGame,
+                    modeGame[0]
+            );
+
+            if(optionMode != null){
+                int check = 0;
+                switch (optionMode) {
+                    case "Chơi với máy": check=1;break;
+                
+                    case "Chơi Cờ úp": check=2;break;
+                }
             }
         });
 
