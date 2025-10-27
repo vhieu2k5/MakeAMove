@@ -16,7 +16,7 @@ public class GamePlay extends javax.swing.JFrame {
     public static JLabel BlackArchieve = new JLabel(" ");
     public static JLabel WhiteArchieve = new JLabel(" ");
 
-    public static Color turn = Color.WHITE; //Check xem bên nào đang đi true là trắng, false là đen
+    public static Color turn = Color.BLACK; //Check xem bên nào đang đi true là trắng, false là đen
 
     public GamePlay() {
         setTitle("Chess Game");
@@ -61,15 +61,24 @@ public class GamePlay extends javax.swing.JFrame {
         add(controlPanel, BorderLayout.SOUTH);
         add(ArchievePanel, BorderLayout.NORTH);
         board.InitChessPlay();
-        WhiteBotMove();
+      //  WhiteBotMove();
     }
 
     public void Warning(Board board) {
         if (board.blackKing4.isCheckMate()) {
             CMtext.setText("CHECKMATE!");
-            boolean check = isLose();
+            boolean check = BlackisLose();
             if (check) {
                 CMtext.setText("You Lose!!!!!!");
+            }
+        } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
+            CMtext.setText("");
+        }
+        if(board.whiteKing4.isCheckMate()) {
+            CMtext.setText("CHECKMATE!");
+            boolean check = WhiteisLose();
+            if (check) {
+                CMtext.setText("You Win!!!!!!");
             }
         } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
             CMtext.setText("");
@@ -93,6 +102,7 @@ public class GamePlay extends javax.swing.JFrame {
         }
         turn = SwitchTurn(turn);
         System.out.println("Black's turn!");
+        Warning(board);
     }
 
     public static void main(String args[]) {
@@ -220,7 +230,7 @@ public class GamePlay extends javax.swing.JFrame {
         //System.out.print(Ches);
     }
 
-    public boolean isLose() {
+    public boolean BlackisLose() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece piece = Board.chessBoard[i][j];
@@ -243,6 +253,45 @@ public class GamePlay extends javax.swing.JFrame {
                     piece.makeMove(p.i, p.j);
                     System.out.println("Moved " + piece.name + " to " + p.i + " " + p.j);
                     boolean check = board.blackKing4.isCheckMate();
+                    //Undo
+                    Board.chessBoard[p.i][p.j] = captured;
+                    Board.chessBoard[fromPoint.i][fromPoint.j] = piece;
+                    piece.x = fromPoint.i;
+                    piece.y = fromPoint.j;
+                    System.out.println("Moved back to " + fromPoint.i + " " + fromPoint.j);
+                    if (!check) {
+                        System.out.println("You can move the " + Board.chessBoard[i][j].name + "-" + Board.chessBoard[i][j].color + " to " + p.i + " " + p.j);
+                        return false;
+                    }
+
+                }
+            }
+        }
+        return true; // every possible move keeps king in check
+    }
+public boolean WhiteisLose(){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                ChessPiece piece = Board.chessBoard[i][j];
+                if (piece == null || !piece.is_Chess) {
+                    continue;
+                }
+                if (piece.color != turn) {
+                    continue;
+                }
+
+                List<point> validMoves = piece.ValidMoves();
+                if (validMoves == null || validMoves.isEmpty()) {
+                    continue;
+                }
+
+                point fromPoint = new point(piece.x, piece.y);
+
+                for (point p : validMoves) {
+                    ChessPiece captured = Board.chessBoard[p.i][p.j];
+                    piece.makeMove(p.i, p.j);
+                    System.out.println("Moved " + piece.name + " to " + p.i + " " + p.j);
+                    boolean check = board.whiteKing4.isCheckMate();
                     //Undo
                     Board.chessBoard[p.i][p.j] = captured;
                     Board.chessBoard[fromPoint.i][fromPoint.j] = piece;

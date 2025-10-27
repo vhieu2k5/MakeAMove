@@ -18,7 +18,7 @@ public class ChessBot {
                             ChessPiece temp = chessboard[move.i][move.j];
 
                             chessboard[move.i][move.j] = captured;
-                            chessboard[i][j] = temp; // Make move
+                            chessboard[i][j] = temp; //Make move
 
                             int boardValue = minimax(chessboard, MAX_DEPTH - 1, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
 
