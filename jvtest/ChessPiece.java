@@ -52,9 +52,9 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
 
         public void setMove (point pre, int i, int j){ //Set là ô đã có quân cờ đặt
             if (pre!=null && pre.i>=0 && pre.j>=0) {
-               Board.chessBoard[pre.i][pre.j] = new NullChess(pre.i,pre.j);
+               Board2.chessBoard[pre.i][pre.j] = new NullChess(pre.i,pre.j);
             }
-            Board.chessBoard[i][j]=this;
+            Board2.chessBoard[i][j]=this;
             // for (point p: Board.chessBoard[i][j].ValidMoves()){
             //     System.out.println("Potential move of "+this.name+": "+p.i+" "+p.j);
             // }
@@ -66,8 +66,8 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
         return color;
     }
 public void makeMove(int toX, int toY){
-    Board.chessBoard[toX][toY]= Board.chessBoard[this.x][this.y];
-    Board.chessBoard[this.x][this.y] = new NullChess(this.x,this.y);
+    Board2.chessBoard[toX][toY]= Board2.chessBoard[this.x][this.y];
+    Board2.chessBoard[this.x][this.y] = new NullChess(this.x,this.y);
 }
 
     }

@@ -41,7 +41,7 @@ public class Knight extends ChessPiece {
             //Check chéo trên phải 1
         i=this.x-2;
         j=this.y+1;
-        if (Board.chessBoard[i][j].getColor()==this.color) {
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
             
             }
             else {
@@ -53,7 +53,7 @@ public class Knight extends ChessPiece {
             //Check chéo trên phải 2
         i=this.x-1;
         j=this.y+2;
-        if (Board.chessBoard[i][j].getColor()==this.color) {
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
             
             }
             else {
@@ -65,7 +65,7 @@ public class Knight extends ChessPiece {
             //Check chéo dưới phải 1
         i=this.x+1;
         j=this.y+2;
-        if (Board.chessBoard[i][j].getColor()==this.color) {
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
             
             }
             else {
@@ -77,7 +77,7 @@ public class Knight extends ChessPiece {
             //Check chéo dưới phải 2
         i=this.x+2;
         j=this.y+1;
-        if (Board.chessBoard[i][j].getColor()==this.color) {
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
             
             }
             else {
@@ -89,7 +89,7 @@ public class Knight extends ChessPiece {
             //Check chéo dưới trái 1
         i=this.x+2;
         j=this.y-1;
-        if (Board.chessBoard[i][j].getColor()==this.color) {
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
             
             }
             else {
@@ -101,7 +101,7 @@ public class Knight extends ChessPiece {
             //Check chéo dưới trái 2
         i=this.x+1;
         j=this.y-2;
-        if (Board.chessBoard[i][j].getColor()==this.color) {
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
             
             }
             else {
@@ -113,7 +113,7 @@ public class Knight extends ChessPiece {
             //Check chéo trên trái 1
         i=this.x-1;
         j=this.y-2;
-        if (Board.chessBoard[i][j].getColor()==this.color) {
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
             
             }
             else {
@@ -125,7 +125,7 @@ public class Knight extends ChessPiece {
             //Check chéo trên trái 2
         i=this.x-2;
         j=this.y-1;
-        if (Board.chessBoard[i][j].getColor()==this.color) {
+        if (Board2.chessBoard[i][j].getColor()==this.color) {
             
             }
             else {

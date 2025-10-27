@@ -37,11 +37,11 @@ public class Bishop extends ChessPiece {
         int i=this.x-1;
        int j=this.y-1;
        while (i>=0 && j>=0) {
-           if (Board.chessBoard[i][j].getName()==null) {
+           if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
+                    if (Board2.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {
@@ -59,11 +59,11 @@ public class Bishop extends ChessPiece {
        int i=this.x-1;
        int j=this.y+1;
        while (i>=0 && j<8) {
-           if (Board.chessBoard[i][j].getName()==null) {
+           if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
+                    if (Board2.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {
@@ -81,11 +81,11 @@ public class Bishop extends ChessPiece {
        int i=this.x+1;
        int j=this.y-1;
        while (i<8 && j>=0) {
-           if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getName()==null) {
+           if (Board2.chessBoard[i][j]==null || Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
+                    if (Board2.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {
@@ -103,11 +103,11 @@ public class Bishop extends ChessPiece {
        int i=this.x+1;
        int j=this.y+1;
        while (i<8 && j<8) {
-           if (Board.chessBoard[i][j].getName()==null) {
+           if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
+                    if (Board2.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {
