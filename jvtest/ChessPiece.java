@@ -1,6 +1,7 @@
 package jvtest;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 
@@ -11,6 +12,7 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
     Color color; //black or white
     String symbol;
     String name;
+    List<point> PotentialMoves = new ArrayList<>();
 
     public abstract List<point> ValidMoves();
 
@@ -21,11 +23,25 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
             GamePlay.squares[po.i][po.j].setBorderPainted(true);
             GamePlay.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
         }
+        //Xem potential moves
+        List<point> potential = this.PotentialMoves;
+        if (potential!=null)
+        for (point po: potential){
+            GamePlay.squares[po.i][po.j].setBorderPainted(true);
+            GamePlay.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.red, 5));
+        }
+
     }
 
     public void deleteValidMove() {
         List<point> p = this.ValidMoves();
         for (point po : p) {
+            GamePlay.squares[po.i][po.j].setBorderPainted(false);
+        }
+        List<point> p2 = this.PotentialMoves;
+        if (p2 !=null)
+        for (point po: p2){
+            this.PotentialMoves.remove(po);
             GamePlay.squares[po.i][po.j].setBorderPainted(false);
         }
     }
