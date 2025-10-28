@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class Bishop2 extends ChessPiece {
+public class Bishop2 extends ChessPiece2 {
 
     public Bishop2(Color color) {
         this.color = color;

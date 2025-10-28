@@ -13,16 +13,16 @@ import java.util.ArrayList;
  * @author ADMIN
  */
 public class Board2 { //Lớp bàn cờ
-    public static ChessPiece[][] chessBoard = new ChessPiece[8][8];
+    public static ChessPiece2[][] chessBoard = new ChessPiece2[8][8];
     public King2 blackKing4 = new King2(7,4,Color.BLACK);
     public King2 whiteKing4 = new King2(0,4,Color.WHITE);
-    public static ArrayList<ChessPiece> chessPieceWhite = new ArrayList<>();
-    public static ArrayList<ChessPiece> chessPieceBlack = new ArrayList<>();
+    public static ArrayList<ChessPiece2> chessPieceWhite = new ArrayList<>();
+    public static ArrayList<ChessPiece2> chessPieceBlack = new ArrayList<>();
 
     public Board2() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                chessBoard[i][j] = new NullChess(i,j);
+                chessBoard[i][j] = new NullChess2(i,j);
             }
         }
     }

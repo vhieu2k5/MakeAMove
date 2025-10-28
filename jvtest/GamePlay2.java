@@ -109,6 +109,24 @@ public class GamePlay2 extends javax.swing.JFrame {
                         if (Board2.chessBoard[r][c].is_Chess) {
                             SetArchieve(sym);
                         }
+                        else {
+                            if (Board2.chessBoard[r][c].symbol=="?") {
+                                if (Board2.chessBoard[r][c].color==Color.white) {
+                                int randomIndex = randomGenerator.nextInt(Board2.chessPieceWhite.size());
+                                Board2.chessBoard[r][c] = Board2.chessPieceWhite.get(randomIndex);
+                                Board2.chessPieceWhite.remove(Board2.chessBoard[r][c]);
+                                sym = Board2.chessBoard[r][c].symbol;
+                                SetArchieve(sym);
+                            }
+                            else {
+                                int randomIndex = randomGenerator.nextInt(Board2.chessPieceBlack.size());
+                                Board2.chessBoard[r][c] = Board2.chessPieceBlack.get(randomIndex);
+                                Board2.chessPieceBlack.remove(Board2.chessBoard[r][c]);
+                                sym = Board2.chessBoard[r][c].symbol;
+                                SetArchieve(sym);
+                            }
+                            }
+                        }
                         Board2.chessBoard[currPo.i][currPo.j].deleteValidMove();
                         if (t.name!=null && t.name.equals("Castle") ) {
                             int co = 0; //Màu để biết nên lấy con xe ở hàng nào
@@ -140,7 +158,7 @@ public class GamePlay2 extends javax.swing.JFrame {
                                 King2 k = (King2) Board2.chessBoard[currPo.i][currPo.j];
                                 k.setMoveCount(1);
                             }
-                            ChessPiece moved = Board2.chessBoard[r][c];
+                            ChessPiece2 moved = Board2.chessBoard[r][c];
                             if (moved.name!=null && moved.name.equals("Pawn") && (r == 0 || r == 7)) {
                                 if (moved.color==Color.BLACK && r==0) {
                                     promotePawn(r, c, moved.color);
@@ -199,7 +217,7 @@ public class GamePlay2 extends javax.swing.JFrame {
     public static void showAllMove() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                ChessPiece cp = Board2.chessBoard[i][j];
+                ChessPiece2 cp = Board2.chessBoard[i][j];
                 if (cp.name != null && !cp.ValidMoves().isEmpty() && cp.color != turn) {
                     Board2.chessBoard[i][j].showValidMove();
                 }
@@ -224,7 +242,7 @@ public class GamePlay2 extends javax.swing.JFrame {
     public boolean isLose() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                ChessPiece piece = Board2.chessBoard[i][j];
+                ChessPiece2 piece = Board2.chessBoard[i][j];
                 if (piece == null || !piece.is_Chess) {
                     continue;
                 }
@@ -240,7 +258,7 @@ public class GamePlay2 extends javax.swing.JFrame {
                 point fromPoint = new point(piece.x, piece.y);
 
                 for (point p : validMoves) {
-                    ChessPiece captured = Board2.chessBoard[p.i][p.j];
+                    ChessPiece2 captured = Board2.chessBoard[p.i][p.j];
                     piece.makeMove(p.i, p.j);
                     System.out.println("Moved " + piece.name + " to " + p.i + " " + p.j);
                     boolean check = board.blackKing4.isCheckMate();
@@ -274,7 +292,7 @@ public class GamePlay2 extends javax.swing.JFrame {
     );
 
     if (choice != null) {
-        ChessPiece newPiece = switch (choice) {
+        ChessPiece2 newPiece = switch (choice) {
             case "Rock" -> new Rock2(r, c, color);
             case "Bishop" -> new Bishop2(r, c, color);
             case "Knight" -> new Knight2(r, c, color);

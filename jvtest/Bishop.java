@@ -14,12 +14,6 @@ import java.util.List;
  */
 public class Bishop extends ChessPiece {
 
-    public Bishop(Color color) {
-        this.color = color;
-        this.symbol = "♗";
-        this.name = "Bishop";
-        this.is_Chess=true;
-    }
     public Bishop(int i, int j, Color color) {
             this.x = i;
             this.y = j;
@@ -37,11 +31,11 @@ public class Bishop extends ChessPiece {
         int i=this.x-1;
        int j=this.y-1;
        while (i>=0 && j>=0) {
-           if (Board2.chessBoard[i][j].getName()==null) {
+           if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
+                    if (Board.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {
@@ -59,11 +53,11 @@ public class Bishop extends ChessPiece {
        int i=this.x-1;
        int j=this.y+1;
        while (i>=0 && j<8) {
-           if (Board2.chessBoard[i][j].getName()==null) {
+           if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
+                    if (Board.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {
@@ -81,11 +75,11 @@ public class Bishop extends ChessPiece {
        int i=this.x+1;
        int j=this.y-1;
        while (i<8 && j>=0) {
-           if (Board2.chessBoard[i][j]==null || Board2.chessBoard[i][j].getName()==null) {
+           if (Board.chessBoard[i][j]==null || Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
+                    if (Board.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {
@@ -103,11 +97,11 @@ public class Bishop extends ChessPiece {
        int i=this.x+1;
        int j=this.y+1;
        while (i<8 && j<8) {
-           if (Board2.chessBoard[i][j].getName()==null) {
+           if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
+                    if (Board.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {

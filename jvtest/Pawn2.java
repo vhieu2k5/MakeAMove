@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class Pawn2 extends ChessPiece { //Quân tốt
+public class Pawn2 extends ChessPiece2 { //Quân tốt
 
     public Pawn2(Color color) {
         this.color = color;

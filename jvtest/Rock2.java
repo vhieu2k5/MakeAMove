@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class Rock2 extends ChessPiece {
+public class Rock2 extends ChessPiece2 {
     int moveCount=0;
     
     public Rock2(Color color) {

@@ -14,14 +14,6 @@ import java.util.List;
  */
 public class Rock extends ChessPiece {
     int moveCount=0;
-    
-    public Rock(Color color) {
-        this.color = color;
-        this.symbol = "♜";
-        this.name = "Rock";
-        this.is_Chess=true; 
-    }
-    
         public Rock(int i, int j, Color color) {
             this.x = i;
             this.y = j;
@@ -39,11 +31,11 @@ public class Rock extends ChessPiece {
             //Check từ trên xuống
             for (int i=this.x-1;i>=0;i--) {
 
-                if (Board2.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
+                    if (Board.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {
@@ -56,11 +48,11 @@ public class Rock extends ChessPiece {
             
             //Check từ vị trí hiện tại xuống dưới
             for (int i=this.x+1;i<8;i++) {
-                if (Board2.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
+                    if (Board.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {
@@ -74,11 +66,11 @@ public class Rock extends ChessPiece {
             //Check từ trái sang
             int i=this.x;
             for (j=this.y-1;j>=0;j--) {
-                if (Board2.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
+                    if (Board.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {
@@ -90,11 +82,11 @@ public class Rock extends ChessPiece {
             
             //Check bên phải
             for (j=this.y+1;j<8;j++) {
-                if (Board2.chessBoard[i][j].getName()==null) {
+                if (Board.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
                 else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
+                    if (Board.chessBoard[i][j].getColor()==this.color) {
                         break;
                     }
                     else {

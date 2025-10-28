@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class King2 extends ChessPiece {
+public class King2 extends ChessPiece2 {
 
     int moveCount = 0;
 
@@ -34,7 +34,7 @@ public class King2 extends ChessPiece {
         if (this.moveCount == 0) {
             //Check bên phải
             for (int j = this.y + 1; j < 8; j++) {
-                ChessPiece c = Board2.chessBoard[this.x][j];
+                ChessPiece2 c = Board2.chessBoard[this.x][j];
                 if (c != null && c.name != null) {
                     if (!c.name.equals("Rock")) {
                         break;
@@ -49,7 +49,7 @@ public class King2 extends ChessPiece {
             }
             //Check bên trái
             for (int j = this.y - 1; j >= 0; j--) {
-                ChessPiece c = Board2.chessBoard[this.x][j];
+                ChessPiece2 c = Board2.chessBoard[this.x][j];
                 if (c != null && c.name != null) {
                     if (!c.name.equals("Rock")) {
                         break;
@@ -156,7 +156,7 @@ public class King2 extends ChessPiece {
     public boolean CheckMateSingleMove(int x, int y) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                ChessPiece cp = Board2.chessBoard[i][j];
+                ChessPiece2 cp = Board2.chessBoard[i][j];
                 if (cp != null && cp.is_Chess && cp != this && cp.color != GamePlay2.turn) {
                     List<point> moves = cp.ValidMoves();
 

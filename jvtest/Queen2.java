@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class Queen2 extends ChessPiece {
+public class Queen2 extends ChessPiece2 {
     
     public Queen2(Color color) {
         this.color = color;

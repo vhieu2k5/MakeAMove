@@ -21,7 +21,6 @@ public class King extends ChessPiece {
         this.name = "King";
         this.is_Chess = true;
         this.moveCount = 0;
-        this.firstMove=false;
     }
 
     public void setMoveCount(int moveCount) {
@@ -34,7 +33,7 @@ public class King extends ChessPiece {
         if (this.moveCount == 0) {
             //Check bên phải
             for (int j = this.y + 1; j < 8; j++) {
-                ChessPiece c = Board2.chessBoard[this.x][j];
+                ChessPiece c = Board.chessBoard[this.x][j];
                 if (c != null && c.name != null) {
                     if (!c.name.equals("Rock")) {
                         break;
@@ -49,7 +48,7 @@ public class King extends ChessPiece {
             }
             //Check bên trái
             for (int j = this.y - 1; j >= 0; j--) {
-                ChessPiece c = Board2.chessBoard[this.x][j];
+                ChessPiece c = Board.chessBoard[this.x][j];
                 if (c != null && c.name != null) {
                     if (!c.name.equals("Rock")) {
                         break;
@@ -66,7 +65,7 @@ public class King extends ChessPiece {
             //Check ở trên
             int i = this.x - 1;
             int j = this.y;
-            if (Board2.chessBoard[i][j].getColor() == this.color) {
+            if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -77,7 +76,7 @@ public class King extends ChessPiece {
             //Check ở dưới
             int i = this.x + 1;
             int j = this.y;
-            if (Board2.chessBoard[i][j].getColor() == this.color) {
+            if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -88,7 +87,7 @@ public class King extends ChessPiece {
             //Check chéo trên trái
             int i = this.x - 1;
             int j = this.y - 1;
-            if (Board2.chessBoard[i][j].getColor() == this.color) {
+            if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -99,7 +98,7 @@ public class King extends ChessPiece {
             //Check chéo trên phải
             int i = this.x - 1;
             int j = this.y + 1;
-            if (Board2.chessBoard[i][j].getColor() == this.color) {
+            if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -110,7 +109,7 @@ public class King extends ChessPiece {
             //Check phải
             int i = this.x;
             int j = this.y + 1;
-            if (Board2.chessBoard[i][j].getColor() == this.color) {
+            if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -121,7 +120,7 @@ public class King extends ChessPiece {
             //Check dưới phải
             int i = this.x + 1;
             int j = this.y + 1;
-            if (Board2.chessBoard[i][j].getColor() == this.color) {
+            if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -132,7 +131,7 @@ public class King extends ChessPiece {
             //Check dưới trái
             int i = this.x + 1;
             int j = this.y - 1;
-            if (Board2.chessBoard[i][j].getColor() == this.color) {
+            if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -143,7 +142,7 @@ public class King extends ChessPiece {
             //Check trái
             int i = this.x;
             int j = this.y - 1;
-            if (Board2.chessBoard[i][j] == null || Board2.chessBoard[i][j].getColor() == this.color) {
+            if (Board.chessBoard[i][j] == null || Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -156,8 +155,8 @@ public class King extends ChessPiece {
     public boolean CheckMateSingleMove(int x, int y) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                ChessPiece cp = Board2.chessBoard[i][j];
-                if (cp != null && cp.is_Chess && cp != this && cp.color != GamePlay2.turn) {
+                ChessPiece cp = Board.chessBoard[i][j];
+                if (cp != null && cp.is_Chess && cp != this && cp.color != GamePlay.turn) {
                     List<point> moves = cp.ValidMoves();
 
                      for (point pt: moves){
