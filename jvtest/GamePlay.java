@@ -114,7 +114,7 @@ public class GamePlay extends javax.swing.JFrame {
                                 squares[co][c-1].setText(Board2.chessBoard[co][c-1].symbol);
                                 squares[co][c-1].setFont(new Font("Serif", Font.BOLD, 36));
                                 squares[co][c-1].setForeground(Board2.chessBoard[co][c-1].color);
-                                King k = (King)Board2.chessBoard[currPo.i][currPo.j];
+                                King2 k = (King2)Board2.chessBoard[currPo.i][currPo.j];
                                 k.setMoveCount(1);
                                 Board2.chessBoard[currPo.i][currPo.j].setMove(currPo, r, c);
                             }
@@ -124,7 +124,7 @@ public class GamePlay extends javax.swing.JFrame {
                                 squares[co][c+1].setText(Board2.chessBoard[co][c+1].symbol);
                                 squares[co][c+1].setFont(new Font("Serif", Font.BOLD, 36));
                                 squares[co][c+1].setForeground(Board2.chessBoard[co][c+1].color);
-                                King k = (King)Board2.chessBoard[currPo.i][currPo.j];
+                                King2 k = (King2)Board2.chessBoard[currPo.i][currPo.j];
                                 k.setMoveCount(1);
                                 Board2.chessBoard[currPo.i][currPo.j].setMove(currPo, r, c);
                             }
@@ -133,7 +133,7 @@ public class GamePlay extends javax.swing.JFrame {
                             //Di chuyển bình thường
 
                             if (Board2.chessBoard[currPo.i][currPo.j].name.equals("King")) {
-                                King k = (King)Board2.chessBoard[currPo.i][currPo.j];
+                                King2 k = (King2)Board2.chessBoard[currPo.i][currPo.j];
                                 k.setMoveCount(1);
                             }
                             String sym = Board2.chessBoard[r][c].symbol;
@@ -209,10 +209,10 @@ public class GamePlay extends javax.swing.JFrame {
 
     if (choice != null) {
         ChessPiece newPiece = switch (choice) {
-            case "Rock" -> new Rock(r, c, color);
-            case "Bishop" -> new Bishop(r, c, color);
-            case "Knight" -> new Knight(r, c, color);
-            default -> new Queen(r, c, color);
+            case "Rock" -> new Rock2(r, c, color);
+            case "Bishop" -> new Bishop2(r, c, color);
+            case "Knight" -> new Knight2(r, c, color);
+            default -> new Queen2(r, c, color);
         };
 
         // Cập nhật trong mảng dữ liệu
