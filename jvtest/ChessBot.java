@@ -16,12 +16,11 @@ public class ChessBot {
                    if (Color.WHITE.equals(chessboard[i][j].getColor())) {
                         for (point move : chessboard[i][j].ValidMoves()) {
                             ChessPiece temp = chessboard[move.i][move.j];
-
                             chessboard[move.i][move.j] = captured;
                             chessboard[i][j] = temp; //Make move
 
                             int boardValue = minimax(chessboard, MAX_DEPTH - 1, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
-
+                            if (priority(i, j, move.i, move.j)) boardValue +=10000;
                             chessboard[move.i][move.j] = temp;
                             chessboard[i][j] = captured; // Undo move
 
@@ -34,6 +33,11 @@ public class ChessBot {
                 }
             }
         }
+        if (bestMove == null) {
+            System.out.println("Best move not found (no legal moves).");
+            return null;
+        }
+        System.out.println("Best move is " + Board.chessBoard[bestMove.fromX][bestMove.fromY].getName() + " moves to the position " + bestMove.toX+ " "+ bestMove.toY);
         return bestMove;
     }
 private int minimax(ChessPiece[][] board, int depth, int alpha, int beta, boolean isMaximizing) {
@@ -125,11 +129,25 @@ private int minimax(ChessPiece[][] board, int depth, int alpha, int beta, boolea
             case "Rook" ->
                 50;
             case "Queen" ->
-                90;
+                500;
             case "King" ->
-                900;
+                1000;
             default ->
                 0;
         };
     }
+private boolean priority (int a, int b, int c, int d){
+    for (Move m : GamePlay.priorityMoves) {
+            System.out.println(": You can move the " + Board.chessBoard[m.fromX][m.fromY].name + "-" + Board.chessBoard[m.fromX][m.fromY].color + " to " + m.toX + " " + m.toY);
+        }
+        for (Move m : GamePlay.priorityMoves){
+            if (m.fromX==a && m.fromY == b && m.toX == c && m.toY == d)
+            {
+                System.out.println("The priority : "+ Board.chessBoard[a][b]);
+                return true;
+            } 
+            
+        }
+        return false;
+}
 }

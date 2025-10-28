@@ -1,6 +1,7 @@
 package jvtest;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
@@ -12,6 +13,9 @@ public class GamePlay extends javax.swing.JFrame {
     boolean clickedAChess = false; //Kiểm tra xem đã bấm vào chess hay chưa
     point currPo = new point(-1, -1);
     Board board = new Board();
+    public static List<Move> priorityMoves = new ArrayList<>();
+    boolean isCheckedMate = false;
+    boolean isGameOver= false;
     public static JLabel CMtext = new JLabel("");
     public static JLabel BlackArchieve = new JLabel(" ");
     public static JLabel WhiteArchieve = new JLabel(" ");
@@ -61,33 +65,42 @@ public class GamePlay extends javax.swing.JFrame {
         add(controlPanel, BorderLayout.SOUTH);
         add(ArchievePanel, BorderLayout.NORTH);
         board.InitChessPlay();
-      //  WhiteBotMove();
+        //  WhiteBotMove();
     }
 
     public void Warning(Board board) {
-        if (board.blackKing4.isCheckMate()) {
+
+         if (board.blackKing4.isCheckMate()) {
             CMtext.setText("CHECKMATE!");
-            boolean check = BlackisLose();
+             boolean check = BlackisLose();
             if (check) {
                 CMtext.setText("You Lose!!!!!!");
-            }
-        } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
+                isGameOver=true;
+           }
+         } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
             CMtext.setText("");
-        }
-        if(board.whiteKing4.isCheckMate()) {
+         }
+
+        if ( board.whiteKing4.isCheckMate()) {
+            isCheckedMate=true;
             CMtext.setText("CHECKMATE!");
             boolean check = WhiteisLose();
             if (check) {
                 CMtext.setText("You Win!!!!!!");
+                isGameOver=true;
             }
         } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
             CMtext.setText("");
+            isCheckedMate=false;
         }
     }
 
     public void WhiteBotMove() {
+
         ChessBot bot = new ChessBot();
-        Move bestMove = bot.findBestMove(Board.chessBoard); // Depth can be adjusted
+        Move bestMove;
+        Warning(board);
+        bestMove = bot.findBestMove(Board.chessBoard); // Depth can be adjusted
 
         if (bestMove != null) {
             ChessPiece piece = Board.chessBoard[bestMove.fromX][bestMove.fromY];
@@ -98,7 +111,7 @@ public class GamePlay extends javax.swing.JFrame {
             squares[bestMove.toX][bestMove.toY].setText(piece.symbol);
             squares[bestMove.toX][bestMove.toY].setFont(new Font("Serif", Font.BOLD, 36));
             squares[bestMove.toX][bestMove.toY].setForeground(piece.color);
-            
+
         }
         turn = SwitchTurn(turn);
         System.out.println("Black's turn!");
@@ -111,10 +124,12 @@ public class GamePlay extends javax.swing.JFrame {
 
     private void onSquareClicked(int r, int c) {
         //System.out.println(r + " " + c);
-        if(Board.chessBoard[r][c].getName() == null) System.out.println("Null chosen one!");
-
+        if (Board.chessBoard[r][c].getName() == null) {
+            System.out.println("Null chosen one!");
+        }
+        if (!isGameOver)
         if (Board.chessBoard[r][c].getName() != null && Board.chessBoard[r][c].getColor() == turn) {
-            System.out.println("Choosing in "+ Board.chessBoard[r][c].getName()+ " "+ turn.toString());
+            System.out.println("Choosing in " + Board.chessBoard[r][c].getName() + " " + turn.toString());
             if (clickedAChess == false) { //Trường hợp chưa chọn quân nào
                 currPo = new point(r, c);
                 Board.chessBoard[r][c].showValidMove();
@@ -170,8 +185,10 @@ public class GamePlay extends javax.swing.JFrame {
                                 King k = (King) Board.chessBoard[currPo.i][currPo.j];
                                 k.setMoveCount(1);
                             }
-                            ChessPiece moved = Board.chessBoard[r][c];
+                            ChessPiece moved = Board.chessBoard[currPo.i][currPo.j];
+                            System.err.println(moved.name);
                             if (moved.name != null && moved.name.equals("Pawn") && (r == 0 || r == 7)) {
+                                System.out.println("Phong hậu được!");
                                 promotePawn(r, c, moved.color);
                             }
 
@@ -251,14 +268,14 @@ public class GamePlay extends javax.swing.JFrame {
                 for (point p : validMoves) {
                     ChessPiece captured = Board.chessBoard[p.i][p.j];
                     piece.makeMove(p.i, p.j);
-                    System.out.println("Moved " + piece.name + " to " + p.i + " " + p.j);
+                    // System.out.println("Moved " + piece.name + " to " + p.i + " " + p.j);
                     boolean check = board.blackKing4.isCheckMate();
                     //Undo
                     Board.chessBoard[p.i][p.j] = captured;
                     Board.chessBoard[fromPoint.i][fromPoint.j] = piece;
                     piece.x = fromPoint.i;
                     piece.y = fromPoint.j;
-                    System.out.println("Moved back to " + fromPoint.i + " " + fromPoint.j);
+                    // System.out.println("Moved back to " + fromPoint.i + " " + fromPoint.j);
                     if (!check) {
                         System.out.println("You can move the " + Board.chessBoard[i][j].name + "-" + Board.chessBoard[i][j].color + " to " + p.i + " " + p.j);
                         return false;
@@ -269,7 +286,10 @@ public class GamePlay extends javax.swing.JFrame {
         }
         return true; // every possible move keeps king in check
     }
-public boolean WhiteisLose(){
+
+    public boolean WhiteisLose() {
+        priorityMoves = new ArrayList<>();
+        boolean finalcheck = true;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece piece = Board.chessBoard[i][j];
@@ -290,23 +310,25 @@ public boolean WhiteisLose(){
                 for (point p : validMoves) {
                     ChessPiece captured = Board.chessBoard[p.i][p.j];
                     piece.makeMove(p.i, p.j);
-                    System.out.println("Moved " + piece.name + " to " + p.i + " " + p.j);
+                    //   System.out.println("Moved " + piece.name + " to " + p.i + " " + p.j);
                     boolean check = board.whiteKing4.isCheckMate();
                     //Undo
                     Board.chessBoard[p.i][p.j] = captured;
                     Board.chessBoard[fromPoint.i][fromPoint.j] = piece;
                     piece.x = fromPoint.i;
                     piece.y = fromPoint.j;
-                    System.out.println("Moved back to " + fromPoint.i + " " + fromPoint.j);
+                    //  System.out.println("Moved back to " + fromPoint.i + " " + fromPoint.j);
                     if (!check) {
-                        System.out.println("You can move the " + Board.chessBoard[i][j].name + "-" + Board.chessBoard[i][j].color + " to " + p.i + " " + p.j);
-                        return false;
+                        finalcheck = false;
+                        // System.out.println(turn.toString() + ": You can move the " + Board.chessBoard[i][j].name + "-" + Board.chessBoard[i][j].color + " to " + p.i + " " + p.j);
+                        priorityMoves.add(new Move(i, j, p.i, p.j));
+
                     }
 
                 }
             }
         }
-        return true; // every possible move keeps king in check
+        return finalcheck; // every possible move keeps king in check
     }
 
     private void promotePawn(int r, int c, Color color) {
@@ -334,12 +356,12 @@ public boolean WhiteisLose(){
             };
 
             // Cập nhật trong mảng dữ liệu
-            Board.chessBoard[r][c] = newPiece;
+            Board.chessBoard[currPo.i][currPo.j] = newPiece;
 
             // Cập nhật giao diện
-            squares[r][c].setText(newPiece.symbol);
-            squares[r][c].setFont(new Font("Serif", Font.BOLD, 36));
-            squares[r][c].setForeground(color);
+            squares[currPo.i][currPo.j].setText(newPiece.symbol);
+            squares[currPo.i][currPo.j].setFont(new Font("Serif", Font.BOLD, 36));
+            squares[currPo.i][currPo.j].setForeground(color);
         }
     }
 

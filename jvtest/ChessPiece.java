@@ -39,10 +39,11 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
             GamePlay.squares[po.i][po.j].setBorderPainted(false);
         }
         List<point> p2 = this.PotentialMoves;
-        if (p2 !=null)
-        for (point po: p2){
-            this.PotentialMoves.remove(po);
-            GamePlay.squares[po.i][po.j].setBorderPainted(false);
+        if (p2 != null) {
+            for (point po: p2){
+                GamePlay.squares[po.i][po.j].setBorderPainted(false);
+            }
+            this.PotentialMoves.removeAll(p2);
         }
     }
 

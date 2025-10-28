@@ -131,6 +131,8 @@ public class Pawn extends ChessPiece { //Quân tốt
                 }
             }
             else {
+                if (this.x+1*reverse >=0) //Check điều kiện để lúc phong không bị lỗi over index
+                {
                 point p3 = new point(this.x+1*reverse,this.y);
                  if (Board.chessBoard[p3.i][p3.j].getName()==null) {
                     res.add(p3);
@@ -158,6 +160,7 @@ public class Pawn extends ChessPiece { //Quân tốt
                         res.add(p4);
                         }
                         break;
+                } 
                 }
             }
         }
