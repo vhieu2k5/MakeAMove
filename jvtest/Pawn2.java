@@ -12,17 +12,15 @@ import java.util.List;
  *
  * @author ADMIN
  */
-public class Pawn extends ChessPiece { //Quân tốt
+public class Pawn2 extends ChessPiece2 { //Quân tốt
 
-<<<<<<< HEAD
-    public Pawn(Color color) {
+    public Pawn2(Color color) {
         this.color = color;
         this.symbol = "♙";
         this.name = "Pawn";
     }
-=======
->>>>>>> 528979fb03eaf86555742fd42212b06b5f941d76
-    public Pawn(int i, int j, Color color) {
+    
+    public Pawn2(int i, int j, Color color) {
             this.x = i;
             this.y = j;
             this.color = color;
@@ -37,10 +35,10 @@ public class Pawn extends ChessPiece { //Quân tốt
         if (this.color==Color.WHITE) {
             if (this.x ==1) {
                 point p = new point(this.x+1*reverse,this.y);
-                if (Board.chessBoard[p.i][p.j].getName()==null) {
+                if (Board2.chessBoard[p.i][p.j].getName()==null) {
                     res.add(p);
                     point p2 = new point(this.x+2*reverse,this.y);
-                    if (Board.chessBoard[p2.i][p2.j].getName()==null) {
+                    if (Board2.chessBoard[p2.i][p2.j].getName()==null) {
                     res.add(p2);
                 } 
                 }
@@ -49,23 +47,23 @@ public class Pawn extends ChessPiece { //Quân tốt
                 switch(this.y) {
                     case 0:
                        point p3 = new point(this.x+1*reverse,this.y+1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                         }
                     break;
                     case 7:
                        p3 = new point(this.x+1*reverse,this.y-1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                         }
                        break;
                     default:
                         p3 = new point(this.x+1*reverse,this.y-1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                        }
                        point p4 = new point(this.x+1*reverse,this.y+1);
-                       if (Board.chessBoard[p4.i][p4.j].getName()!=null && Board.chessBoard[p4.i][p4.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p4.i][p4.j].getName()!=null && Board2.chessBoard[p4.i][p4.j].getColor()!=this.color) {
                         res.add(p4);
                         }
                         break;
@@ -73,29 +71,29 @@ public class Pawn extends ChessPiece { //Quân tốt
             }
             else {
                 point p3 = new point(this.x+1*reverse,this.y);
-                 if (Board.chessBoard[p3.i][p3.j].getName()==null) {
+                 if (Board2.chessBoard[p3.i][p3.j].getName()==null) {
                     res.add(p3);
                 }
                 switch (this.y) {
                     case 0:
                        p3 = new point(this.x+1*reverse,this.y+1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                         }
                     break;
                     case 7:
                        p3 = new point(this.x+1*reverse,this.y-1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                         }
                        break;
                     default:
                         p3 = new point(this.x+1*reverse,this.y-1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                        }
                        point p4 = new point(this.x+1*reverse,this.y+1);
-                       if (Board.chessBoard[p4.i][p4.j].getName()!=null && Board.chessBoard[p4.i][p4.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p4.i][p4.j].getName()!=null && Board2.chessBoard[p4.i][p4.j].getColor()!=this.color) {
                         res.add(p4);
                         }
                         break;
@@ -106,33 +104,33 @@ public class Pawn extends ChessPiece { //Quân tốt
             reverse=-1;
             if (this.x ==6) {
                 point p = new point(this.x+1*reverse,this.y);
-                if (Board.chessBoard[p.i][p.j].getName()==null) {
+                if (Board2.chessBoard[p.i][p.j].getName()==null) {
                     res.add(p);
                 }
                 point p2 = new point(this.x+2*reverse,this.y);
-                if (Board.chessBoard[p2.i][p2.j].getName()==null) {
+                if (Board2.chessBoard[p2.i][p2.j].getName()==null) {
                     res.add(p2);
                 }
                 switch (this.y) {
                     case 0:
                        point p3 = new point(this.x+1*reverse,this.y+1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                         }
                     break;
                     case 7:
                        p3 = new point(this.x+1*reverse,this.y-1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                         }
                        break;
                     default:
                         p3 = new point(this.x+1*reverse,this.y-1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                        }
                        point p4 = new point(this.x+1*reverse,this.y+1);
-                       if (Board.chessBoard[p4.i][p4.j].getName()!=null && Board.chessBoard[p4.i][p4.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p4.i][p4.j].getName()!=null && Board2.chessBoard[p4.i][p4.j].getColor()!=this.color) {
                         res.add(p4);
                         }
                         break;
@@ -140,29 +138,29 @@ public class Pawn extends ChessPiece { //Quân tốt
             }
             else {
                 point p3 = new point(this.x+1*reverse,this.y);
-                 if (Board.chessBoard[p3.i][p3.j].getName()==null) {
+                 if (Board2.chessBoard[p3.i][p3.j].getName()==null) {
                     res.add(p3);
                 }
                 switch (this.y) {
                     case 0:
                        p3 = new point(this.x+1*reverse,this.y+1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                         }
                     break;
                     case 7:
                        p3 = new point(this.x+1*reverse,this.y-1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                         }
                        break;
                     default:
                         p3 = new point(this.x+1*reverse,this.y-1);
-                       if (Board.chessBoard[p3.i][p3.j].getName()!=null && Board.chessBoard[p3.i][p3.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p3.i][p3.j].getName()!=null && Board2.chessBoard[p3.i][p3.j].getColor()!=this.color) {
                         res.add(p3);
                        }
                        point p4 = new point(this.x+1*reverse,this.y+1);
-                       if (Board.chessBoard[p4.i][p4.j].getName()!=null && Board.chessBoard[p4.i][p4.j].getColor()!=this.color) {
+                       if (Board2.chessBoard[p4.i][p4.j].getName()!=null && Board2.chessBoard[p4.i][p4.j].getColor()!=this.color) {
                         res.add(p4);
                         }
                         break;

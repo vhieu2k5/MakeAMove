@@ -5,27 +5,28 @@ import java.awt.Color;
 import  java.util.List;
 import javax.swing.BorderFactory;
 
-public abstract class ChessPiece { //Lớp đặc tính chung của các quân cờ
+public abstract class ChessPiece2 { //Lớp đặc tính chung của các quân cờ
     
         int x, y;
         boolean is_Chess = false;
         Color color; //black or white
         String symbol;
         String name;
+        boolean firstMove = true;
         public abstract List<point> ValidMoves();
 
         public void showValidMove() {
             List<point> p = this.ValidMoves();
         for (point po:p) {
           //  System.out.println(this.name +":" + po.i + " " + po.j);
-            GamePlay.squares[po.i][po.j].setBorderPainted(true);
-            GamePlay.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
+            GamePlay2.squares[po.i][po.j].setBorderPainted(true);
+            GamePlay2.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
         }
         }
         public void deleteValidMove() {
             List<point> p = this.ValidMoves();
         for (point po:p) {
-            GamePlay.squares[po.i][po.j].setBorderPainted(false);
+            GamePlay2.squares[po.i][po.j].setBorderPainted(false);
         }
         }
 
@@ -51,14 +52,9 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
 
         public void setMove (point pre, int i, int j){ //Set là ô đã có quân cờ đặt
             if (pre!=null && pre.i>=0 && pre.j>=0) {
-<<<<<<< HEAD
-
-               Board2.chessBoard[pre.i][pre.j] = new NullChess(pre.i,pre.j);
-=======
-               Board.chessBoard[pre.i][pre.j] = new NullChess(pre.i,pre.j);
->>>>>>> 528979fb03eaf86555742fd42212b06b5f941d76
+               Board2.chessBoard[pre.i][pre.j] = new NullChess2(pre.i,pre.j);
             }
-            Board.chessBoard[i][j]=this;
+            Board2.chessBoard[i][j]=this;
             // for (point p: Board.chessBoard[i][j].ValidMoves()){
             //     System.out.println("Potential move of "+this.name+": "+p.i+" "+p.j);
             // }
@@ -70,8 +66,8 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
         return color;
     }
 public void makeMove(int toX, int toY){
-    Board.chessBoard[toX][toY]= Board.chessBoard[this.x][this.y];
-    Board.chessBoard[this.x][this.y] = new NullChess(this.x,this.y);
+    Board2.chessBoard[toX][toY]= Board2.chessBoard[this.x][this.y];
+    Board2.chessBoard[this.x][this.y] = new NullChess2(this.x,this.y);
 }
 
     }
