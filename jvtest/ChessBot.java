@@ -55,13 +55,13 @@ private int minimax(ChessPiece[][] board, int depth, int alpha, int beta, boolea
                 for (point move : piece.ValidMoves()) {
                     ChessPiece captured = board[move.i][move.j];
 
-                    // make move
+                    //make move
                     board[move.i][move.j] = piece;
                     board[i][j] = null;
 
                     int eval = minimax(board, depth - 1, alpha, beta, false);
 
-                    // undo
+                    //undo
                     board[i][j] = piece;
                     board[move.i][move.j] = captured;
 

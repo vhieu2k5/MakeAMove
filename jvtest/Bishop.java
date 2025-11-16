@@ -26,19 +26,18 @@ public class Bishop extends ChessPiece {
     @Override
     public List<point> ValidMoves() {
         List<point> res = new ArrayList<>();
+        this.PotentialMoves= new ArrayList<>();
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         if (this.x > 0 && this.y > 0) {
             //Check chéo trên trái
             int i = this.x - 1;
             int j = this.y - 1;
             while (i >= 0 && j >= 0) {
+                this.PotentialMoves.add(new point(i, j));
                 if (Board.chessBoard[i][j].getName() == null) {
-                    this.PotentialMoves.add(new point(i, j));
                     res.add(new point(i, j));
                 } else {
                     if (Board.chessBoard[i][j].getColor() == this.color) {
-                      //  System.out.println("Same color at "+ Board.chessBoard[i][j].name + " "+ i + " "+j);
-                        this.PotentialMoves.add(new point(i, j));
                         break;
                     } else {
                         res.add(new point(i, j));
@@ -55,12 +54,11 @@ public class Bishop extends ChessPiece {
             int i = this.x - 1;
             int j = this.y + 1;
             while (i >= 0 && j < 8) {
+                this.PotentialMoves.add(new point(i, j));
                 if (Board.chessBoard[i][j].getName() == null) {
-                    this.PotentialMoves.add(new point(i, j));
                     res.add(new point(i, j));
                 } else {
                     if (Board.chessBoard[i][j].getColor() == this.color) {
-                        this.PotentialMoves.add(new point(i, j));
                         break;
                     } else {
                         res.add(new point(i, j));
@@ -77,12 +75,11 @@ public class Bishop extends ChessPiece {
             int i = this.x + 1;
             int j = this.y - 1;
             while (i < 8 && j >= 0) {
+                this.PotentialMoves.add(new point(i, j));
                 if (Board.chessBoard[i][j] == null || Board.chessBoard[i][j].getName() == null) {
-                    this.PotentialMoves.add(new point(i, j));
                     res.add(new point(i, j));
                 } else {
                     if (Board.chessBoard[i][j].getColor() == this.color) {
-                        this.PotentialMoves.add(new point(i, j));
                         break;
                     } else {
                         res.add(new point(i, j));
@@ -99,12 +96,11 @@ public class Bishop extends ChessPiece {
             int i = this.x + 1;
             int j = this.y + 1;
             while (i < 8 && j < 8) {
+                this.PotentialMoves.add(new point(i, j));
                 if (Board.chessBoard[i][j].getName() == null) {
-                    this.PotentialMoves.add(new point(i, j));
                     res.add(new point(i, j));
                 } else {
                     if (Board.chessBoard[i][j].getColor() == this.color) {
-                        this.PotentialMoves.add(new point(i, j));
                         break;
                     } else {
                         res.add(new point(i, j));

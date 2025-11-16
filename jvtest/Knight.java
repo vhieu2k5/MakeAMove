@@ -25,6 +25,7 @@ public class Knight extends ChessPiece {
     public List<point> ValidMoves() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         List<point> res = new ArrayList<>();
+        this.PotentialMoves = new ArrayList<>();
         
         int i;
         int j;
@@ -33,6 +34,7 @@ public class Knight extends ChessPiece {
             //Check chéo trên phải 1
         i=this.x-2;
         j=this.y+1;
+        this.PotentialMoves.add(new point(i, j));
         if (Board.chessBoard[i][j].getColor()==this.color) {
             
             }
@@ -45,6 +47,7 @@ public class Knight extends ChessPiece {
             //Check chéo trên phải 2
         i=this.x-1;
         j=this.y+2;
+        this.PotentialMoves.add(new point(i, j));
         if (Board.chessBoard[i][j].getColor()==this.color) {
             
             }
@@ -57,6 +60,7 @@ public class Knight extends ChessPiece {
             //Check chéo dưới phải 1
         i=this.x+1;
         j=this.y+2;
+        this.PotentialMoves.add(new point(i, j));
         if (Board.chessBoard[i][j].getColor()==this.color) {
             
             }
@@ -69,6 +73,7 @@ public class Knight extends ChessPiece {
             //Check chéo dưới phải 2
         i=this.x+2;
         j=this.y+1;
+        this.PotentialMoves.add(new point(i, j));
         if (Board.chessBoard[i][j].getColor()==this.color) {
             
             }
@@ -81,6 +86,7 @@ public class Knight extends ChessPiece {
             //Check chéo dưới trái 1
         i=this.x+2;
         j=this.y-1;
+        this.PotentialMoves.add(new point(i, j));
         if (Board.chessBoard[i][j].getColor()==this.color) {
             
             }
@@ -93,6 +99,7 @@ public class Knight extends ChessPiece {
             //Check chéo dưới trái 2
         i=this.x+1;
         j=this.y-2;
+        this.PotentialMoves.add(new point(i, j));
         if (Board.chessBoard[i][j].getColor()==this.color) {
             
             }
@@ -105,6 +112,7 @@ public class Knight extends ChessPiece {
             //Check chéo trên trái 1
         i=this.x-1;
         j=this.y-2;
+        this.PotentialMoves.add(new point(i, j));
         if (Board.chessBoard[i][j].getColor()==this.color) {
             
             }
@@ -117,6 +125,7 @@ public class Knight extends ChessPiece {
             //Check chéo trên trái 2
         i=this.x-2;
         j=this.y-1;
+        this.PotentialMoves.add(new point(i, j));
         if (Board.chessBoard[i][j].getColor()==this.color) {
             
             }
