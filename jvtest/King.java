@@ -30,9 +30,11 @@ public class King extends ChessPiece {
     @Override
     public List<point> ValidMoves() {
         List<point> res = new ArrayList<>();
+        this.PotentialMoves = new ArrayList<>();
         if (this.moveCount == 0) {
             //Check bên phải
             for (int j = this.y + 1; j < 8; j++) {
+                this.PotentialMoves.add(new point(x, j));
                 ChessPiece c = Board.chessBoard[this.x][j];
                 if (c != null && c.name != null) {
                     if (!c.name.equals("Rock")) {
@@ -48,6 +50,7 @@ public class King extends ChessPiece {
             }
             //Check bên trái
             for (int j = this.y - 1; j >= 0; j--) {
+                this.PotentialMoves.add(new point(x, j));
                 ChessPiece c = Board.chessBoard[this.x][j];
                 if (c != null && c.name != null) {
                     if (!c.name.equals("Rock")) {
@@ -65,6 +68,7 @@ public class King extends ChessPiece {
             //Check ở trên
             int i = this.x - 1;
             int j = this.y;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -76,6 +80,7 @@ public class King extends ChessPiece {
             //Check ở dưới
             int i = this.x + 1;
             int j = this.y;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -87,6 +92,7 @@ public class King extends ChessPiece {
             //Check chéo trên trái
             int i = this.x - 1;
             int j = this.y - 1;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -98,6 +104,7 @@ public class King extends ChessPiece {
             //Check chéo trên phải
             int i = this.x - 1;
             int j = this.y + 1;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -109,6 +116,7 @@ public class King extends ChessPiece {
             //Check phải
             int i = this.x;
             int j = this.y + 1;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -120,6 +128,7 @@ public class King extends ChessPiece {
             //Check dưới phải
             int i = this.x + 1;
             int j = this.y + 1;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -142,6 +151,10 @@ public class King extends ChessPiece {
             //Check trái
             int i = this.x;
             int j = this.y - 1;
+<<<<<<< HEAD
+=======
+            this.PotentialMoves.add(new point(i, j));
+>>>>>>> 909e3a926e03394965d560591eddbebffed3ff6d
             if (Board.chessBoard[i][j] == null || Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -156,23 +169,25 @@ public class King extends ChessPiece {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece cp = Board.chessBoard[i][j];
-                if (cp != null && cp.is_Chess && cp != this && cp.color != GamePlay.turn) {
-                    List<point> moves = cp.ValidMoves();
+                if (cp != null && cp.is_Chess && cp != this && !this.color.equals(cp.color) && !(cp instanceof King)) {
+                    List<point> moves = cp.PotentialMoves;
 
-                     for (point pt: moves){
-                         System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
-                     }
+                    //   for (point pt: moves){
+                    //     System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
+                    //   }
                     if (moves != null) {
                         for (point p : moves) {
-                             System.out.println(p.i+"&"+x+"-" +p.j+"&"+y);
+                          //  System.out.println(p.i + "&" + x + "-" + p.j + "&" + y);
                             if (p.i == x && p.j == y) {
+                              //  System.out.println("The chesspiece "+ Board.chessBoard[i][j].name + Board.chessBoard[i][j].getColor() + " is the Threat!!");
                                 return false;
-                            }
+                            } 
+                            // else {
+                            //     System.out.println(cp.name + " " + x + " " + y + " Khong co cho nao de doa!");
+                            // }
                         }
                     }
 
-                    else 
-                    System.out.println(cp.name +" "+ x+" "+y+ " Khong co cho nao de doa!");
                 }
             }
         }
@@ -183,3 +198,4 @@ public class King extends ChessPiece {
         return !CheckMateSingleMove(this.x, this.y);
     }
 }
+//i think I should go to hell with this game!😋

@@ -1,9 +1,8 @@
 package jvtest;
 
-import javax.swing.*;
-import javax.swing.border.BevelBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import javax.swing.*;
 
 public class MenuGame extends JFrame {
 
@@ -11,7 +10,7 @@ public class MenuGame extends JFrame {
     private JLabel titleLabel, titleLabel2, bgLabel;
 
     public MenuGame() {
-        setTitle("Chess Game");
+        setTitle("Make A Move");
         setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -21,13 +20,13 @@ public class MenuGame extends JFrame {
         bgLabel.setLayout(null); 
         add(bgLabel);
 
-        titleLabel = new JLabel("Chess Game");
+        titleLabel = new JLabel("Make A Move");
         titleLabel.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 48));
         titleLabel.setForeground(new Color(217, 170, 110));
         titleLabel.setBounds(120, 80, 400, 60);
         bgLabel.add(titleLabel);
         
-        titleLabel2 = new JLabel("Chess Game");
+        titleLabel2 = new JLabel("Make A Move");
         titleLabel2.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 48));
         titleLabel2.setForeground(Color.WHITE);
         titleLabel2.setBounds(118, 82, 400, 60);
