@@ -18,7 +18,6 @@ public class Queen extends ChessPiece {
         this.name = "Queen";
         this.is_Chess = true;
     }
-
     @Override
     public List<point> ValidMoves() {
         List<point> res = new ArrayList<>();

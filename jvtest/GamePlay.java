@@ -8,9 +8,9 @@ import javax.swing.*;
 public class GamePlay extends javax.swing.JFrame {
 
     public static JButton[][] squares = new JButton[8][8];
-    public static JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    public static JPanel ArchievePanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
-    boolean clickedAChess = false; //Kiểm tra xem đã bấm vào chess hay chưa
+    public JPanel controlPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    public JPanel ArchievePanel = new JPanel(new FlowLayout(FlowLayout.LEADING));
+    boolean clickedAChess = false; // Kiểm tra xem đã bấm vào chess hay chưa
     point currPo = new point(-1, -1);
     Board board = new Board();
     public static List<Move> priorityMoves = new ArrayList<>();
@@ -22,13 +22,64 @@ public class GamePlay extends javax.swing.JFrame {
 
     public static Color turn = Color.white; //Check xem bên nào đang đi true là trắng, false là đen
 
-    public GamePlay() {
+    public GameTimer timerChess;
+    public JLabel whiteTimerLabel, blackTimerLabel;
+
+    public GamePlay(int minutes) {
         setTitle("Chess Game");
-        setSize(600, 700);
+        setSize(700, 700);
+        setBackground(Color.WHITE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setLocationRelativeTo(null);
 
-        //Tạo bàn cờ
+        whiteTimerLabel = new JLabel("White: " + String.format("%02d:00", minutes));
+        blackTimerLabel = new JLabel("Black: " + String.format("%02d:00", minutes));
+        whiteTimerLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        blackTimerLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        whiteTimerLabel.setForeground(Color.DARK_GRAY);
+        blackTimerLabel.setForeground(Color.BLACK);
+        whiteTimerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        blackTimerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JPanel timerPanel = new JPanel(new BorderLayout());
+        timerPanel.add(whiteTimerLabel, BorderLayout.NORTH);
+        timerPanel.add(blackTimerLabel, BorderLayout.SOUTH);
+        add(timerPanel, BorderLayout.EAST);
+
+        
+
+        if (minutes > 0) {
+            timerChess = new GameTimer(minutes, new GameTimer.OnTimeChangeListener() {
+                @Override
+                public void onWhiteTimeChange(int whiteSeconds) {
+                    whiteTimerLabel.setText("White: " + timerChess.formatTime(whiteSeconds));
+                }
+
+                @Override
+                public void onBlackTimeChange(int blackSeconds) {
+                    blackTimerLabel.setText("Black: " + timerChess.formatTime(blackSeconds));
+                }
+
+                @Override
+                public void onTimeUp(String side) {
+                    JOptionPane.showMessageDialog(GamePlay.this,
+                        side + " Chiến Thắng ",
+                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+    
+        timerChess.start();
+        }
+        else {
+            timerChess = null;
+            // whiteTimerLabel.setText("Not Limited Time");
+            // blackTimerLabel.setText("Not Limited Time");
+            whiteTimerLabel.setVisible(false);
+            blackTimerLabel.setVisible(false);
+        }
+
+        // Tạo bàn cờ
         JPanel chessBoard = new JPanel(new GridLayout(8, 8));
         chessBoard.setPreferredSize(new Dimension(500, 500));
         boolean white = true;
@@ -46,6 +97,7 @@ public class GamePlay extends javax.swing.JFrame {
                 if (white) {
                     squares[row][col].setBackground(new Color(240, 217, 181)); // light
                 } else {
+
                     squares[row][col].setBackground(new Color(181, 136, 99));  // dark
                 }
                 white = !white;
@@ -55,8 +107,9 @@ public class GamePlay extends javax.swing.JFrame {
         }
 
         // ===================Control Panel================
-        JButton replayBtn = new JButton("Replay");
-        controlPanel.add(replayBtn, BorderLayout.CENTER);
+
+        JButton pauseBtn = new JButton("Pause");
+        controlPanel.add(pauseBtn, BorderLayout.CENTER);
         controlPanel.add(CMtext, BorderLayout.EAST);
         ArchievePanel.add(BlackArchieve, BorderLayout.WEST);
         ArchievePanel.add(WhiteArchieve, BorderLayout.EAST);
@@ -65,11 +118,18 @@ public class GamePlay extends javax.swing.JFrame {
         add(controlPanel, BorderLayout.SOUTH);
         add(ArchievePanel, BorderLayout.NORTH);
         board.InitChessPlay();
-        //  WhiteBotMove();
+
+         // PauseBtn
+        pauseBtn.addActionListener(e -> {
+            if(timerChess != null){
+                timerChess.stop();
+            }
+            new PausePanel(timerChess,this, minutes).setVisible(true);
+        });
     }
 
     public void Warning(Board board) {
-
+        
         if (board.blackKing4.isCheckMate()) {
             CMtext.setText("CHECKMATE!");
             boolean check = BlackisLose();
@@ -78,6 +138,7 @@ public class GamePlay extends javax.swing.JFrame {
                 isGameOver = true;
             }
         } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
+    
             CMtext.setText("");
         }
 
@@ -93,6 +154,8 @@ public class GamePlay extends javax.swing.JFrame {
             CMtext.setText("");
             isCheckedMate = false;
         }
+
+        
     }
 
     public void WhiteEasyBotMove() {
@@ -151,7 +214,7 @@ public Move translateChessCode(String code){
 
 }
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new GamePlay().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new GamePlay(10).setVisible(true));
     }
 
     private void onSquareClicked(int r, int c) {
@@ -188,9 +251,9 @@ public Move translateChessCode(String code){
                             }
                             Board.chessBoard[currPo.i][currPo.j].deleteValidMove();
                             if (t.name != null && t.name.equals("Castle")) {
-                                int co = 0; //Màu để biết nên lấy con xe ở hàng nào
+                                int co = 7; //Màu để biết nên lấy con xe ở hàng nào
                                 if (Board.chessBoard[currPo.i][currPo.j].color == Color.BLACK) {
-                                    co = 7;
+                                    co = 0;
                                 }
                                 //Check hiệu của vị trí hiện tại và mục tiêu để xem phải hay trái
                                 if (currPo.j - c < 0) //Bên phải
@@ -245,6 +308,7 @@ public Move translateChessCode(String code){
                 }
             }
         }
+
         //  if (Board.chessBoard[r][c].name!=null && Board.chessBoard[r][c].name.compareTo("King")==0) showCheckMateMove();
     }
 
@@ -401,5 +465,4 @@ public Move translateChessCode(String code){
             squares[currPo.i][currPo.j].setForeground(color);
         }
     }
-
 }

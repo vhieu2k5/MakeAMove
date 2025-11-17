@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class King extends ChessPiece {
+public class King2 extends ChessPiece2 {
 
     int moveCount = 0;
 
-    public King(int i, int j, Color color) {
+    public King2(int i, int j, Color color) {
         this.x = i;
         this.y = j;
         this.color = color;
@@ -21,6 +21,7 @@ public class King extends ChessPiece {
         this.name = "King";
         this.is_Chess = true;
         this.moveCount = 0;
+        this.firstMove=false;
     }
 
     public void setMoveCount(int moveCount) {
@@ -30,17 +31,15 @@ public class King extends ChessPiece {
     @Override
     public List<point> ValidMoves() {
         List<point> res = new ArrayList<>();
-        this.PotentialMoves = new ArrayList<>();
         if (this.moveCount == 0) {
             //Check bên phải
             for (int j = this.y + 1; j < 8; j++) {
-                this.PotentialMoves.add(new point(x, j));
-                ChessPiece c = Board.chessBoard[this.x][j];
+                ChessPiece2 c = Board2.chessBoard[this.x][j];
                 if (c != null && c.name != null) {
                     if (!c.name.equals("Rock")) {
                         break;
                     } else {
-                        Rock r = (Rock) c;
+                        Rock2 r = (Rock2) c;
                         if (r.color == this.color && r.CanCastle()) {
                             res.add(new point(this.x, this.y + 2, "Castle"));
                         }
@@ -50,13 +49,12 @@ public class King extends ChessPiece {
             }
             //Check bên trái
             for (int j = this.y - 1; j >= 0; j--) {
-                this.PotentialMoves.add(new point(x, j));
-                ChessPiece c = Board.chessBoard[this.x][j];
+                ChessPiece2 c = Board2.chessBoard[this.x][j];
                 if (c != null && c.name != null) {
                     if (!c.name.equals("Rock")) {
                         break;
                     } else {
-                        Rock r = (Rock) c;
+                        Rock2 r = (Rock2) c;
                         if (r.color == this.color && r.CanCastle()) {
                             res.add(new point(this.x, this.y - 2, "Castle"));
                         }
@@ -68,8 +66,7 @@ public class King extends ChessPiece {
             //Check ở trên
             int i = this.x - 1;
             int j = this.y;
-            this.PotentialMoves.add(new point(i, j));
-            if (Board.chessBoard[i][j].getColor() == this.color) {
+            if (Board2.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -80,8 +77,7 @@ public class King extends ChessPiece {
             //Check ở dưới
             int i = this.x + 1;
             int j = this.y;
-            this.PotentialMoves.add(new point(i, j));
-            if (Board.chessBoard[i][j].getColor() == this.color) {
+            if (Board2.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -92,8 +88,7 @@ public class King extends ChessPiece {
             //Check chéo trên trái
             int i = this.x - 1;
             int j = this.y - 1;
-            this.PotentialMoves.add(new point(i, j));
-            if (Board.chessBoard[i][j].getColor() == this.color) {
+            if (Board2.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -104,8 +99,7 @@ public class King extends ChessPiece {
             //Check chéo trên phải
             int i = this.x - 1;
             int j = this.y + 1;
-            this.PotentialMoves.add(new point(i, j));
-            if (Board.chessBoard[i][j].getColor() == this.color) {
+            if (Board2.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -116,8 +110,7 @@ public class King extends ChessPiece {
             //Check phải
             int i = this.x;
             int j = this.y + 1;
-            this.PotentialMoves.add(new point(i, j));
-            if (Board.chessBoard[i][j].getColor() == this.color) {
+            if (Board2.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -128,8 +121,7 @@ public class King extends ChessPiece {
             //Check dưới phải
             int i = this.x + 1;
             int j = this.y + 1;
-            this.PotentialMoves.add(new point(i, j));
-            if (Board.chessBoard[i][j].getColor() == this.color) {
+            if (Board2.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -140,7 +132,7 @@ public class King extends ChessPiece {
             //Check dưới trái
             int i = this.x + 1;
             int j = this.y - 1;
-            if (Board.chessBoard[i][j].getColor() == this.color) {
+            if (Board2.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -151,8 +143,7 @@ public class King extends ChessPiece {
             //Check trái
             int i = this.x;
             int j = this.y - 1;
-            this.PotentialMoves.add(new point(i, j));
-            if (Board.chessBoard[i][j] == null || Board.chessBoard[i][j].getColor() == this.color) {
+            if (Board2.chessBoard[i][j] == null || Board2.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
@@ -165,26 +156,23 @@ public class King extends ChessPiece {
     public boolean CheckMateSingleMove(int x, int y) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                ChessPiece cp = Board.chessBoard[i][j];
-                if (cp != null && cp.is_Chess && cp != this && !this.color.equals(cp.color) && !(cp instanceof King)) {
-                    List<point> moves = cp.PotentialMoves;
+                ChessPiece2 cp = Board2.chessBoard[i][j];
+                if (cp != null && cp.is_Chess && cp != this && cp.color != GamePlay2.turn) {
+                    List<point> moves = cp.ValidMoves();
 
-                    //   for (point pt: moves){
-                    //     System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
-                    //   }
+                     for (point pt: moves){
+                         System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
+                     }
                     if (moves != null) {
                         for (point p : moves) {
-                          //  System.out.println(p.i + "&" + x + "-" + p.j + "&" + y);
+                             System.out.println(p.i+"&"+x+"-" +p.j+"&"+y);
                             if (p.i == x && p.j == y) {
-                              //  System.out.println("The chesspiece "+ Board.chessBoard[i][j].name + Board.chessBoard[i][j].getColor() + " is the Threat!!");
                                 return false;
-                            } 
-                            // else {
-                            //     System.out.println(cp.name + " " + x + " " + y + " Khong co cho nao de doa!");
-                            // }
+                            }
                         }
                     }
-
+                    else 
+                    System.out.println(cp.name +" "+ x+" "+y+ " Khong co cho nao de doa!");
                 }
             }
         }
@@ -195,4 +183,3 @@ public class King extends ChessPiece {
         return !CheckMateSingleMove(this.x, this.y);
     }
 }
-//i think I should go to hell with this game!😋
