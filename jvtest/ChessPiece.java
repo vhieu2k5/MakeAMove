@@ -51,12 +51,7 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
 
         public void setMove (point pre, int i, int j){ //Set là ô đã có quân cờ đặt
             if (pre!=null && pre.i>=0 && pre.j>=0) {
-<<<<<<< HEAD
-
-               Board2.chessBoard[pre.i][pre.j] = new NullChess(pre.i,pre.j);
-=======
                Board.chessBoard[pre.i][pre.j] = new NullChess(pre.i,pre.j);
->>>>>>> 528979fb03eaf86555742fd42212b06b5f941d76
             }
             Board.chessBoard[i][j]=this;
             // for (point p: Board.chessBoard[i][j].ValidMoves()){

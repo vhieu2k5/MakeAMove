@@ -57,12 +57,7 @@ public class Bishop extends ChessPiece {
                     res.add(new point(i,j));
                 }
                 else {
-<<<<<<< HEAD
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
-
-=======
                     if (Board.chessBoard[i][j].getColor()==this.color) {
->>>>>>> 528979fb03eaf86555742fd42212b06b5f941d76
                         break;
                     }
                     else {

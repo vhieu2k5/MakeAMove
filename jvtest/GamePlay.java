@@ -216,7 +216,7 @@ public class GamePlay extends javax.swing.JFrame {
                         turn = SwitchTurn(turn);
                         Warning(board); //Warning Chieeus Tuowngs!
                         //System.out.println(turn.toString());
-                        timerChess.switchTurn();
+                        if(timerChess != null) timerChess.switchTurn();
                     }
                 }
             }

@@ -142,12 +142,8 @@ public class King extends ChessPiece {
             //Check trái
             int i = this.x;
             int j = this.y - 1;
-<<<<<<< HEAD
-            if (Board2.chessBoard[i][j] == null || Board2.chessBoard[i][j].getColor() == this.color) {
-=======
             if (Board.chessBoard[i][j] == null || Board.chessBoard[i][j].getColor() == this.color) {
 
->>>>>>> 528979fb03eaf86555742fd42212b06b5f941d76
             } else {
                 res.add(new point(i, j));
             }

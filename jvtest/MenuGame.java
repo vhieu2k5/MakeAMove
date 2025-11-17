@@ -43,7 +43,7 @@ public class MenuGame extends JFrame {
         playButton.setBounds(235, 200, 130, 45);
         bgLabel.add(playButton);
 
-        play2Button = new JButton("Mode");
+        play2Button = new JButton("MODE");
         play2Button.setFont(new Font("Snap ITC", Font.BOLD | Font.ITALIC, 14));
         play2Button.setBackground(new Color(217, 170, 110));
         play2Button.setForeground(Color.WHITE);
@@ -63,41 +63,72 @@ public class MenuGame extends JFrame {
         bgLabel.add(instructionButton);
 
         playButton.addActionListener((ActionEvent e) -> {
-            String[] options = {"None", "3 phút", "10 phút", "20 phút", "30 phút"};
+            int check = 0;
+            String[] options = {"Level 1", "Level 2", "Level 3"};
             String selected = (String) JOptionPane.showInputDialog(
                     MenuGame.this,
-                    "⏳ Chọn thời gian cho mỗi bên:",
-                    "Chọn thời gian chơi",
+                    "Chọn level chơi phù hợp",
+                    "Chọn level",
                     JOptionPane.QUESTION_MESSAGE,
                     null,
                     options,
                     options[0]
             );
-
-            if (selected != null) {
-                int minutes = 5;
-
+         if (selected != null) 
                 switch (selected) {
-                    
-                    case "None": minutes = 0; break;
-                    case "3 phút": minutes = 3; break;
-                    case "10 phút": minutes = 10; break;
-                    case "20 phút": minutes = 20; break;
-                    case "30 phút": minutes = 30; break;
-                }
-                if(minutes < 0){
-                    new GamePlay(0).setVisible(true);
-                }
-                else{
-                    new GamePlay(minutes).setVisible(true);
-                    dispose(); 
-                }
+                
+                case "Level 1": check = 1; break;
+                case "Level 2": check = 2; break;
+                case "Level 3": check = 3; break;
                
             }
+            if(check == 1){
+
+            }
+            else if(check == 2){
+
+            }
+            else {
+
+            }
         });
+        
+        // playButton.addActionListener((ActionEvent e) -> {
+        //     String[] options = {"None", "3 phút", "10 phút", "20 phút", "30 phút"};
+        //     String selected = (String) JOptionPane.showInputDialog(
+        //             MenuGame.this,
+        //             "⏳ Chọn thời gian cho mỗi bên:",
+        //             "Chọn thời gian chơi",
+        //             JOptionPane.QUESTION_MESSAGE,
+        //             null,
+        //             options,
+        //             options[0]
+        //     );
+
+        //     if (selected != null) {
+        //         int minutes = 5;
+
+        //         switch (selected) {
+                    
+        //             case "None": minutes = 0; break;
+        //             case "3 phút": minutes = 3; break;
+        //             case "10 phút": minutes = 10; break;
+        //             case "20 phút": minutes = 20; break;
+        //             case "30 phút": minutes = 30; break;
+        //         }
+        //         if(minutes < 0){
+        //             new GamePlay(0).setVisible(true);
+        //         }
+        //         else{
+        //             new GamePlay(minutes).setVisible(true);
+        //             dispose(); 
+        //         }
+               
+        //     }
+        // });
 
         play2Button.addActionListener((ActionEvent e) -> {
-            String[] modeGame = {"Chơi với máy", "Chơi Cờ úp"};
+            String[] modeGame = {"Chơi với bạn", "Chơi Cờ úp"};
             String optionMode = (String) JOptionPane.showInputDialog(
                     MenuGame.this,
                     "⏳ Chọn chế độ chơi: ",
@@ -111,7 +142,7 @@ public class MenuGame extends JFrame {
             if(optionMode != null){
                 int check = 0;
                 switch (optionMode) {
-                    case "Chơi với máy": check=1;break;
+                    case "Chơi với bạn": check=1;break;
                 
                     case "Chơi Cờ úp": check=2;break;
                 }
@@ -120,7 +151,37 @@ public class MenuGame extends JFrame {
                     new GamePlay2().setVisible(true);
                 }
                 if(check == 1){
+                    String[] options = {"None", "3 phút", "10 phút", "20 phút", "30 phút"};
+                    String selected = (String) JOptionPane.showInputDialog(
+                            MenuGame.this,
+                            "⏳ Chọn thời gian cho mỗi bên:",
+                            "Chọn thời gian chơi",
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,
+                            options,
+                            options[0]
+                    );
+
+                    if (selected != null) {
+                        int minutes = 5;
+
+                        switch (selected) {
+                            
+                            case "None": minutes = 0; break;
+                            case "3 phút": minutes = 3; break;
+                            case "10 phút": minutes = 10; break;
+                            case "20 phút": minutes = 20; break;
+                            case "30 phút": minutes = 30; break;
+                        }
+                        if(minutes < 0){
+                            new GamePlay(0).setVisible(true);
+                        }
+                        else{
+                            new GamePlay(minutes).setVisible(true);
+                            dispose(); 
+                        }
                     
+                    }
                 }
             }
         });
