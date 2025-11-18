@@ -67,22 +67,10 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
         this.name = name;
     }
 
-<<<<<<< HEAD
-        public void setMove (point pre, int i, int j){ //Set là ô đã có quân cờ đặt
-            if (pre!=null && pre.i>=0 && pre.j>=0) {
-               Board.chessBoard[pre.i][pre.j] = new NullChess(pre.i,pre.j);
-            }
-            Board.chessBoard[i][j]=this;
-            // for (point p: Board.chessBoard[i][j].ValidMoves()){
-            //     System.out.println("Potential move of "+this.name+": "+p.i+" "+p.j);
-            // }
-            this.x = i;
-            this.y=j;
-=======
+
     public void setMove(point pre, int i, int j) { //Set là ô đã có quân cờ đặt
         if (pre != null && pre.i >= 0 && pre.j >= 0) {
             Board.chessBoard[pre.i][pre.j] = new NullChess(pre.i, pre.j);
->>>>>>> 909e3a926e03394965d560591eddbebffed3ff6d
         }
         Board.chessBoard[i][j] = this;
         // for (point p: Board.chessBoard[i][j].ValidMoves()){

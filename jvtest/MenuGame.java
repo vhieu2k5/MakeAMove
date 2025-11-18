@@ -91,40 +91,7 @@ public class MenuGame extends JFrame {
 
             }
         });
-        
-        // playButton.addActionListener((ActionEvent e) -> {
-        //     String[] options = {"None", "3 phút", "10 phút", "20 phút", "30 phút"};
-        //     String selected = (String) JOptionPane.showInputDialog(
-        //             MenuGame.this,
-        //             "⏳ Chọn thời gian cho mỗi bên:",
-        //             "Chọn thời gian chơi",
-        //             JOptionPane.QUESTION_MESSAGE,
-        //             null,
-        //             options,
-        //             options[0]
-        //     );
-
-        //     if (selected != null) {
-        //         int minutes = 5;
-
-        //         switch (selected) {
-                    
-        //             case "None": minutes = 0; break;
-        //             case "3 phút": minutes = 3; break;
-        //             case "10 phút": minutes = 10; break;
-        //             case "20 phút": minutes = 20; break;
-        //             case "30 phút": minutes = 30; break;
-        //         }
-        //         if(minutes < 0){
-        //             new GamePlay(0).setVisible(true);
-        //         }
-        //         else{
-        //             new GamePlay(minutes).setVisible(true);
-        //             dispose(); 
-        //         }
-               
-        //     }
-        // });
+    
 
         play2Button.addActionListener((ActionEvent e) -> {
             String[] modeGame = {"Chơi với bạn", "Chơi Cờ úp"};

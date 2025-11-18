@@ -151,10 +151,8 @@ public class King extends ChessPiece {
             //Check trái
             int i = this.x;
             int j = this.y - 1;
-<<<<<<< HEAD
-=======
+
             this.PotentialMoves.add(new point(i, j));
->>>>>>> 909e3a926e03394965d560591eddbebffed3ff6d
             if (Board.chessBoard[i][j] == null || Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {

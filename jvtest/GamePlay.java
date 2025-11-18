@@ -183,7 +183,7 @@ public class GamePlay extends javax.swing.JFrame {
 
     public void WhiteLevelBotMove(int level) {
         StockfishBot bot = new StockfishBot();
-        bot.startEngine("D:\\download\\MakeAMove\\jvtest\\engine\\stockfish-windows-x86-64-avx2.exe");
+        bot.startEngine("D:\\GitHub\\MakeAMove\\jvtest\\engine\\stockfish-windows-x86-64-avx2.exe");
         String fen = Board.generateFEN(turn);
         String move = bot.getBestMove(fen, level);
         Move bestMove = translateChessCode(move);
@@ -303,21 +303,8 @@ public Move translateChessCode(String code){
                             WhiteLevelBotMove(5);
                             Warning(board); //Warning Chieeus Tuowngs!
                             //System.out.println(turn.toString());
+                            if(timerChess != null) timerChess.switchTurn();
                         }
-<<<<<<< HEAD
-                        squares[currPo.i][currPo.j].setText(""); //Sau khi thay đổi xong trong mảng dữ liệu, cập nhật lại ui
-                        squares[r][c].setText(Board.chessBoard[r][c].symbol);
-                        squares[r][c].setFont(new Font("Serif", Font.BOLD, 36));
-                        squares[r][c].setForeground(Board.chessBoard[r][c].color);
-                        //System.out.println("UI xong");
-                        currPo = new point(-1, -1);
-                        clickedAChess = false;
-                        turn = SwitchTurn(turn);
-                        Warning(board); //Warning Chieeus Tuowngs!
-                        //System.out.println(turn.toString());
-                        if(timerChess != null) timerChess.switchTurn();
-=======
->>>>>>> 909e3a926e03394965d560591eddbebffed3ff6d
                     }
                 }
             }

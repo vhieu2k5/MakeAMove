@@ -44,23 +44,6 @@ public class Bishop extends ChessPiece {
                         break;
                     }
                 }
-<<<<<<< HEAD
-           i--;
-           j--;
-       }
-       }
-        
-       if (this.x>0 && this.y<7) {
-           //Check chéo trên phải
-       int i=this.x-1;
-       int j=this.y+1;
-       while (i>=0 && j<8) {
-           if (Board.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board.chessBoard[i][j].getColor()==this.color) {
-=======
                 i--;
                 j--;
             }
@@ -76,7 +59,6 @@ public class Bishop extends ChessPiece {
                     res.add(new point(i, j));
                 } else {
                     if (Board.chessBoard[i][j].getColor() == this.color) {
->>>>>>> 909e3a926e03394965d560591eddbebffed3ff6d
                         break;
                     } else {
                         res.add(new point(i, j));
