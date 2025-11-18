@@ -24,12 +24,12 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
             GamePlay.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
         }
         //Xem potential moves
-        //  List<point> potential = this.PotentialMoves;
+        //   List<point> potential = this.PotentialMoves;
         //  if (potential!=null)
-        //  for (point po: potential){
-        //      GamePlay.squares[po.i][po.j].setBorderPainted(true);
+        //   for (point po: potential){
+        //       GamePlay.squares[po.i][po.j].setBorderPainted(true);
         //     GamePlay.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.red, 5));
-        //  }
+        //   }
 
     }
 
@@ -68,15 +68,21 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
     }
 
     public void setMove(point pre, int i, int j) { //Set là ô đã có quân cờ đặt
-        if (pre != null && pre.i >= 0 && pre.j >= 0) {
+        if (pre != null && pre.i >= 0 && pre.j >= 0) { 
+            Board.setMoveBorder(pre.i, pre.j, i, j);
             Board.chessBoard[pre.i][pre.j] = new NullChess(pre.i, pre.j);
         }
         Board.chessBoard[i][j] = this;
+        //SetMoveCount cho Xe
+        if (this!=null && this.name!=null && this.name.equals("Rock")){
+           ((Rock) this).moveCount++;
+        }
         // for (point p: Board.chessBoard[i][j].ValidMoves()){
         //     System.out.println("Potential move of "+this.name+": "+p.i+" "+p.j);
         // }
         this.x = i;
         this.y = j;
+        
     }
 
     public Color getColor() {
@@ -84,6 +90,7 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
     }
 
     public void makeMove(int toX, int toY) {
+    
         Board.chessBoard[toX][toY] = Board.chessBoard[this.x][this.y];
         Board.chessBoard[this.x][this.y] = new NullChess(this.x, this.y);
     }

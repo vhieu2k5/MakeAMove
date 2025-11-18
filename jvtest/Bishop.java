@@ -26,7 +26,7 @@ public class Bishop extends ChessPiece {
     @Override
     public List<point> ValidMoves() {
         List<point> res = new ArrayList<>();
-        this.PotentialMoves= new ArrayList<>();
+        this.PotentialMoves = new ArrayList<>();
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         if (this.x > 0 && this.y > 0) {
             //Check chéo trên trái

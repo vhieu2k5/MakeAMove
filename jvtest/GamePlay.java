@@ -14,7 +14,7 @@ public class GamePlay extends javax.swing.JFrame {
     point currPo = new point(-1, -1);
     Board board = new Board();
     public static List<Move> priorityMoves = new ArrayList<>();
-    boolean isCheckedMate = false;
+    public static boolean isCheckedMate = false;
     boolean isGameOver = false;
     public static JLabel CMtext = new JLabel("");
     public static JLabel BlackArchieve = new JLabel(" ");
@@ -128,32 +128,34 @@ public class GamePlay extends javax.swing.JFrame {
         });
     }
 
-    public void Warning(Board board) {
-        
-        if (board.blackKing4.isCheckMate()) {
+    public void Warning() {
+        board.getAllValidMoves(Color.BLACK.toString());
+         if (Board.blackKing4.isCheck()) {
             CMtext.setText("CHECKMATE!");
             boolean check = BlackisLose();
-            if (check) {
-                CMtext.setText("You Lose!!!!!!");
-                isGameOver = true;
-            }
-        } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
-    
-            CMtext.setText("");
-        }
-
-        if (board.whiteKing4.isCheckMate()) {
-            isCheckedMate = true;
-            CMtext.setText("CHECKMATE!");
-            boolean check = WhiteisLose();
             if (check) {
                 CMtext.setText("You Win!!!!!!");
                 isGameOver = true;
             }
-        } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
+         } else if (CMtext.getText().equals("CHECKMATE!")) {
+             CMtext.setText("");
+         }
+      
+        board.getAllValidMoves(Color.white.toString());
+        if (Board.whiteKing4.isCheck()) {
+            isCheckedMate = true;
+            Board.showPriorityMoves();
+            CMtext.setText("CHECKMATE!");
+            boolean check = WhiteisLose();
+            if (check) {
+                CMtext.setText("You Lose!!!!!!");
+                isGameOver = true;
+            }
+        } else if (CMtext.getText().equals("CHECKMATE!")) {
             CMtext.setText("");
             isCheckedMate = false;
         }
+         
 
         
     }
@@ -162,7 +164,7 @@ public class GamePlay extends javax.swing.JFrame {
 
         ChessBot bot = new ChessBot();
         Move bestMove;
-        Warning(board);
+        Warning();
         bestMove = bot.findBestMove(Board.chessBoard); // Depth can be adjusted
 
         if (bestMove != null && !isCheckedMate) {
@@ -177,8 +179,8 @@ public class GamePlay extends javax.swing.JFrame {
 
         }
         turn = SwitchTurn(turn);
-        System.out.println("Black's turn!");
-        Warning(board);
+        System.out.println("Palyer's Turn!");
+        Warning();
     }
 
     public void WhiteLevelBotMove(int level) {
@@ -186,9 +188,9 @@ public class GamePlay extends javax.swing.JFrame {
         bot.startEngine("D:\\download\\MakeAMove\\jvtest\\engine\\stockfish-windows-x86-64-avx2.exe");
         String fen = Board.generateFEN(turn);
         String move = bot.getBestMove(fen, level);
-        Move bestMove = translateChessCode(move);
+        Move bestMove = Board.translateChessCode(move);
 
-         if (bestMove != null && !isCheckedMate) {
+         if (bestMove != null) {
             ChessPiece piece = Board.chessBoard[bestMove.fromX][bestMove.fromY];
             piece.setMove(new point(piece.x, piece.y), bestMove.toX, bestMove.toY);
 
@@ -200,19 +202,10 @@ public class GamePlay extends javax.swing.JFrame {
 
         }
         turn = SwitchTurn(turn);
-        System.out.println("Black's turn!");
-        Warning(board);
-        bot.stopEngine();
+        System.out.println("Player's Turn!");
+        Warning();
     }
-public Move translateChessCode(String code){
-     int fromY = code.charAt(0) - 'a';
-     int fromX = 8 - Character.getNumericValue(code.charAt(1));
-     int ToY = code.charAt(2) -'a' ;
-     int ToX =  8- Character.getNumericValue(code.charAt(3));
-     System.out.println("from: "+code+" to: "+fromX+fromY+ToX+ToY);
-     return new Move(fromX,fromY,ToX,ToY);
 
-}
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> new GamePlay(10).setVisible(true));
     }
@@ -245,7 +238,7 @@ public Move translateChessCode(String code){
                     {
                         if (t.i == r && t.j == c) {
                             String sym = Board.chessBoard[r][c].symbol;
-                            System.out.println(sym);
+                            
                             if (Board.chessBoard[r][c].is_Chess) {
                                 SetArchieve(sym);
                             }
@@ -281,7 +274,7 @@ public Move translateChessCode(String code){
                                     k.setMoveCount(1);
                                 }
                                 ChessPiece moved = Board.chessBoard[currPo.i][currPo.j];
-                                System.err.println(moved.name);
+                                
                                 if (moved.name != null && moved.name.equals("Pawn") && (r == 0 || r == 7)) {
                                     System.out.println("Phong hậu được!");
                                     promotePawn(r, c, moved.color);
@@ -298,10 +291,10 @@ public Move translateChessCode(String code){
                             currPo = new point(-1, -1);
                             clickedAChess = false;
                             turn = SwitchTurn(turn);
-                            System.out.println("White's turn!");
+                            System.out.println("Bot is Processing...");
                            // WhiteEasyBotMove();
                             WhiteLevelBotMove(5);
-                            Warning(board); //Warning Chieeus Tuowngs!
+                            Warning(); //Warning Chieeus Tuowngs!
                             //System.out.println(turn.toString());
                         }
                     }
@@ -352,7 +345,7 @@ public Move translateChessCode(String code){
                 if (piece == null || !piece.is_Chess) {
                     continue;
                 }
-                if (piece.color != turn) {
+                if (piece.color != Color.BLACK) {
                     continue;
                 }
 
@@ -367,7 +360,7 @@ public Move translateChessCode(String code){
                     ChessPiece captured = Board.chessBoard[p.i][p.j];
                     piece.makeMove(p.i, p.j);
                     // System.out.println("Moved " + piece.name + " to " + p.i + " " + p.j);
-                    boolean check = board.blackKing4.isCheckMate();
+                    boolean check = Board.blackKing4.isCheck();
                     //Undo
                     Board.chessBoard[p.i][p.j] = captured;
                     Board.chessBoard[fromPoint.i][fromPoint.j] = piece;
@@ -375,7 +368,7 @@ public Move translateChessCode(String code){
                     piece.y = fromPoint.j;
                     // System.out.println("Moved back to " + fromPoint.i + " " + fromPoint.j);
                     if (!check) {
-                        //  System.out.println("You can move the " + Board.chessBoard[i][j].name + "-" + Board.chessBoard[i][j].color + " to " + p.i + " " + p.j);
+                       // System.out.println("You can move the " + Board.chessBoard[i][j].name + "-" + Board.chessBoard[i][j].color + " to " + p.i + " " + p.j);
                         return false;
                     }
 
@@ -394,25 +387,23 @@ public Move translateChessCode(String code){
                 if (piece == null || !piece.is_Chess) {
                     continue;
                 }
-                if (piece.color != turn) {
+                if (piece.color != Color.white) {
                     continue;
                 }
                 List<point> moves;
-                //  if(piece.name.equals("Queen") || piece.name.equals("Bishop"))
-
                 moves = piece.ValidMoves();
-                //  else moves = piece.ValidMoves();
                 if (moves == null || moves.isEmpty()) {
                     continue;
                 }
-
                 point fromPoint = new point(piece.x, piece.y);
-
+                System.out.println(piece.name);
                 for (point p : moves) {
                     ChessPiece captured = Board.chessBoard[p.i][p.j];
                     piece.makeMove(p.i, p.j);
-                    //   System.out.println("Moved " + piece.name + " to " + p.i + " " + p.j);
-                    boolean check = board.whiteKing4.isCheckMate();
+                  System.out.println("Moved " + piece.name + " to " + p.i + " " + p.j);
+                   board.getAllValidMoves(Color.black.toString());
+                   board.getAllValidMoves(Color.white.toString()); //Reset Valid Moves cho chessboard
+                    boolean check = Board.whiteKing4.isCheck();
                     //Undo
                     Board.chessBoard[p.i][p.j] = captured;
                     Board.chessBoard[fromPoint.i][fromPoint.j] = piece;
@@ -421,9 +412,9 @@ public Move translateChessCode(String code){
                     //  System.out.println("Moved back to " + fromPoint.i + " " + fromPoint.j);
                     if (!check) {
                         finalcheck = false;
-                        //  System.out.println(turn.toString() + ": You can move the " + Board.chessBoard[i][j].name + "-" + Board.chessBoard[i][j].color + " to " + p.i + " " + p.j);
+                        System.out.println("Suggestion: You can move the " + Board.chessBoard[i][j].name + "-" + Board.chessBoard[i][j].color + " to " + p.i + " " + p.j);
                         priorityMoves.add(new Move(i, j, p.i, p.j));
-
+                       // break;
                     }
 
                 }
@@ -431,7 +422,6 @@ public Move translateChessCode(String code){
         }
         return finalcheck; // every possible move keeps king in check
     }
-
     private void promotePawn(int r, int c, Color color) {
         String[] options = {"Queen", "Rock", "Bishop", "Knight"};
         String choice = (String) JOptionPane.showInputDialog(

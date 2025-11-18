@@ -13,7 +13,7 @@ import java.util.List;
  * @author ADMIN
  */
 public class Rock extends ChessPiece {
-    int moveCount=0;
+    public int moveCount=0;
         public Rock(int i, int j, Color color) {
             this.x = i;
             this.y = j;
@@ -100,9 +100,11 @@ public class Rock extends ChessPiece {
                     }
                 }
             }
+     
+
         return res;
     }
     public boolean CanCastle() {
-        return moveCount==0;
+        return moveCount==1;
     }
 }

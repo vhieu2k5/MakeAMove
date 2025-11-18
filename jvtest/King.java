@@ -34,7 +34,7 @@ public class King extends ChessPiece {
         if (this.moveCount == 0) {
             //Check bên phải
             for (int j = this.y + 1; j < 8; j++) {
-                this.PotentialMoves.add(new point(x, j));
+                
                 ChessPiece c = Board.chessBoard[this.x][j];
                 if (c != null && c.name != null) {
                     if (!c.name.equals("Rock")) {
@@ -43,6 +43,7 @@ public class King extends ChessPiece {
                         Rock r = (Rock) c;
                         if (r.color == this.color && r.CanCastle()) {
                             res.add(new point(this.x, this.y + 2, "Castle"));
+                            this.PotentialMoves.add(new point(this.x, this.y+2));
                         }
                     }
                 }
@@ -50,7 +51,6 @@ public class King extends ChessPiece {
             }
             //Check bên trái
             for (int j = this.y - 1; j >= 0; j--) {
-                this.PotentialMoves.add(new point(x, j));
                 ChessPiece c = Board.chessBoard[this.x][j];
                 if (c != null && c.name != null) {
                     if (!c.name.equals("Rock")) {
@@ -59,6 +59,7 @@ public class King extends ChessPiece {
                         Rock r = (Rock) c;
                         if (r.color == this.color && r.CanCastle()) {
                             res.add(new point(this.x, this.y - 2, "Castle"));
+                            this.PotentialMoves.add(new point(this.x, this.y-2));
                         }
                     }
                 }
@@ -158,41 +159,41 @@ public class King extends ChessPiece {
                 res.add(new point(i, j));
             }
         }
-        res = res.stream().filter(pi -> CheckMateSingleMove(pi.i, pi.j)).collect(Collectors.toList());
+        res = res.stream().filter(pi -> !isSquareThreatened(pi.i, pi.j)).collect(Collectors.toList());
         return res;
     }
 
-    public boolean CheckMateSingleMove(int x, int y) {
+    public boolean isSquareThreatened(int x, int y) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece cp = Board.chessBoard[i][j];
-                if (cp != null && cp.is_Chess && cp != this && !this.color.equals(cp.color) && !(cp instanceof King)) {
+                if (cp != null && cp.name!=null && this.color!=cp.color && !(cp instanceof King)) {
                     List<point> moves = cp.PotentialMoves;
-
                     //   for (point pt: moves){
                     //     System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
                     //   }
-                    if (moves != null) {
+                    if (!moves.isEmpty()) {
                         for (point p : moves) {
-                          //  System.out.println(p.i + "&" + x + "-" + p.j + "&" + y);
+                            
+                           // System.out.println(p.i + "&" + x + "-" + p.j + "&" + y);
                             if (p.i == x && p.j == y) {
                               //  System.out.println("The chesspiece "+ Board.chessBoard[i][j].name + Board.chessBoard[i][j].getColor() + " is the Threat!!");
-                                return false;
+                                return true;
                             } 
-                            // else {
-                            //     System.out.println(cp.name + " " + x + " " + y + " Khong co cho nao de doa!");
-                            // }
+                            //  else {
+                            //      System.out.println(cp.name + " " + x + " " + y + " Khong co cho nao de doa!");
+                            //  }
                         }
                     }
 
                 }
             }
         }
-        return true;
+        return false;
     }
 
-    public boolean isCheckMate() {
-        return !CheckMateSingleMove(this.x, this.y);
+    public boolean isCheck() {
+        return isSquareThreatened(this.x, this.y);
     }
 }
 //i think I should go to hell with this game!😋

@@ -26,6 +26,7 @@ public class NullChess extends ChessPiece {
         this.is_Chess=false;
         this.name=null;
         this.symbol=null;
+        this.color=null;
     }
 
     /**

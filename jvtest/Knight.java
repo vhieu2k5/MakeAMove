@@ -13,128 +13,121 @@ import java.util.List;
  * @author ADMIN
  */
 public class Knight extends ChessPiece {
+
     public Knight(int i, int j, Color color) {
-            this.x = i;
-            this.y = j;
-            this.color = color;
-            this.symbol = "♘";
-            this.name = "Knight";
-            this.is_Chess=true;
-        }
+        this.x = i;
+        this.y = j;
+        this.color = color;
+        this.symbol = "♘";
+        this.name = "Knight";
+        this.is_Chess = true;
+    }
+
     @Override
     public List<point> ValidMoves() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         List<point> res = new ArrayList<>();
         this.PotentialMoves = new ArrayList<>();
-        
+
         int i;
         int j;
-        
-        if (this.x>1 && this.y<7) {
+
+        if (this.x > 1 && this.y < 7) {
             //Check chéo trên phải 1
-        i=this.x-2;
-        j=this.y+1;
-        this.PotentialMoves.add(new point(i, j));
-        if (Board.chessBoard[i][j].getColor()==this.color) {
-            
-            }
-            else {
-                res.add(new point(i,j));
+            i = this.x - 2;
+            j = this.y + 1;
+            this.PotentialMoves.add(new point(i, j));
+            if (Board.chessBoard[i][j].getColor() == this.color) {
+
+            } else {
+                res.add(new point(i, j));
             }
         }
-        
-        if (this.x>0 && this.y<6) {
+
+        if (this.x > 0 && this.y < 6) {
             //Check chéo trên phải 2
-        i=this.x-1;
-        j=this.y+2;
-        this.PotentialMoves.add(new point(i, j));
-        if (Board.chessBoard[i][j].getColor()==this.color) {
-            
-            }
-            else {
-                res.add(new point(i,j));
+            i = this.x - 1;
+            j = this.y + 2;
+            this.PotentialMoves.add(new point(i, j));
+            if (Board.chessBoard[i][j].getColor() == this.color) {
+
+            } else {
+                res.add(new point(i, j));
             }
         }
-        
-        if (this.x<7 && this.y<6) {
+
+        if (this.x < 7 && this.y < 6) {
             //Check chéo dưới phải 1
-        i=this.x+1;
-        j=this.y+2;
-        this.PotentialMoves.add(new point(i, j));
-        if (Board.chessBoard[i][j].getColor()==this.color) {
-            
-            }
-            else {
-                res.add(new point(i,j));
+            i = this.x + 1;
+            j = this.y + 2;
+            this.PotentialMoves.add(new point(i, j));
+            if (Board.chessBoard[i][j].getColor() == this.color) {
+
+            } else {
+                res.add(new point(i, j));
             }
         }
-        
-        if (this.x<6 && this.y<7) {
+
+        if (this.x < 6 && this.y < 7) {
             //Check chéo dưới phải 2
-        i=this.x+2;
-        j=this.y+1;
-        this.PotentialMoves.add(new point(i, j));
-        if (Board.chessBoard[i][j].getColor()==this.color) {
-            
-            }
-            else {
-                res.add(new point(i,j));
+            i = this.x + 2;
+            j = this.y + 1;
+            this.PotentialMoves.add(new point(i, j));
+            if (Board.chessBoard[i][j].getColor() == this.color) {
+
+            } else {
+                res.add(new point(i, j));
             }
         }
-        
-        if (this.x<6 && this.y>0) {
+
+        if (this.x < 6 && this.y > 0) {
             //Check chéo dưới trái 1
-        i=this.x+2;
-        j=this.y-1;
-        this.PotentialMoves.add(new point(i, j));
-        if (Board.chessBoard[i][j].getColor()==this.color) {
-            
-            }
-            else {
-                res.add(new point(i,j));
+            i = this.x + 2;
+            j = this.y - 1;
+            this.PotentialMoves.add(new point(i, j));
+            if (Board.chessBoard[i][j].getColor() == this.color) {
+
+            } else {
+                res.add(new point(i, j));
             }
         }
-        
-        if (this.x<7 && this.y>1) {
+
+        if (this.x < 7 && this.y > 1) {
             //Check chéo dưới trái 2
-        i=this.x+1;
-        j=this.y-2;
-        this.PotentialMoves.add(new point(i, j));
-        if (Board.chessBoard[i][j].getColor()==this.color) {
-            
-            }
-            else {
-                res.add(new point(i,j));
+            i = this.x + 1;
+            j = this.y - 2;
+            this.PotentialMoves.add(new point(i, j));
+            if (Board.chessBoard[i][j].getColor() == this.color) {
+
+            } else {
+                res.add(new point(i, j));
             }
         }
-        
-        if (this.x>0 && this.y>1) {
+
+        if (this.x > 0 && this.y > 1) {
             //Check chéo trên trái 1
-        i=this.x-1;
-        j=this.y-2;
-        this.PotentialMoves.add(new point(i, j));
-        if (Board.chessBoard[i][j].getColor()==this.color) {
-            
-            }
-            else {
-                res.add(new point(i,j));
+            i = this.x - 1;
+            j = this.y - 2;
+            this.PotentialMoves.add(new point(i, j));
+            if (Board.chessBoard[i][j].getColor() == this.color) {
+
+            } else {
+                res.add(new point(i, j));
             }
         }
-        
-        if (this.x>1 && this.y>0) {
+
+        if (this.x > 1 && this.y > 0) {
             //Check chéo trên trái 2
-        i=this.x-2;
-        j=this.y-1;
-        this.PotentialMoves.add(new point(i, j));
-        if (Board.chessBoard[i][j].getColor()==this.color) {
-            
-            }
-            else {
-                res.add(new point(i,j));
+            i = this.x - 2;
+            j = this.y - 1;
+            this.PotentialMoves.add(new point(i, j));
+            if (Board.chessBoard[i][j].getColor() == this.color) {
+
+            } else {
+                res.add(new point(i, j));
             }
         }
-        
-    
-    return res;
+
+        return res;
     }
 }

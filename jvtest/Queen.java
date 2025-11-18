@@ -18,6 +18,7 @@ public class Queen extends ChessPiece {
         this.name = "Queen";
         this.is_Chess = true;
     }
+
     @Override
     public List<point> ValidMoves() {
         List<point> res = new ArrayList<>();
@@ -63,12 +64,11 @@ public class Queen extends ChessPiece {
             if (Board.chessBoard[i][j].getName() == null) {
                 res.add(new point(i, j));
             } else if (Board.chessBoard[i][j].getColor() == this.color) {
-                    break;
-                } 
-            else {
-                    res.add(new point(i, j));
-                    break;
-                }
+                break;
+            } else {
+                res.add(new point(i, j));
+                break;
+            }
         }
 
         //Check bên phải
@@ -94,13 +94,12 @@ public class Queen extends ChessPiece {
                 this.PotentialMoves.add(new point(i, j));
                 if (Board.chessBoard[i][j].name == null) {
                     res.add(new point(i, j));
-                } else if (Board.chessBoard[i][j].getColor().equals(this.color) ) {
-                    System.out.println(i+"-"+j+ " hop le!");
+                } else if (Board.chessBoard[i][j].getColor().equals(this.color)) {
                     break;
                 } else {
-                        res.add(new point(i, j));
-                        break;
-                    }
+                    res.add(new point(i, j));
+                    break;
+                }
                 i--;
                 j--;
             }
@@ -118,7 +117,7 @@ public class Queen extends ChessPiece {
                     if (Board.chessBoard[i][j].getColor() == this.color) {
                         break;
                     } else {
-                        
+
                         res.add(new point(i, j));
                         break;
                     }
