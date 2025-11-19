@@ -1,5 +1,5 @@
 
-package Database;
+package Make_A_Move;
 
 import java.awt.*;
 import static java.awt.Color.decode;
@@ -98,9 +98,9 @@ public class SignUpForm extends JFrame {
                 }
             }
             
-            SignUp extra = new SignUp (userName, passWord);
+            SignUpTxt extra = new SignUpTxt(userName, passWord);
             db.addInfo(extra);
-            System.err.println("Đã lưu thông tin vào CSDL");
+            JOptionPane.showMessageDialog(SignUpForm.this,"Đã lưu thông tin vào CSDL");
             lg.setVisible(true);
         }
     }

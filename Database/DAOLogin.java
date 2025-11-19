@@ -1,13 +1,19 @@
-package Database;
+
+package Make_A_Move;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DAOLogin {
-    public int addInfo(SignUp t){
+    
+    public int addInfo(SignUpTxt t){
         int result = 0;
         String sqlCheck = "SELECT * FROM login_list WHERE userName = ?";
         String sqlInsert = """
@@ -41,8 +47,26 @@ public class DAOLogin {
         return result;
     }
     
-    public void Login(){
-        
+    public int loginUser(String userName, String Password){
+        String sql = "SELECT ID FROM login_list WHERE userName = ? AND passWord = ?";
+        try(
+            Connection conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/tour_pm", "root", "@trinhkien1211"
+            );
+            PreparedStatement pts = conn.prepareStatement(sql)
+            ){
+                pts.setString(1, userName);
+                pts.setString(2, Password);
+
+                ResultSet rs = pts.executeQuery();
+
+                if(rs.next()){
+                    return rs.getInt("ID");
+                }
+            }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
-

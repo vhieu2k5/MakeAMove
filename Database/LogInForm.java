@@ -1,12 +1,17 @@
-package Database;
+
+package Make_A_Move;
 
 import java.awt.Color;
 import static java.awt.Color.decode;
 import java.awt.Font;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import jvtest.MenuGame;
 
 public class LogInForm extends JFrame {
+    
+    DAOLogin db = new DAOLogin();
+    public MenuGame menu = new MenuGame();
     
     public LogInForm(){
         setTitle("Đăng nhập");
@@ -64,7 +69,26 @@ public class LogInForm extends JFrame {
             su.setVisible(true);
             dispose();
             
-        });   
+        });  
+        
+        btnOK.addActionListener(e -> {
+            String user = txtUser.getText().trim();
+            String pass = txtPass.getText().trim();
+            if(user.isEmpty() || pass.isEmpty()){
+                System.err.println("Vui lòng nhập đủ thông tin");
+                return;
+            }
+            
+            int res = db.loginUser(user, pass);
+            if(res > 0){
+                JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
+                dispose();
+                menu.setVisible(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Tài khoản không đúng!");
+            }
+        });
     }
     public static void main(String[] args){
         SwingUtilities.invokeLater(() -> new LogInForm().setVisible(true));
