@@ -23,14 +23,17 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
             GamePlay.squares[po.i][po.j].setBorderPainted(true);
             GamePlay.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
         }
-        //Xem potential moves
-        //   List<point> potential = this.PotentialMoves;
-        //  if (potential!=null)
-        //   for (point po: potential){
-        //       GamePlay.squares[po.i][po.j].setBorderPainted(true);
-        //     GamePlay.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.red, 5));
-        //   }
+       
 
+    }
+    public void showPotentialMoves(){
+         //Xem potential moves
+       List<point> potential = this.PotentialMoves;
+          if (potential!=null)
+           for (point po: potential){
+           GamePlay.squares[po.i][po.j].setBorderPainted(true);
+            GamePlay.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.red, 5));
+          }
     }
 
     public void deleteValidMove() {
@@ -93,6 +96,8 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
     
         Board.chessBoard[toX][toY] = Board.chessBoard[this.x][this.y];
         Board.chessBoard[this.x][this.y] = new NullChess(this.x, this.y);
+        this.x = toX;
+        this.y = toY;
     }
 
 }

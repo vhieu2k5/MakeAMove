@@ -47,93 +47,117 @@ public class Board { //Lớp bàn cờ
     }
 
     public static String generateFEN(Color turnColor) {
-        StringBuilder fen = new StringBuilder();
+    StringBuilder fen = new StringBuilder();
 
-        // Giả định: Các biến này được khởi tạo dựa trên thuộc tính hasMoved của Vua/Xe
-        // LƯU Ý: Cần phải truy cập các thuộc tính hasMoved của King và Rook ở vị trí khởi tạo.
-        boolean whiteKingMoved = (whiteKing4.moveCount != 0);
-        boolean blackKingMoved = (blackKing4.moveCount != 0);
-        boolean whiteRookQSideMoved = false;
-        boolean whiteRookKSideMoved = false;
-        boolean blackRookQSideMoved = false;
-        boolean blackRookKSideMoved = false;
-        // Giả định bạn có thể truy cập Xe tại [7][0], [7][7], [0][0], [0][7]
-        if (Board.chessBoard[7][0] != null && Board.chessBoard[7][0].getName() != null && Board.chessBoard[7][0].getName().equals("Rock")) {
-            whiteRookQSideMoved = ((Rock) Board.chessBoard[7][0]).CanCastle();
-        }
+    // ----------------------------------------------------
+    // PHẦN 1: XÁC ĐỊNH QUYỀN NHẬP THÀNH (ĐÃ SỬA LỖI LOGIC)
+    // Quyền nhập thành bị mất khi Vua hoặc Xe xuất phát đã di chuyển.
+    
+    // Giả định: whiteKing4 và blackKing4 có thuộc tính moveCount
+    boolean whiteKingMoved = (Board.whiteKing4.moveCount != 0);
+    boolean blackKingMoved = (Board.blackKing4.moveCount != 0);
 
-        if (Board.chessBoard[7][7] != null && Board.chessBoard[7][7].getName() != null && Board.chessBoard[7][7].getName().equals("Rock")) {
-            whiteRookKSideMoved = ((Rock) Board.chessBoard[7][7]).CanCastle();
-        }
+    boolean whiteRookQSideMoved = true; // [7][0] - Cánh Hậu (Q)
+    boolean whiteRookKSideMoved = true; // [7][7] - Cánh Vua (K)
+    boolean blackRookQSideMoved = true; // [0][0] - Cánh Hậu (q)
+    boolean blackRookKSideMoved = true; // [0][7] - Cánh Vua (k)
 
-        if (Board.chessBoard[0][0] != null && Board.chessBoard[0][0].getName() != null && Board.chessBoard[0][0].getName().equals("Rock")) {
-            blackRookQSideMoved = ((Rock) Board.chessBoard[0][0]).CanCastle();
-        }
-        if (Board.chessBoard[0][7] != null && Board.chessBoard[0][7].getName() != null && Board.chessBoard[0][7].getName().equals("Rock")) {
-            blackRookKSideMoved = !((Rock) Board.chessBoard[0][7]).CanCastle();
-        }
-
-        // PHẦN 1: Bàn cờ (Đã sửa logic ô trống)
-        for (int row = 0; row < 8; row++) {
-            int emptyCount = 0;
-            for (int col = 0; col < 8; col++) {
-                ChessPiece piece = chessBoard[row][col];
-
-                // Logic ô trống an toàn hơn (Giả định: ô trống là null)
-                if (piece.getColor() == null) {
-                    emptyCount++;
-                } else {
-                    if (emptyCount > 0) {
-                        fen.append(emptyCount);
-                        emptyCount = 0;
-                    }
-                    // Giả định convertPieceToFEN(piece) hoạt động đúng (ví dụ: 'r', 'N', 'k')
-                    fen.append(convertPieceToFEN(piece));
-                }
-            }
-
-            if (emptyCount > 0) {
-                fen.append(emptyCount);
-            }
-            if (row < 7) {
-                fen.append("/");
-            }
-        }
-
-        // PHẦN 2: Lượt đi
-        String turn = (turnColor == Color.white) ? "w" : "b";
-        fen.append(" ").append(turn);
-
-        // PHẦN 3: Quyền nhập thành (ĐÃ SỬA LỖI CÚ PHÁP)
-        StringBuilder castlingRights = new StringBuilder();
-
-        // Xây dựng chuỗi quyền nhập thành
-        if (!whiteKingMoved && !whiteRookKSideMoved) {
-            castlingRights.append("K");
-        }
-        if (!whiteKingMoved && !whiteRookQSideMoved) {
-            castlingRights.append("Q");
-        }
-        if (!blackKingMoved && !blackRookKSideMoved) {
-            castlingRights.append("k");
-        }
-        if (!blackKingMoved && !blackRookQSideMoved) {
-            castlingRights.append("q");
-        }
-
-        if (castlingRights.length() == 0) {
-            fen.append(" -");
-        } else {
-            fen.append(" ").append(castlingRights.toString());
-        }
-
-        // PHẦN 4, 5, 6: En Passant, Halfmove, Fullmove
-        // Bạn nên sử dụng biến thực cho 3 trường này, không nên hardcode "- 0 1"
-        fen.append(" - 0 1");
-
-        System.out.println("FEN: " + fen.toString());
-        return fen.toString();
+    // Kiểm tra Xe Trắng cánh Hậu (A1 - [7][0])
+    ChessPiece whiteQSideRook = Board.chessBoard[7][7];
+    // Chú ý: Tên quân cờ chuẩn là "Rook", không phải "Rock"
+    if (whiteQSideRook != null && whiteQSideRook.getName() != null && whiteQSideRook.getName().equals("Rock")) { 
+        // Giả định: Rook có thuộc tính 'hasMoved' hoặc 'moveCount'
+        // KHÔNG sử dụng CanCastle() vì nó là một kiểm tra phức tạp
+        whiteRookQSideMoved = ((Rock) whiteQSideRook).moveCount != 1; 
     }
+
+    // Kiểm tra Xe Trắng cánh Vua (H1 - [7][7])
+    ChessPiece whiteKSideRook = Board.chessBoard[7][0];
+    if (whiteKSideRook != null && whiteKSideRook.getName() != null && whiteKSideRook.getName().equals("Rock")) {
+        whiteRookKSideMoved = ((Rock) whiteKSideRook).moveCount != 1;
+    }
+
+    // Kiểm tra Xe Đen cánh Hậu (A8 - [0][0])
+    ChessPiece blackQSideRook = Board.chessBoard[0][7];
+    if (blackQSideRook != null && blackQSideRook.getName() != null && blackQSideRook.getName().equals("Rock")) {
+        blackRookQSideMoved = ((Rock) blackQSideRook).moveCount != 1;
+    }
+    
+    // Kiểm tra Xe Đen cánh Vua (H8 - [0][7])
+    ChessPiece blackKSideRook = Board.chessBoard[0][0];
+    // Đã sửa lỗi bất nhất, dùng logic tương tự
+    if (blackKSideRook != null && blackKSideRook.getName() != null && blackKSideRook.getName().equals("Rock")) {
+        blackRookKSideMoved = ((Rock) blackKSideRook).moveCount != 1;
+    }
+    // ----------------------------------------------------
+
+
+    // PHẦN 2: Bàn cờ
+    for (int row = 0; row < 8; row++) {
+        int emptyCount = 0;
+        for (int col = 0; col < 8; col++) {
+            ChessPiece piece = Board.chessBoard[row][col];
+
+            // LƯU Ý: Đây là logic kiểm tra ô trống của bạn.
+            // Nếu piece là null, nó sẽ gây ra NullPointerException ở piece.getColor(). 
+            // Cần kiểm tra if (piece == null) trước tiên nếu ô trống là null.
+            if (piece.getColor() == null) {
+                emptyCount++;
+            } else {
+                if (emptyCount > 0) {
+                    fen.append(emptyCount);
+                    emptyCount = 0;
+                }
+                fen.append(convertPieceToFEN(piece));
+            }
+        }
+
+        if (emptyCount > 0) {
+            fen.append(emptyCount);
+        }
+        if (row < 7) {
+            fen.append("/");
+        }
+    }
+
+    // PHẦN 3: Lượt đi
+    String turn = (turnColor == Color.white) ? "w" : "b";
+    fen.append(" ").append(turn);
+
+    // PHẦN 4: Quyền nhập thành (ĐÃ SỬA CÚ PHÁP CHUẨN FEN)
+    StringBuilder castlingRights = new StringBuilder();
+
+    // Vua Trắng chưa di chuyển VÀ Xe cánh Vua chưa di chuyển
+    if (!whiteKingMoved && !whiteRookKSideMoved) {
+        castlingRights.append("K");
+    }
+    // Vua Trắng chưa di chuyển VÀ Xe cánh Hậu chưa di chuyển
+    if (!whiteKingMoved && !whiteRookQSideMoved) {
+        castlingRights.append("Q");
+    }
+    // Vua Đen chưa di chuyển VÀ Xe cánh Vua chưa di chuyển
+    if (!blackKingMoved && !blackRookKSideMoved) {
+        castlingRights.append("k");
+    }
+    // Vua Đen chưa di chuyển VÀ Xe cánh Hậu chưa di chuyển
+    if (!blackKingMoved && !blackRookQSideMoved) {
+        castlingRights.append("q");
+    }
+
+    if (castlingRights.length() == 0) {
+        fen.append(" -");
+    } else {
+        fen.append(" ").append(castlingRights.toString());
+    }
+
+    // PHẦN 5, 6, 7: En Passant, Halfmove, Fullmove
+    // LƯU Ý: "- 0 1" bị hardcode. Bạn cần sử dụng các biến thực:
+    // Ví dụ: fen.append(" ").append(enPassantSquare).append(" ").append(halfMoveClock).append(" ").append(fullMoveNumber);
+    fen.append(" - 0 1");
+
+    System.out.println("FEN: " + fen.toString());
+    return fen.toString();
+}
 
     private static char convertPieceToFEN(ChessPiece piece) {
         String name = piece.getName();
@@ -290,37 +314,20 @@ public class Board { //Lớp bàn cờ
         }
     }
 
-    public List<point> getAllValidMoves(String color) {
+    public static List<point> getAllValidMoves(String color) {
         List<point> validMoves = new ArrayList<>();
+        List<point> potentialMoves = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (chessBoard[i][j].getColor() != null) {
-                    if (chessBoard[i][j].getColor().toString().equalsIgnoreCase(color)) {
+                if (chessBoard[i][j] != null && chessBoard[i][j].is_Chess) {
+                    if (chessBoard[i][j].color.toString().equalsIgnoreCase(color)) {
                         validMoves.addAll(chessBoard[i][j].ValidMoves());
+                        potentialMoves.addAll(chessBoard[i][j].PotentialMoves);
                     }
                 }
             }
         }
-        return validMoves;
-    }
-
-    public static boolean isGameOver() {
-        boolean whiteKingAlive = false;
-        boolean blackKingAlive = false;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                if (chessBoard[i][j] != null && chessBoard[i][j].getName() != null) {
-                    if (chessBoard[i][j].getName().equals("King")) {
-                        if (chessBoard[i][j].getColor() == Color.WHITE) {
-                            whiteKingAlive = true;
-                        } else if (chessBoard[i][j].getColor() == Color.BLACK) {
-                            blackKingAlive = true;
-                        }
-                    }
-                }
-            }
-        }
-        return !(whiteKingAlive && blackKingAlive);
+        return potentialMoves;
     }
 
     public static void setMoveBorder(int fromX, int fromY, int toX, int toY) {

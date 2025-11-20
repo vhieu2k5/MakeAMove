@@ -41,7 +41,7 @@ public class ChessBot {
         return bestMove;
     }
 private int minimax(ChessPiece[][] board, int depth, int alpha, int beta, boolean isMaximizing) {
-    if (depth == 0 || Board.isGameOver()) {
+    if (depth == 0 || GamePlay.isGameOver) {
         return evaluateBoard(board);
     }
 

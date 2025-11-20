@@ -164,20 +164,21 @@ public class King extends ChessPiece {
     }
 
     public boolean isSquareThreatened(int x, int y) {
+        
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece cp = Board.chessBoard[i][j];
-                if (cp != null && cp.name!=null && this.color!=cp.color && !(cp instanceof King)) {
+                if (cp != null && cp.name!=null && !this.color.equals(cp.color) && !(cp instanceof King && this.color.equals(cp.color))) {
                     List<point> moves = cp.PotentialMoves;
                     //   for (point pt: moves){
                     //     System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
                     //   }
+                   
                     if (!moves.isEmpty()) {
                         for (point p : moves) {
-                            
-                           // System.out.println(p.i + "&" + x + "-" + p.j + "&" + y);
+                           // System.out.println("p: " +p.i+"-"+p.j+ " so vs tham so: "+x+"-"+y);
                             if (p.i == x && p.j == y) {
-                              //  System.out.println("The chesspiece "+ Board.chessBoard[i][j].name + Board.chessBoard[i][j].getColor() + " is the Threat!!");
+                              //  System.out.println("The chesspiece "+ Board.chessBoard[i][j].name +" at "+i+" "+j + Board.chessBoard[i][j].getColor() + " is the Threat for the King at "+x+" "+y);
                                 return true;
                             } 
                             //  else {
@@ -193,6 +194,16 @@ public class King extends ChessPiece {
     }
 
     public boolean isCheck() {
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (Board.chessBoard[i][j] != null && Board.chessBoard[i][j].is_Chess) {
+                    if (Board.chessBoard[i][j].color.toString().equalsIgnoreCase(Color.black.toString()) && !(Board.chessBoard[i][j] instanceof King)) {
+                        Board.chessBoard[i][j].ValidMoves();
+                    }
+                }
+            }
+        }
         return isSquareThreatened(this.x, this.y);
     }
 }

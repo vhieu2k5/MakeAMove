@@ -1,114 +1,85 @@
 package jvtest;
 
 import java.io.*;
+import java.util.concurrent.*;
 
 public class StockfishBot {
+
     private Process engineProcess;
-    private BufferedReader processReader;
     private BufferedWriter processWriter;
+    private BlockingQueue<String> outputQueue = new LinkedBlockingQueue<>();
 
     public boolean startEngine(String pathToEngine) {
         try {
             ProcessBuilder pb = new ProcessBuilder(pathToEngine);
             pb.redirectErrorStream(true);
             engineProcess = pb.start();
-            processReader = new BufferedReader(new InputStreamReader(engineProcess.getInputStream()));
+
             processWriter = new BufferedWriter(new OutputStreamWriter(engineProcess.getOutputStream()));
+
+            // THREAD ĐỌC OUTPUT
+            new Thread(() -> {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(engineProcess.getInputStream()))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        outputQueue.offer(line);
+                    }
+                } catch (Exception ignored) {}
+            }).start();
+
+            sendCommand("uci");
             return true;
         } catch (Exception e) {
-            System.out.println("Cannot Start the engine!");
+            System.out.println("Cannot start Stockfish!");
             e.printStackTrace();
             return false;
         }
     }
 
     public void sendCommand(String command) {
-        if (processWriter!=null && engineProcess.isAlive())
-        {
-             try {
-            
-            processWriter.write(command + "\n");
-            processWriter.flush();
-            
-            
-        } catch (IOException e) {
-            System.out.println("Cannot send the command!");
-            e.printStackTrace();
-        }
-        }
-       
-    }
-
-    public String getOutput(int waitTimeMs) {
-        StringBuilder buffer = new StringBuilder();
         try {
-            Thread.sleep(waitTimeMs);
-            while (processReader.ready()) {
-                buffer.append(processReader.readLine()).append("\n");
+            if (engineProcess.isAlive()) {
+                processWriter.write(command + "\n");
+                processWriter.flush();
             }
         } catch (Exception e) {
-            System.out.println("Cannot getoutput the engine!");
+            System.out.println("Cannot send command: " + command);
             e.printStackTrace();
-
         }
-        return buffer.toString();
     }
 
     public String getBestMove(String fen, int depth) {
+        outputQueue.clear(); // clear output cũ
+
         sendCommand("position fen " + fen);
         sendCommand("go depth " + depth);
 
-        String output;
-        String bestmove = null;
         try {
             while (true) {
-                output = processReader.readLine();
-                if (output == null) break;
-                if (output.startsWith("bestmove")) {
-                    bestmove = output.split(" ")[1];
-                    break;
+                String line = outputQueue.poll(3, TimeUnit.SECONDS);
+                if (line == null) return null; // timeout
+
+                if (line.startsWith("bestmove")) {
+                    return line.split(" ")[1];
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Cannot get the best move!");
-            e.printStackTrace();
+        } catch (Exception e) {
+            return null;
         }
-        return bestmove;
     }
 
-public void stopEngine() {
-    try {
-        // 1. Gửi lệnh quit để engine tự tắt
-        if (engineProcess.isAlive()) {
-            sendCommand("quit"); 
-            // Cần flush ngay lập tức để đảm bảo lệnh được gửi
-            processWriter.flush(); 
-        }
-
-        // 2. Đóng luồng ghi (Đây là nơi lỗi xảy ra: writer.close())
-        // Nếu đã gọi lệnh quit, tiến trình con sẽ đóng pipe, gây ra lỗi khi bạn gọi close()
-        // Cần đóng luồng một cách an toàn hơn.
-        
-        // 3. Chờ tiến trình kết thúc (timeout là an toàn)
-        engineProcess.waitFor(1, java.util.concurrent.TimeUnit.SECONDS); 
-        
-    } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-    } catch (IOException e) {
-        // Chỉ ghi log lỗi khi cố gắng đóng, không cần phải crash.
-        System.err.println("Warning: Error closing pipe (may already be closed): " + e.getMessage());
-    } finally {
-        // Đảm bảo đóng writer và hủy tiến trình nếu cần
+    public void stopEngine() {
         try {
-            if (processWriter != null) {
-                processWriter.close();
-            }
-        } catch (IOException e) {
-            // Log nhưng không làm gián đoạn
-        }
-        if (engineProcess != null && engineProcess.isAlive()) {
+            sendCommand("quit");
+            processWriter.flush();
+        } catch (Exception ignored) {}
+
+        try {
+            engineProcess.waitFor(1, TimeUnit.SECONDS);
+        } catch (Exception ignored) {}
+
+        if (engineProcess.isAlive()) {
             engineProcess.destroy();
         }
     }
-}
 }
