@@ -16,6 +16,8 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
 
     public abstract List<point> ValidMoves();
 
+    public abstract ChessPiece copy();
+
     public void showValidMove() {
         List<point> p = this.ValidMoves();
         for (point po : p) {

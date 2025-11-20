@@ -195,5 +195,13 @@ public class King extends ChessPiece {
     public boolean isCheckMate() {
         return !CheckMateSingleMove(this.x, this.y);
     }
+
+    @Override
+    public ChessPiece copy() {
+        King p = new King(this.x, this.y, this.color);
+        p.is_Chess = this.is_Chess;
+        p.symbol = this.symbol;
+        p.PotentialMoves = new ArrayList<>(this.PotentialMoves);
+        return p;
+    }
 }
-//i think I should go to hell with this game!😋

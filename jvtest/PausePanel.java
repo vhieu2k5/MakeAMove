@@ -20,7 +20,7 @@ public class PausePanel extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(null);
 
-        ImageIcon bgIcon = new ImageIcon("../MakeAMove/pics/pausePanel.jpg");
+        ImageIcon bgIcon = new ImageIcon("..\\Make_a_move\\src\\Pics\\pausePanel.jpg");
         JLabel pauseGame = new JLabel(bgIcon);
         pauseGame.setBounds(0, 0, 400, 400);
 
@@ -57,7 +57,7 @@ public class PausePanel extends JFrame {
                 gamePlay.dispose();
             }
 
-            new GamePlay(minutes).setVisible(true);
+            new GamePlay(minutes,"1vs1", 1001, "TTK").setVisible(true);
             dispose();
         });
 

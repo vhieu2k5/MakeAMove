@@ -115,4 +115,13 @@ public class Bishop extends ChessPiece {
         return res;
     }
 
+        @Override
+    public ChessPiece copy() {
+        Bishop p = new Bishop(this.x, this.y, this.color);
+        p.is_Chess = this.is_Chess;
+        p.symbol = this.symbol;
+        p.PotentialMoves = new ArrayList<>(this.PotentialMoves);
+        return p;
+    }
+
 }

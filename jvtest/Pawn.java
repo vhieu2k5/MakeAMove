@@ -193,4 +193,12 @@ public class Pawn extends ChessPiece { //Quân tốt
         return res;
     }
     
+    @Override
+    public ChessPiece copy() {
+        Pawn p = new Pawn(this.x, this.y, this.color);
+        p.is_Chess = this.is_Chess;
+        p.symbol = this.symbol;
+        p.PotentialMoves = new ArrayList<>(this.PotentialMoves);
+        return p;
+    }
 }

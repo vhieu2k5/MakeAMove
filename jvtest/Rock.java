@@ -105,4 +105,13 @@ public class Rock extends ChessPiece {
     public boolean CanCastle() {
         return moveCount==0;
     }
+
+    @Override
+    public ChessPiece copy() {
+        Rock p = new Rock(this.x, this.y, this.color);
+        p.is_Chess = this.is_Chess;
+        p.symbol = this.symbol;
+        p.PotentialMoves = new ArrayList<>(this.PotentialMoves);
+        return p;
+    }
 }

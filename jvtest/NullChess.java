@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package jvtest;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,4 +41,12 @@ public class NullChess extends ChessPiece {
     public void deleteValidMove() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     } 
+        @Override
+    public ChessPiece copy() {
+        NullChess p = new NullChess(this.x, this.y);
+        p.is_Chess = this.is_Chess;
+        p.symbol = this.symbol;
+        p.PotentialMoves = new ArrayList<>(this.PotentialMoves);
+        return p;
+    }
 }
