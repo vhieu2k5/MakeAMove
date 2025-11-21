@@ -41,4 +41,5 @@ public class NullChess extends ChessPiece {
     public void deleteValidMove() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     } 
+      
 }

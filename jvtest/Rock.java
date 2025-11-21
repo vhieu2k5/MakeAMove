@@ -107,4 +107,5 @@ public class Rock extends ChessPiece {
     public boolean CanCastle() {
         return moveCount==1;
     }
+
 }

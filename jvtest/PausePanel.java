@@ -57,7 +57,7 @@ public class PausePanel extends JFrame {
                 gamePlay.dispose();
             }
 
-            new GamePlay(minutes,MenuGame.level).setVisible(true);
+            new GamePlay(MenuGame.timer,MenuGame.mode,1001,"TTK").setVisible(true);
             dispose();
         });
 

@@ -207,5 +207,6 @@ public class King extends ChessPiece {
         }
         return isSquareThreatened(this.x, this.y);
     }
+
+
 }
-//i think I should go to hell with this game!😋

@@ -23,6 +23,7 @@ public class GamePlay2 extends javax.swing.JFrame {
 
     // public GameTimer timerChess;
     // public JLabel whiteTimerLabel, blackTimerLabel;
+    private String gameMode;
 
     public GamePlay2() {
         
@@ -31,7 +32,8 @@ public class GamePlay2 extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
-
+        
+        this.gameMode = "up"; 
         //Tạo bàn cờ
         JPanel chessBoard = new JPanel(new GridLayout(8, 8));
         chessBoard.setPreferredSize(new Dimension(500, 500));
@@ -90,9 +92,9 @@ public class GamePlay2 extends javax.swing.JFrame {
         }
     }
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new GamePlay2().setVisible(true));
-    }
+//    public static void main(String args[]) {
+//        java.awt.EventQueue.invokeLater(() -> new GamePlay2().setVisible(true));
+//    }
 
     private void onSquareClicked(int r, int c) {
         //System.out.println(r + " " + c);

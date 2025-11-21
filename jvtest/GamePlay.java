@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+import make_a_move.DAOHistory;
 
 public class GamePlay extends javax.swing.JFrame {
 
@@ -24,14 +25,26 @@ public class GamePlay extends javax.swing.JFrame {
 
     public GameTimer timerChess;
     public JLabel whiteTimerLabel, blackTimerLabel;
+    
+    //DB
+    private boolean isSaved = false;
+    private int currentUserID;
+    private String currentUserName;
+    public String gameMode;
 
-    public GamePlay(int minutes, int level) {
+
+
+    public GamePlay(int minutes, String gameMode, int currentUserID, String currentUserName) {
         setTitle("Chess Game");
-        setSize(700, 700);
+        setSize(800, 800);
         setBackground(Color.WHITE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
+        
+        this.currentUserID = currentUserID;
+        this.currentUserName = currentUserName;
+        this.gameMode = gameMode;
 
         whiteTimerLabel = new JLabel("White: " + String.format("%02d:00", minutes));
         blackTimerLabel = new JLabel("Black: " + String.format("%02d:00", minutes));
@@ -43,8 +56,8 @@ public class GamePlay extends javax.swing.JFrame {
         blackTimerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         JPanel timerPanel = new JPanel(new BorderLayout());
-        timerPanel.add(whiteTimerLabel, BorderLayout.NORTH);
-        timerPanel.add(blackTimerLabel, BorderLayout.SOUTH);
+        timerPanel.add(whiteTimerLabel, BorderLayout.SOUTH);
+        timerPanel.add(blackTimerLabel, BorderLayout.NORTH);
         add(timerPanel, BorderLayout.EAST);
 
         if (minutes > 0) {
@@ -62,16 +75,24 @@ public class GamePlay extends javax.swing.JFrame {
                 @Override
                 public void onTimeUp(String side) {
                     JOptionPane.showMessageDialog(GamePlay.this,
-                            side + " Chiến Thắng ",
-                            "Game Over", JOptionPane.INFORMATION_MESSAGE);
+
+                        side + " Chiến Thắng ",
+                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
+
+                    if (!isSaved) {
+                        if (side.equalsIgnoreCase("White")) {
+                            saveResultToDB("Win");   // nếu người chơi là White thắng
+                        } else {
+                            saveResultToDB("Lose");  // nếu người chơi là Black thắng
+                        }
+                        isGameOver = true;
+                    }
                 }
             });
 
             timerChess.start();
         } else {
             timerChess = null;
-            // whiteTimerLabel.setText("Not Limited Time");
-            // blackTimerLabel.setText("Not Limited Time");
             whiteTimerLabel.setVisible(false);
             blackTimerLabel.setVisible(false);
         }
@@ -122,9 +143,35 @@ public class GamePlay extends javax.swing.JFrame {
             }
             new PausePanel(timerChess, this, minutes).setVisible(true);
         });
+
+        JPanel undoPanel = new JPanel(new BorderLayout());
+        JButton undoWhiteBtn = new JButton("↶");
+        JButton undoBlackBtn = new JButton("↶");
+        undoPanel.add(undoWhiteBtn, BorderLayout.SOUTH);
+        undoPanel.add(undoBlackBtn, BorderLayout.NORTH);
+        add(undoPanel, BorderLayout.WEST);
     }
 
+
     public void Warning() {
+
+        if (Board.blackKing4.isCheck()) {
+            CMtext.setText("CHECKMATE!");
+            boolean check = BlackisLose();
+            if (check) {
+                CMtext.setText("You Lose!!!!!!");
+                isGameOver = true;
+
+                //Database
+                if (!isSaved) {
+                    saveResultToDB("Lose");
+                }
+                //
+            }
+        } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
+
+            CMtext.setText("");
+        }
 
         Board.getAllValidMoves(Color.white.toString());
 
@@ -133,7 +180,10 @@ public class GamePlay extends javax.swing.JFrame {
             boolean check = BlackisLose();
             if (check) {
                 CMtext.setText("You Win!!!!!!");
-                isGameOver = true;
+                isGameOver = true; 
+                if (!isSaved) {
+                    saveResultToDB("Win");
+                }
             }
         } else if (CMtext.getText().contains("CHECKMATE")) {
             CMtext.setText("");
@@ -153,7 +203,25 @@ public class GamePlay extends javax.swing.JFrame {
             isCheckedMate = false;
         }
 
+
+               
     }
+    public void saveResultToDB(String result){
+        if(currentUserID <= 0 || currentUserName == null){
+            System.err.println("Không có thông tin người dùng, không thể lưu lịch sử");
+            return;
+        }
+        DAOHistory dao = new DAOHistory();
+        boolean ok = dao.saveGameRes(gameMode, currentUserID, currentUserName, result);
+        if(ok){
+            System.out.println("Đã lưu lịch sử: " + result);
+            isSaved = true;
+        }
+        else{
+            System.err.println("Lưu lịch sử thất bại");
+        }
+    }
+        
 
     public void WhiteEasyBotMove() {
         ChessBot bot = new ChessBot();
@@ -211,10 +279,6 @@ public class GamePlay extends javax.swing.JFrame {
         turn = SwitchTurn(turn);
         System.out.println("Player's Turn!");
         Warning();
-    }
-
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new GamePlay(0, 1).setVisible(true));
     }
 
     private void onSquareClicked(int r, int c) {
