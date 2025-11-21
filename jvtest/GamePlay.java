@@ -149,7 +149,7 @@ public class GamePlay extends javax.swing.JFrame {
         JButton undoBlackBtn = new JButton("↶");
         undoPanel.add(undoWhiteBtn, BorderLayout.SOUTH);
         undoPanel.add(undoBlackBtn, BorderLayout.NORTH);
-        add(undoPanel, BorderLayout.WEST);
+       // add(undoPanel, BorderLayout.WEST);
     }
 
 
@@ -161,7 +161,9 @@ public class GamePlay extends javax.swing.JFrame {
             if (check) {
                 CMtext.setText("You Lose!!!!!!");
                 isGameOver = true;
-
+                JOptionPane.showMessageDialog(this,
+                        "Black Chiến Thắng ",
+                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
                 //Database
                 if (!isSaved) {
                     saveResultToDB("Lose");
@@ -181,6 +183,9 @@ public class GamePlay extends javax.swing.JFrame {
             if (check) {
                 CMtext.setText("You Win!!!!!!");
                 isGameOver = true; 
+                JOptionPane.showMessageDialog(this,
+                        "White Chiến Thắng ",
+                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
                 if (!isSaved) {
                     saveResultToDB("Win");
                 }
@@ -246,7 +251,7 @@ public class GamePlay extends javax.swing.JFrame {
 
     public void WhiteLevelBotMove(int level) {
         StockfishBot bot = new StockfishBot();
-        bot.startEngine("D:\\download\\MakeAMove\\jvtest\\engine\\stockfish-windows-x86-64-avx2.exe");
+        bot.startEngine("../MakeAMove/jvtest/engine/stockfish-windows-x86-64-avx2.exe");
         String fen = Board.generateFEN(turn);
         String move = bot.getBestMove(fen, level);
         Move bestMove = Board.translateChessCode(move);

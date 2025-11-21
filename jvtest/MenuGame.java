@@ -106,7 +106,6 @@ public class MenuGame extends JFrame {
               this.setVisible(false);
             }
             else if (mode.equals("person")){
-                level=0;
                 java.awt.EventQueue.invokeLater(() -> new GamePlay(timer, mode, 1001, "TTK").setVisible(true));
                 this.setVisible(false);
             }
@@ -136,11 +135,12 @@ public class MenuGame extends JFrame {
                     mode = "bot";
                 }
                 if(check == 2){
+                    mode="up";
                   java.awt.EventQueue.invokeLater(() -> new jvtest.gameplay02.GamePlay2().setVisible(true));
-
                     dispose();
                 }
                 if(check == 1){
+                    level=0;
                     mode ="person";
                     String[] options = {"None", "3 phút", "10 phút", "20 phút", "30 phút"};
                     String selected = (String) JOptionPane.showInputDialog(
@@ -158,13 +158,13 @@ public class MenuGame extends JFrame {
                         switch (selected) {
                             
                             case "None": minutes = 0; break;
-                            case "3 phút": minutes = 1; break;
+                            case "3 phút": minutes = 3; break;
                             case "10 phút": minutes = 10; break;
                             case "20 phút": minutes = 20; break;
                             case "30 phút": minutes = 30; break;
                         }
                         if(minutes < 0){
-                            new GamePlay(0, "bot", 1001, "TTK").setVisible(true);
+                            new GamePlay(0, "person", 1001, "TTK").setVisible(true);
                         }
                         else{
                             new GamePlay(minutes, "person", 1001, "TTK").setVisible(true);
