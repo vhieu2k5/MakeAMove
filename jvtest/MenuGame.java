@@ -89,8 +89,9 @@ public class MenuGame extends JFrame {
                     options,
                     options[0]
             );
-         if (selected != null) 
-                switch (selected) {
+         if (selected == null) return;
+
+            switch (selected) {
                 
                 case "Level 1": level = 1; break;
                 case "Level 2": level = 2; break;

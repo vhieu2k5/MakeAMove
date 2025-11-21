@@ -74,20 +74,22 @@ public class GamePlay extends javax.swing.JFrame {
 
                 @Override
                 public void onTimeUp(String side) {
-                    JOptionPane.showMessageDialog(GamePlay.this,
+                    String winner = side.equalsIgnoreCase("White") ? "Black" : "White";
 
-                        side + " Chiến Thắng ",
+                    JOptionPane.showMessageDialog(GamePlay.this,
+                        winner + " Chiến Thắng (đối thủ hết giờ)",
                         "Game Over", JOptionPane.INFORMATION_MESSAGE);
 
                     if (!isSaved) {
-                        if (side.equalsIgnoreCase("White")) {
-                            saveResultToDB("Win");   // nếu người chơi là White thắng
+                        if (winner.equalsIgnoreCase("White")) {
+                            saveResultToDB("Win");  
                         } else {
-                            saveResultToDB("Lose");  // nếu người chơi là Black thắng
+                            saveResultToDB("Lose");  
                         }
                         isGameOver = true;
                     }
                 }
+
             });
 
             timerChess.start();
@@ -246,7 +248,7 @@ public class GamePlay extends javax.swing.JFrame {
 
     public void WhiteLevelBotMove(int level) {
         StockfishBot bot = new StockfishBot();
-        bot.startEngine("D:\\download\\MakeAMove\\jvtest\\engine\\stockfish-windows-x86-64-avx2.exe");
+        bot.startEngine("../MakeAMove/jvtest/engine/stockfish-windows-x86-64-avx2.exe");
         String fen = Board.generateFEN(turn);
         String move = bot.getBestMove(fen, level);
         Move bestMove = Board.translateChessCode(move);
