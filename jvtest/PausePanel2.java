@@ -2,17 +2,15 @@ package jvtest;
 
 import java.awt.*;
 import javax.swing.*;
+import jvtest.gameplay02.*;
 
-public class PausePanel extends JFrame {
-    private GameTimer timerChess;
-    private GamePlay gamePlay;
-    private JLabel whiteTimerLabel, blackTimerLabel;
-    private int minutes;
+public class PausePanel2 extends JFrame {
+    // private GameTimer timerChess;
+    private GamePlay2 gamePlay2;
 
-    public PausePanel(GameTimer timerChess, GamePlay gamePlay, int minutes) {
-        this.timerChess = timerChess;
-        this.minutes = minutes;
-        this.gamePlay = gamePlay;
+    public PausePanel2( GamePlay2 gamePlay2) {
+        // this.timerChess = timerChess;
+        this.gamePlay2 = gamePlay2;
 
         setTitle("Pause Game");
         setSize(400, 400);
@@ -20,7 +18,7 @@ public class PausePanel extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(null);
 
-        ImageIcon bgIcon = new ImageIcon("../MakeAMove/pics/pausePanel.jpg");
+        ImageIcon bgIcon = new ImageIcon("..\\Make_a_move\\src\\Pics\\pausePanel.jpg");
         JLabel pauseGame = new JLabel(bgIcon);
         pauseGame.setBounds(0, 0, 400, 400);
 
@@ -42,33 +40,36 @@ public class PausePanel extends JFrame {
         add(pauseGame);
 
         continueButton.addActionListener(e -> {
-            if (timerChess != null){
+            // if (timerChess != null){
 
-                timerChess.start(); 
-            }
+            //     timerChess.start(); 
+            // }
             dispose();
         });
 
         replayButton.addActionListener(e -> {
-            if (timerChess != null) {
-                timerChess.stop();
+            GamePlay.isGameOver=false;
+            GamePlay.isCheckedMate=false;
+            // if (timerChess != null) {
+            //     timerChess.stop();
+            // }
+            if (gamePlay2 != null) {
+                gamePlay2.dispose();
             }
-            if (gamePlay != null) {
-                gamePlay.dispose();
-            }
+            java.awt.EventQueue.invokeLater(() -> new jvtest.gameplay02.GamePlay2(0, 1001, "TTK").setVisible(true));
 
-            new GamePlay(MenuGame.timer,MenuGame.mode,1001,"TTK").setVisible(true);
             dispose();
         });
 
         homeButton.addActionListener(e -> {
-            if (timerChess != null){
+            // if (timerChess != null){
 
-                timerChess.stop(); 
-            }
-            gamePlay.dispose(); 
+            //     timerChess.stop(); 
+            // }
+            gamePlay2.dispose(); 
             dispose(); 
             new MenuGame().setVisible(true);
         });
     }
 }
+

@@ -26,6 +26,7 @@ public class NullChess extends ChessPiece {
         this.is_Chess=false;
         this.name=null;
         this.symbol=null;
+        this.color=null;
     }
 
     /**
@@ -40,4 +41,5 @@ public class NullChess extends ChessPiece {
     public void deleteValidMove() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     } 
+      
 }

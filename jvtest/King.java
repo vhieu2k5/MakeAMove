@@ -30,9 +30,11 @@ public class King extends ChessPiece {
     @Override
     public List<point> ValidMoves() {
         List<point> res = new ArrayList<>();
+        this.PotentialMoves = new ArrayList<>();
         if (this.moveCount == 0) {
             //Check bên phải
             for (int j = this.y + 1; j < 8; j++) {
+                
                 ChessPiece c = Board.chessBoard[this.x][j];
                 if (c != null && c.name != null) {
                     if (!c.name.equals("Rock")) {
@@ -41,6 +43,7 @@ public class King extends ChessPiece {
                         Rock r = (Rock) c;
                         if (r.color == this.color && r.CanCastle()) {
                             res.add(new point(this.x, this.y + 2, "Castle"));
+                            this.PotentialMoves.add(new point(this.x, this.y+2));
                         }
                     }
                 }
@@ -56,6 +59,7 @@ public class King extends ChessPiece {
                         Rock r = (Rock) c;
                         if (r.color == this.color && r.CanCastle()) {
                             res.add(new point(this.x, this.y - 2, "Castle"));
+                            this.PotentialMoves.add(new point(this.x, this.y-2));
                         }
                     }
                 }
@@ -65,6 +69,7 @@ public class King extends ChessPiece {
             //Check ở trên
             int i = this.x - 1;
             int j = this.y;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -76,6 +81,7 @@ public class King extends ChessPiece {
             //Check ở dưới
             int i = this.x + 1;
             int j = this.y;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -87,6 +93,7 @@ public class King extends ChessPiece {
             //Check chéo trên trái
             int i = this.x - 1;
             int j = this.y - 1;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -98,6 +105,7 @@ public class King extends ChessPiece {
             //Check chéo trên phải
             int i = this.x - 1;
             int j = this.y + 1;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -109,6 +117,7 @@ public class King extends ChessPiece {
             //Check phải
             int i = this.x;
             int j = this.y + 1;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -120,6 +129,7 @@ public class King extends ChessPiece {
             //Check dưới phải
             int i = this.x + 1;
             int j = this.y + 1;
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
@@ -142,43 +152,61 @@ public class King extends ChessPiece {
             //Check trái
             int i = this.x;
             int j = this.y - 1;
+
+            this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j] == null || Board.chessBoard[i][j].getColor() == this.color) {
 
             } else {
                 res.add(new point(i, j));
             }
         }
-        res = res.stream().filter(pi -> CheckMateSingleMove(pi.i, pi.j)).collect(Collectors.toList());
+        res = res.stream().filter(pi -> !isSquareThreatened(pi.i, pi.j)).collect(Collectors.toList());
         return res;
     }
 
-    public boolean CheckMateSingleMove(int x, int y) {
+    public boolean isSquareThreatened(int x, int y) {
+        
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece cp = Board.chessBoard[i][j];
-                if (cp != null && cp.is_Chess && cp != this && cp.color != GamePlay.turn) {
-                    List<point> moves = cp.ValidMoves();
-
-                     for (point pt: moves){
-                         System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
-                     }
-                    if (moves != null) {
+                if (cp != null && cp.name!=null && !this.color.equals(cp.color) && !(cp instanceof King && this.color.equals(cp.color))) {
+                    List<point> moves = cp.PotentialMoves;
+                    //   for (point pt: moves){
+                    //     System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
+                    //   }
+                   
+                    if (!moves.isEmpty()) {
                         for (point p : moves) {
-                             System.out.println(p.i+"&"+x+"-" +p.j+"&"+y);
+                           // System.out.println("p: " +p.i+"-"+p.j+ " so vs tham so: "+x+"-"+y);
                             if (p.i == x && p.j == y) {
-                                return false;
-                            }
+                              //  System.out.println("The chesspiece "+ Board.chessBoard[i][j].name +" at "+i+" "+j + Board.chessBoard[i][j].getColor() + " is the Threat for the King at "+x+" "+y);
+                                return true;
+                            } 
+                            //  else {
+                            //      System.out.println(cp.name + " " + x + " " + y + " Khong co cho nao de doa!");
+                            //  }
                         }
                     }
-                    else 
-                    System.out.println(cp.name +" "+ x+" "+y+ " Khong co cho nao de doa!");
+
                 }
             }
         }
-        return true;
+        return false;
     }
 
-    public boolean isCheckMate() {
-        return !CheckMateSingleMove(this.x, this.y);
+    public boolean isCheck() {
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (Board.chessBoard[i][j] != null && Board.chessBoard[i][j].is_Chess) {
+                    if (Board.chessBoard[i][j].color.toString().equalsIgnoreCase(GamePlay.turn.toString()) && !(Board.chessBoard[i][j] instanceof King)) {
+                        Board.chessBoard[i][j].ValidMoves();
+                    }
+                }
+            }
+        }
+        return isSquareThreatened(this.x, this.y);
     }
+
+
 }
