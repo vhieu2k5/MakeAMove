@@ -155,26 +155,6 @@ public class GamePlay extends javax.swing.JFrame {
 
     public void Warning() {
 
-        if (Board.blackKing4.isCheck()) {
-            CMtext.setText("CHECKMATE!");
-            boolean check = BlackisLose();
-            if (check) {
-                CMtext.setText("You Lose!!!!!!");
-                isGameOver = true;
-                JOptionPane.showMessageDialog(this,
-                        "Black Chiến Thắng ",
-                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
-                //Database
-                if (!isSaved) {
-                    saveResultToDB("Lose");
-                }
-                //
-            }
-        } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
-
-            CMtext.setText("");
-        }
-
         Board.getAllValidMoves(Color.white.toString());
 
         if (Board.blackKing4.isCheck()) {
@@ -183,9 +163,7 @@ public class GamePlay extends javax.swing.JFrame {
             if (check) {
                 CMtext.setText("You Win!!!!!!");
                 isGameOver = true; 
-                JOptionPane.showMessageDialog(this,
-                        "White Chiến Thắng ",
-                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"White Chiến Thắng ","Game Over", JOptionPane.INFORMATION_MESSAGE);
                 if (!isSaved) {
                     saveResultToDB("Win");
                 }
@@ -200,6 +178,9 @@ public class GamePlay extends javax.swing.JFrame {
             boolean check = WhiteisLose();
             Board.showPriorityMoves();
             if (check) {
+                
+                JOptionPane.showMessageDialog(null,"Black Chiến Thắng ","Game Over", JOptionPane.INFORMATION_MESSAGE);
+
                 CMtext.setText("You Lose!!!!!!");
                 isGameOver = true;
             }
