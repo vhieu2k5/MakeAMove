@@ -25,7 +25,7 @@ public class GamePlay extends javax.swing.JFrame {
     public GameTimer timerChess;
     public JLabel whiteTimerLabel, blackTimerLabel;
 
-    public GamePlay(int minutes) {
+    public GamePlay(int minutes, int level) {
         setTitle("Chess Game");
         setSize(700, 700);
         setBackground(Color.WHITE);
@@ -125,29 +125,30 @@ public class GamePlay extends javax.swing.JFrame {
     }
 
     public void Warning() {
-        Board.getAllValidMoves(Color.BLACK.toString());
-        //  if (Board.blackKing4.isCheck()) {
-        //     CMtext.setText("CHECKMATE!");
-        //     boolean check = BlackisLose();
-        //     if (check) {
-        //         CMtext.setText("You Win!!!!!!");
-        //         isGameOver = true;
-        //     }
-        //  } else if (CMtext.getText().equals("CHECKMATE!")) {
-        //      CMtext.setText("");
-        //  }
 
-        // board.getAllValidMoves(Color.white.toString());
+        Board.getAllValidMoves(Color.white.toString());
+
+        if (Board.blackKing4.isCheck()) {
+            CMtext.setText("CHECKMATE the Black King!");
+            boolean check = BlackisLose();
+            if (check) {
+                CMtext.setText("You Win!!!!!!");
+                isGameOver = true;
+            }
+        } else if (CMtext.getText().contains("CHECKMATE")) {
+            CMtext.setText("");
+        }
+        Board.getAllValidMoves(Color.BLACK.toString());
         if (Board.whiteKing4.isCheck()) {
             isCheckedMate = true;
-            CMtext.setText("CHECKMATE!");
+            CMtext.setText("CHECKMATE the White King!");
             boolean check = WhiteisLose();
             Board.showPriorityMoves();
             if (check) {
                 CMtext.setText("You Lose!!!!!!");
                 isGameOver = true;
             }
-        } else if (CMtext.getText().equals("CHECKMATE!")) {
+        } else if (CMtext.getText().contains("CHECKMATE")) {
             CMtext.setText("");
             isCheckedMate = false;
         }
@@ -155,13 +156,11 @@ public class GamePlay extends javax.swing.JFrame {
     }
 
     public void WhiteEasyBotMove() {
-
         ChessBot bot = new ChessBot();
         Move bestMove;
-        Warning();
-        bestMove = bot.findBestMove(Board.chessBoard); // Depth can be adjusted
+        bestMove = bot.findBestMove(Board.chessBoard);
 
-        if (bestMove != null && !isCheckedMate) {
+        if (bestMove != null) {
             ChessPiece piece = Board.chessBoard[bestMove.fromX][bestMove.fromY];
             piece.setMove(new point(piece.x, piece.y), bestMove.toX, bestMove.toY);
 
@@ -188,27 +187,25 @@ public class GamePlay extends javax.swing.JFrame {
             ChessPiece piece = Board.chessBoard[bestMove.fromX][bestMove.fromY];
 
             if (piece.name.equals("King") && (Math.abs(bestMove.fromY - bestMove.toY) > 1)) {
-                Castle(bestMove.toX, bestMove.toY, new point(piece.x,piece.y)); 
+                Castle(bestMove.toX, bestMove.toY, new point(piece.x, piece.y));
             }
-            
+
             piece.setMove(new point(piece.x, piece.y), bestMove.toX, bestMove.toY);
 
-             if ( piece.name.equals("Pawn") && bestMove.toX==7){
-                promotePawn(bestMove.toX, bestMove.toY,new point(bestMove.toX, bestMove.toY), Color.BLACK);
+            if (piece.name.equals("Pawn") && bestMove.toX == 7) {
+                promotePawn(bestMove.toX, bestMove.toY, new point(bestMove.toX, bestMove.toY), Color.BLACK);
                 piece = Board.chessBoard[bestMove.toX][bestMove.toY];
-            }   
-                // Update UI
-                squares[bestMove.fromX][bestMove.fromY].setText("");
-                squares[bestMove.toX][bestMove.toY].setText(piece.symbol);
-                squares[bestMove.toX][bestMove.toY].setFont(new Font("Serif", Font.BOLD, 36));
-                squares[bestMove.toX][bestMove.toY].setForeground(piece.color);
-            
-              
+            }
+            // Update UI
+            squares[bestMove.fromX][bestMove.fromY].setText("");
+            squares[bestMove.toX][bestMove.toY].setText(piece.symbol);
+            squares[bestMove.toX][bestMove.toY].setFont(new Font("Serif", Font.BOLD, 36));
+            squares[bestMove.toX][bestMove.toY].setForeground(piece.color);
 
         }
         System.out.println("The Valid moves of King:");
-        for (point p: Board.whiteKing4.ValidMoves()){
-            System.out.println(p.i+ "-"+p.j);
+        for (point p : Board.whiteKing4.ValidMoves()) {
+            System.out.println(p.i + "-" + p.j);
         }
         System.out.println("_____________________________");
         turn = SwitchTurn(turn);
@@ -217,7 +214,7 @@ public class GamePlay extends javax.swing.JFrame {
     }
 
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new GamePlay(10).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new GamePlay(0, 1).setVisible(true));
     }
 
     private void onSquareClicked(int r, int c) {
@@ -255,7 +252,7 @@ public class GamePlay extends javax.swing.JFrame {
                             Board.chessBoard[currPo.i][currPo.j].deleteValidMove();
                             //Nhap thanh
                             if (t.name != null && t.name.equals("Castle")) {
-                                Castle(r, c,currPo);
+                                Castle(r, c, currPo);
                             } else {
                                 //Di chuyển bình thường
                                 if (Board.chessBoard[currPo.i][currPo.j].name.equals("King")) {
@@ -281,10 +278,27 @@ public class GamePlay extends javax.swing.JFrame {
                             clickedAChess = false;
                             turn = SwitchTurn(turn);
                             System.out.println("Bot is Processing...");
-                            // WhiteEasyBotMove();
-                            WhiteLevelBotMove(5);
+                            // 
+                            Warning();
+                            if (!isGameOver) {
+                                switch (MenuGame.level) {
+                                    case 0 -> {
+                                    }
+                                    case 1 ->
+                                        WhiteEasyBotMove();
+                                    case 2 ->
+                                        WhiteLevelBotMove(5);
+                                    case 3 ->
+                                        WhiteLevelBotMove(15);
+                                    default -> {
+                                    }
+                                }
+                            }
                             Warning(); //Warning Chieeus Tuowngs!
                             //System.out.println(turn.toString());
+                            if (timerChess != null) {
+                                timerChess.switchTurn();
+                            }
                         }
                     }
                 }
@@ -400,10 +414,10 @@ public class GamePlay extends javax.swing.JFrame {
                     // System.out.println("Moved back to " + fromPoint.i + " " + fromPoint.j);
                     if (!check) {
                         finalcheck = false;
-                      //  System.out.println("Suggestion: You can move the " + Board.chessBoard[i][j].name + "-" + Board.chessBoard[i][j].color + " to " + p.i + " " + p.j);
+                        //  System.out.println("Suggestion: You can move the " + Board.chessBoard[i][j].name + "-" + Board.chessBoard[i][j].color + " to " + p.i + " " + p.j);
                         priorityMoves.add(new Move(i, j, p.i, p.j));
                         break;
-                    } 
+                    }
 
                 }
             }
@@ -414,19 +428,19 @@ public class GamePlay extends javax.swing.JFrame {
     private void promotePawn(int r, int c, point currPo, Color color) {
         String[] options = {"Queen", "Rock", "Bishop", "Knight"};
         String choice;
-        if (color!= Color.BLACK)
-        {
-             choice = (String) JOptionPane.showInputDialog(
-                this,
-                "Chọn quân để phong cấp:",
-                "Phong cấp tốt",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                options,
-                "Queen"
-        );
-        } else choice = "Queen";
-       
+        if (color != Color.BLACK) {
+            choice = (String) JOptionPane.showInputDialog(
+                    this,
+                    "Chọn quân để phong cấp:",
+                    "Phong cấp tốt",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    options,
+                    "Queen"
+            );
+        } else {
+            choice = "Queen";
+        }
 
         if (choice != null) {
             ChessPiece newPiece = switch (choice) {
@@ -437,7 +451,7 @@ public class GamePlay extends javax.swing.JFrame {
                 case "Knight" ->
                     new Knight(r, c, color);
                 case "Queen" ->
-                    new Queen(r,c,color);
+                    new Queen(r, c, color);
                 default ->
                     new Queen(r, c, color);
             };

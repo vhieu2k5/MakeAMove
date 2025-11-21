@@ -1,7 +1,8 @@
 package jvtest;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import jvtest.gameplay02.*;
 
 public class PausePanel2 extends JFrame {
     // private GameTimer timerChess;
@@ -47,6 +48,8 @@ public class PausePanel2 extends JFrame {
         });
 
         replayButton.addActionListener(e -> {
+            GamePlay.isGameOver=false;
+            GamePlay.isCheckedMate=false;
             // if (timerChess != null) {
             //     timerChess.stop();
             // }
@@ -54,7 +57,7 @@ public class PausePanel2 extends JFrame {
                 gamePlay2.dispose();
             }
 
-            new GamePlay2().setVisible(true);
+            new jvtest.gameplay02.GamePlay2().setVisible(true);
             dispose();
         });
 

@@ -70,6 +70,7 @@ public abstract class ChessPiece { //Lớp đặc tính chung của các quân c
         this.name = name;
     }
 
+
     public void setMove(point pre, int i, int j) { //Set là ô đã có quân cờ đặt
         if (pre != null && pre.i >= 0 && pre.j >= 0) { 
             Board.setMoveBorder(pre.i, pre.j, i, j);

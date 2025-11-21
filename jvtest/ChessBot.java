@@ -11,9 +11,9 @@ public class ChessBot {
         int bestValue = Integer.MIN_VALUE;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (chessboard[i][j].getColor() != null) {
+                if (chessboard[i][j].getColor() != null && chessboard[i][j].ValidMoves()!=null) {
                     ChessPiece captured = chessboard[i][j];
-                   if (Color.WHITE.equals(chessboard[i][j].getColor())) {
+                   if (Color.black.equals(chessboard[i][j].getColor())) {
                         for (point move : chessboard[i][j].ValidMoves()) {
                             ChessPiece temp = chessboard[move.i][move.j];
                             chessboard[move.i][move.j] = captured;
@@ -45,12 +45,12 @@ private int minimax(ChessPiece[][] board, int depth, int alpha, int beta, boolea
         return evaluateBoard(board);
     }
 
-    if (isMaximizing) { // White (bot)
+    if (isMaximizing) { // black (bot)
         int maxEval = Integer.MIN_VALUE;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece piece = board[i][j];
-                if (piece == null || !Color.WHITE.equals(piece.getColor())) continue;
+                if (piece == null || !Color.black.equals(piece.getColor())) continue;
 
                 for (point move : piece.ValidMoves()) {
                     ChessPiece captured = board[move.i][move.j];
@@ -73,12 +73,12 @@ private int minimax(ChessPiece[][] board, int depth, int alpha, int beta, boolea
         }
         return maxEval;
 
-    } else { // Black (human)
+    } else { // white (human)
         int minEval = Integer.MAX_VALUE;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece piece = board[i][j];
-                if (piece == null || !Color.BLACK.equals(piece.getColor())) continue;
+                if (piece == null || !Color.white.equals(piece.getColor())) continue;
 
                 for (point move : piece.ValidMoves()) {
                     ChessPiece captured = board[move.i][move.j];
@@ -109,7 +109,7 @@ private int minimax(ChessPiece[][] board, int depth, int alpha, int beta, boolea
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (chessboard[i][j]!=null && chessboard[i][j].getColor() != null) {
-                  if (Color.WHITE.equals(chessboard[i][j].getColor())) {
+                  if (Color.black.equals(chessboard[i][j].getColor())) {
                         score += getPieceValue(chessboard[i][j]);
                     } else if (chessboard[i][j].getColor().toString().equalsIgnoreCase(Color.BLACK.toString())) {
                         score -= getPieceValue(chessboard[i][j]);

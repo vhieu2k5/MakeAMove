@@ -1,7 +1,8 @@
-package jvtest;
+package jvtest.gameplay02;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import jvtest.*;
 
 public class PausePanel2 extends JFrame {
     // private GameTimer timerChess;

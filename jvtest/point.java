@@ -9,8 +9,8 @@ package jvtest;
  * @author ADMIN
  */
 public class point { //Lớp vị trí của quân cờ
-    int i, j;
-    String name=null; //Tên nước đi (sẽ áp dụng cho Castle 
+    public int i, j;
+    public String name=null; //Tên nước đi (sẽ áp dụng cho Castle 
         public point(int i,int j) {
             this.i=i;
             this.j=j;

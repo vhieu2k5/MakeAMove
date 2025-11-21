@@ -152,6 +152,7 @@ public class King extends ChessPiece {
             //Check trái
             int i = this.x;
             int j = this.y - 1;
+
             this.PotentialMoves.add(new point(i, j));
             if (Board.chessBoard[i][j] == null || Board.chessBoard[i][j].getColor() == this.color) {
 
@@ -198,7 +199,7 @@ public class King extends ChessPiece {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (Board.chessBoard[i][j] != null && Board.chessBoard[i][j].is_Chess) {
-                    if (Board.chessBoard[i][j].color.toString().equalsIgnoreCase(Color.black.toString()) && !(Board.chessBoard[i][j] instanceof King)) {
+                    if (Board.chessBoard[i][j].color.toString().equalsIgnoreCase(GamePlay.turn.toString()) && !(Board.chessBoard[i][j] instanceof King)) {
                         Board.chessBoard[i][j].ValidMoves();
                     }
                 }

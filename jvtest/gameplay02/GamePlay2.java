@@ -1,9 +1,10 @@
-package jvtest;
+package jvtest.gameplay02;
 
 import java.awt.*;
 import java.util.List;
-import javax.swing.*;
 import java.util.Random;
+import javax.swing.*;
+import jvtest.*;
 
 public class GamePlay2 extends javax.swing.JFrame {
 

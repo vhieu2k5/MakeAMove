@@ -1,9 +1,10 @@
 
-package jvtest;
+package jvtest.gameplay02;
 
 import java.awt.Color;
 import  java.util.List;
 import javax.swing.BorderFactory;
+import jvtest.*;
 
 public abstract class ChessPiece2 { //Lớp đặc tính chung của các quân cờ
     
