@@ -1,7 +1,8 @@
-package jvtest;
+package jvtest.gameplay02;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import jvtest.*;
 
 public class PausePanel2 extends JFrame {
     // private GameTimer timerChess;
@@ -54,7 +55,7 @@ public class PausePanel2 extends JFrame {
                 gamePlay2.dispose();
             }
 
-            new GamePlay2().setVisible(true);
+            new GamePlay2(0, 1001, "TTK").setVisible(true);
             dispose();
         });
 

@@ -1,9 +1,11 @@
 
-package jvtest;
+package jvtest.gameplay02;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import  java.util.List;
 import javax.swing.BorderFactory;
+import jvtest.*;
 
 public abstract class ChessPiece2 { //Lớp đặc tính chung của các quân cờ
     
@@ -13,6 +15,7 @@ public abstract class ChessPiece2 { //Lớp đặc tính chung của các quân 
         String symbol;
         String name;
         boolean firstMove = true;
+        List<point> PotentialMoves = new ArrayList<>();
         public abstract List<point> ValidMoves();
 
         public void showValidMove() {
@@ -50,17 +53,23 @@ public abstract class ChessPiece2 { //Lớp đặc tính chung của các quân 
         this.name = name;
     }
 
-        public void setMove (point pre, int i, int j){ //Set là ô đã có quân cờ đặt
-            if (pre!=null && pre.i>=0 && pre.j>=0) {
-               Board2.chessBoard[pre.i][pre.j] = new NullChess2(pre.i,pre.j);
-            }
-            Board2.chessBoard[i][j]=this;
-            // for (point p: Board.chessBoard[i][j].ValidMoves()){
-            //     System.out.println("Potential move of "+this.name+": "+p.i+" "+p.j);
-            // }
-            this.x = i;
-            this.y=j;
+    public void setMove(point pre, int i, int j) { //Set là ô đã có quân cờ đặt
+        if (pre != null && pre.i >= 0 && pre.j >= 0) { 
+            Board2.setMoveBorder(pre.i, pre.j, i, j);
+            Board2.chessBoard[pre.i][pre.j] = new NullChess2(pre.i, pre.j);
         }
+        Board2.chessBoard[i][j] = this;
+        //SetMoveCount cho Xe
+        if (this!=null && this.name!=null && this.name.equals("Rock")){
+           ((Rock2) this).moveCount++;
+        }
+        // for (point p: Board.chessBoard[i][j].ValidMoves()){
+        //     System.out.println("Potential move of "+this.name+": "+p.i+" "+p.j);
+        // }
+        this.x = i;
+        this.y = j;
+        
+    }
 
     public Color getColor() {
         return color;
