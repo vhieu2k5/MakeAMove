@@ -38,6 +38,7 @@ public class GamePlay2 extends javax.swing.JFrame {
     public String gameMode;
 
     public GamePlay2(int minutes, int currentUserID, String currentUserName) {
+        turn = Color.white;
         setTitle("Chess Game");
         setSize(800, 800);
         setBackground(Color.WHITE);
@@ -233,6 +234,7 @@ public class GamePlay2 extends javax.swing.JFrame {
                 }
             } else {
                 if (clickedAChess == true) { //Trường hợp đã click 1 quân và đang click vào 1 valid move
+                    ChessPiece2 moved = null;
                     List<point> vlm = Board2.chessBoard[currPo.i][currPo.j].ValidMoves();
                     for (point t : vlm) //Xét tất cả point hợp lệ để xem cái vị trí bấm có đúng với validMove hiện tại không
                     {
@@ -240,9 +242,8 @@ public class GamePlay2 extends javax.swing.JFrame {
                             String sym = Board2.chessBoard[r][c].symbol;
                             System.out.println(sym);
                             if (Board2.chessBoard[r][c].is_Chess) {
-                                SetArchieve(sym);
-                            } else {
-                                if (Board2.chessBoard[r][c].symbol == "?") {
+                                
+                                if ("?".equals(squares[r][c].getText())) {
                                     if (Board2.chessBoard[r][c].color == Color.white) {
                                         int randomIndex = randomGenerator.nextInt(Board2.chessPieceWhite.size());
                                         Board2.chessBoard[r][c] = Board2.chessPieceWhite.get(randomIndex);
@@ -256,6 +257,8 @@ public class GamePlay2 extends javax.swing.JFrame {
                                         sym = Board2.chessBoard[r][c].symbol;
                                         SetArchieve(sym);
                                     }
+                                } else {
+                                    SetArchieve(sym);
                                 }
                             }
                             Board2.chessBoard[currPo.i][currPo.j].deleteValidMove();
@@ -268,14 +271,9 @@ public class GamePlay2 extends javax.swing.JFrame {
                                     King2 k = (King2) Board2.chessBoard[currPo.i][currPo.j];
                                     k.setMoveCount(1);
                                 }
-                                ChessPiece2 moved = Board2.chessBoard[currPo.i][currPo.j];
+                                moved = Board2.chessBoard[currPo.i][currPo.j];
 
-                                if (moved.name != null && moved.name.equals("Pawn") && (r == 0 || r == 7)) {
-                                    System.out.println("Phong hậu được!");
-                                    promotePawn(r, c, currPo, moved.color);
                                 }
-
-                            }
                             Board2.chessBoard[currPo.i][currPo.j].setMove(currPo, r, c);
                             //System.out.println("Da move");
                             squares[currPo.i][currPo.j].setText(""); //Sau khi thay đổi xong trong mảng dữ liệu, cập nhật lại ui
@@ -298,6 +296,10 @@ public class GamePlay2 extends javax.swing.JFrame {
                             squares[r][c].setFont(new Font("Serif", Font.BOLD, 36));
                             squares[r][c].setForeground(Board2.chessBoard[r][c].color);
                             //System.out.println("UI xong");
+                            if (moved.name != null && moved.name.equals("Pawn") && (r == 0 || r == 7)) {
+                                System.out.println("Phong hậu được!");
+                                promotePawn(r, c, currPo, moved.color);
+                            }
                             currPo = new point(-1, -1);
                             clickedAChess = false;
                             turn = SwitchTurn(turn);
@@ -334,7 +336,29 @@ public class GamePlay2 extends javax.swing.JFrame {
     }
 
     public void SetArchieve(String sym) {
-        if (turn != Color.WHITE) {
+        if ("♔".equals(sym)) {
+
+        if (turn == Color.WHITE) {
+                CMtext.setText("Game Over!!!!!!");
+                isGameOver = true;
+                JOptionPane.showMessageDialog(this,
+                        "White Chiến Thắng ",
+                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                if (!isSaved) {
+                    saveResultToDB("Win");
+                }
+            } else {
+                CMtext.setText("Game Over!!!!!!");
+                isGameOver = true;
+                JOptionPane.showMessageDialog(this,
+                        "Black Chiến Thắng ",
+                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                if (!isSaved) {
+                    saveResultToDB("Lose");
+                }
+            }
+        } else {
+            if (turn != Color.WHITE) {
             WhiteArchieve.setText(WhiteArchieve.getText() + sym);
             WhiteArchieve.setForeground(Color.WHITE);
         } else {
@@ -342,9 +366,6 @@ public class GamePlay2 extends javax.swing.JFrame {
             BlackArchieve.setForeground(Color.black);
         }
     }
-
-    public static void Result() {
-        //System.out.print(Ches);
     }
 
     public boolean isLose() {
@@ -390,7 +411,7 @@ public class GamePlay2 extends javax.swing.JFrame {
     private void promotePawn(int r, int c, point currPo, Color color) {
         String[] options = {"Queen", "Rock", "Bishop", "Knight"};
         String choice;
-        if (color != Color.BLACK) {
+        if (true) {
             choice = (String) JOptionPane.showInputDialog(
                     this,
                     "Chọn quân để phong cấp:",
@@ -419,12 +440,13 @@ public class GamePlay2 extends javax.swing.JFrame {
             };
 
             // Cập nhật trong mảng dữ liệu
-            Board2.chessBoard[currPo.i][currPo.j] = newPiece;
+            Board2.chessBoard[r][c] = newPiece;
+            newPiece.firstMove = false;
 
             // Cập nhật giao diện
-            squares[currPo.i][currPo.j].setText(newPiece.symbol);
-            squares[currPo.i][currPo.j].setFont(new Font("Serif", Font.BOLD, 36));
-            squares[currPo.i][currPo.j].setForeground(color);
+            squares[r][c].setText(newPiece.symbol);
+            squares[r][c].setFont(new Font("Serif", Font.BOLD, 36));
+            squares[r][c].setForeground(color);
         }
     }
 
