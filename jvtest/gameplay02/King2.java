@@ -29,6 +29,7 @@ public class King2 extends ChessPiece2 {
         this.moveCount = moveCount;
     }
 
+
     @Override
     public List<point> ValidMoves() {
         List<point> res = new ArrayList<>();
@@ -166,34 +167,34 @@ public class King2 extends ChessPiece2 {
         return res;
     }
 
-    public boolean CheckMateSingleMove(int x, int y) {
+    public boolean isSquareThreatened(int x, int y) {
+        
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 ChessPiece2 cp = Board2.chessBoard[i][j];
-                if (cp != null && cp.is_Chess && cp != this && cp.color != GamePlay2.turn) {
-                    List<point> moves = cp.ValidMoves();
-
-                    for (point pt : moves) {
-                        System.out.println(cp.name + "   " + pt.i + " " + pt.j);
-                    }
-                    if (moves != null) {
+                if (cp != null && cp.name!=null && !this.color.equals(cp.color) && !(cp instanceof King2 && this.color.equals(cp.color))) {
+                    List<point> moves = cp.PotentialMoves;
+                    //   for (point pt: moves){
+                    //     System.out.println(cp.name+ "   "+pt.i +" "+pt.j);
+                    //   }
+                   
+                    if (!moves.isEmpty()) {
                         for (point p : moves) {
-                            System.out.println(p.i + "&" + x + "-" + p.j + "&" + y);
+                           // System.out.println("p: " +p.i+"-"+p.j+ " so vs tham so: "+x+"-"+y);
                             if (p.i == x && p.j == y) {
-                                return false;
-                            }
+                              //  System.out.println("The chesspiece "+ Board2.chessBoard[i][j].name +" at "+i+" "+j + Board2.chessBoard[i][j].getColor() + " is the Threat for the King2 at "+x+" "+y);
+                                return true;
+                            } 
+                            //  else {
+                            //      System.out.println(cp.name + " " + x + " " + y + " Khong co cho nao de doa!");
+                            //  }
                         }
-                    } else {
-                        System.out.println(cp.name + " " + x + " " + y + " Khong co cho nao de doa!");
                     }
+
                 }
             }
         }
-        return true;
-    }
-
-    public boolean isCheckMate() {
-        return !CheckMateSingleMove(this.x, this.y);
+        return false;
     }
 
     public boolean isCheck() {
@@ -208,27 +209,6 @@ public class King2 extends ChessPiece2 {
             }
         }
         return isSquareThreatened(this.x, this.y);
-    }
-
-    public boolean isSquareThreatened(int x, int y) {
-
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                ChessPiece2 cp = Board2.chessBoard[i][j];
-                if (cp != null && cp.name != null && !this.color.equals(cp.color) && !(cp instanceof King2 && this.color.equals(cp.color))) {
-                    List<point> moves = cp.PotentialMoves;
-                    if (!moves.isEmpty()) {
-                        for (point p : moves) {
-                            if (p.i == x && p.j == y) {
-                                return true;
-                            }
-                        }
-                    }
-
-                }
-            }
-        }
-        return false;
     }
 
 }

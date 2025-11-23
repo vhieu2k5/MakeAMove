@@ -32,96 +32,93 @@ public class Bishop2 extends ChessPiece2 {
     @Override
     public List<point> ValidMoves() {
         List<point> res = new ArrayList<>();
+        this.PotentialMoves = new ArrayList<>();
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-       if (this.x>0 && this.y>0) {
-       //Check chéo trên trái
-        int i=this.x-1;
-       int j=this.y-1;
-       while (i>=0 && j>=0) {
-           if (Board2.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
+        if (this.x > 0 && this.y > 0) {
+            //Check chéo trên trái
+            int i = this.x - 1;
+            int j = this.y - 1;
+            while (i >= 0 && j >= 0) {
+                this.PotentialMoves.add(new point(i, j));
+                if (Board2.chessBoard[i][j].getName() == null) {
+                    res.add(new point(i, j));
+                } else {
+                    if (Board2.chessBoard[i][j].getColor() == this.color) {
                         break;
-                    }
-                    else {
-                        res.add(new point(i,j));
-                        break;
-                    }
-                }
-           i--;
-           j--;
-       }
-       }
-        
-       if (this.x>0 && this.y<7) {
-           //Check chéo trên phải
-       int i=this.x-1;
-       int j=this.y+1;
-       while (i>=0 && j<8) {
-           if (Board2.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
-                        break;
-                    }
-                    else {
-                        res.add(new point(i,j));
+                    } else {
+                        res.add(new point(i, j));
                         break;
                     }
                 }
-           i--;
-           j++;
-       }
-       }
-       
-       if (this.x<7 && this.y>0) {
-           //Check chéo dưới trái
-       int i=this.x+1;
-       int j=this.y-1;
-       while (i<8 && j>=0) {
-           if (Board2.chessBoard[i][j]==null || Board2.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
+                i--;
+                j--;
+            }
+        }
+
+        if (this.x > 0 && this.y < 7) {
+            //Check chéo trên phải
+            int i = this.x - 1;
+            int j = this.y + 1;
+            while (i >= 0 && j < 8) {
+                this.PotentialMoves.add(new point(i, j));
+                if (Board2.chessBoard[i][j].getName() == null) {
+                    res.add(new point(i, j));
+                } else {
+                    if (Board2.chessBoard[i][j].getColor() == this.color) {
                         break;
-                    }
-                    else {
-                        res.add(new point(i,j));
-                        break;
-                    }
-                }
-           i++;
-           j--;
-       }
-       }
-       
-       if (this.x<7 && this.y<7) {
-           //Check chéo dưới phải
-       int i=this.x+1;
-       int j=this.y+1;
-       while (i<8 && j<8) {
-           if (Board2.chessBoard[i][j].getName()==null) {
-                    res.add(new point(i,j));
-                }
-                else {
-                    if (Board2.chessBoard[i][j].getColor()==this.color) {
-                        break;
-                    }
-                    else {
-                        res.add(new point(i,j));
+                    } else {
+                        res.add(new point(i, j));
                         break;
                     }
                 }
-           i++;
-           j++;
-       }
-       }
-       
-       return res;
+                i--;
+                j++;
+            }
+        }
+
+        if (this.x < 7 && this.y > 0) {
+            //Check chéo dưới trái
+            int i = this.x + 1;
+            int j = this.y - 1;
+            while (i < 8 && j >= 0) {
+                this.PotentialMoves.add(new point(i, j));
+                if (Board2.chessBoard[i][j] == null || Board2.chessBoard[i][j].getName() == null) {
+                    res.add(new point(i, j));
+                } else {
+                    if (Board2.chessBoard[i][j].getColor() == this.color) {
+                        break;
+                    } else {
+                        res.add(new point(i, j));
+                        break;
+                    }
+                }
+                i++;
+                j--;
+            }
+        }
+
+        if (this.x < 7 && this.y < 7) {
+            //Check chéo dưới phải
+            int i = this.x + 1;
+            int j = this.y + 1;
+            while (i < 8 && j < 8) {
+                this.PotentialMoves.add(new point(i, j));
+                if (Board2.chessBoard[i][j].getName() == null) {
+                    res.add(new point(i, j));
+                } else {
+                    if (Board2.chessBoard[i][j].getColor() == this.color) {
+                        break;
+                    } else {
+                        res.add(new point(i, j));
+                        break;
+                    }
+                }
+                i++;
+                j++;
+            }
+        }
+
+        return res;
     }
-   
+
 }

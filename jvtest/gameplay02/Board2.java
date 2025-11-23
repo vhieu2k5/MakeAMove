@@ -36,31 +36,31 @@ public class Board2 { //Lớp bàn cờ
         chessPieceBlack = new ArrayList<>();
         chessPieceWhite = new ArrayList<>();
         //King
-        blackKing4 = new King2(0, 4, Color.BLACK);
-        blackKing4.setMove(null, 0, 4);
-        GamePlay2.squares[0][4].setText(blackKing4.symbol);
-        GamePlay2.squares[0][4].setFont(new Font("Serif", Font.BOLD, 36));
-        GamePlay2.squares[0][4].setForeground(blackKing4.color);
+        blackKing4 = new King2(0, 3, Color.BLACK);
+        blackKing4.setMove(null, 0, 3);
+        GamePlay2.squares[0][3].setText(blackKing4.symbol);
+        GamePlay2.squares[0][3].setFont(new Font("Serif", Font.BOLD, 36));
+        GamePlay2.squares[0][3].setForeground(blackKing4.color);
 
-        whiteKing4 = new King2(7, 4, Color.WHITE);
-        whiteKing4.setMove(null, 7, 4);
-        GamePlay2.squares[7][4].setText(whiteKing4.symbol);
-        GamePlay2.squares[7][4].setFont(new Font("Serif", Font.BOLD, 36));
-        GamePlay2.squares[7][4].setForeground(whiteKing4.color);
+        whiteKing4 = new King2(7, 3, Color.WHITE);
+        whiteKing4.setMove(null, 7, 3);
+        GamePlay2.squares[7][3].setText(whiteKing4.symbol);
+        GamePlay2.squares[7][3].setFont(new Font("Serif", Font.BOLD, 36));
+        GamePlay2.squares[7][3].setForeground(whiteKing4.color);
 
         //Queen
-        Queen2 blackQueen3 = new Queen2(0, 3, Color.BLACK);
-        blackQueen3.setMove(null, 0, 3);
-        GamePlay2.squares[0][3].setText("?");
-        GamePlay2.squares[0][3].setFont(new Font("Serif", Font.BOLD, 36));
-        GamePlay2.squares[0][3].setForeground(blackQueen3.color);
+        Queen2 blackQueen3 = new Queen2(0, 4, Color.BLACK);
+        blackQueen3.setMove(null, 0, 4);
+        GamePlay2.squares[0][4].setText("?");
+        GamePlay2.squares[0][4].setFont(new Font("Serif", Font.BOLD, 36));
+        GamePlay2.squares[0][4].setForeground(blackQueen3.color);
         chessPieceBlack.add(new Queen2(Color.BLACK));
 
-        Queen2 whiteQueen3 = new Queen2(7, 3, Color.WHITE);
-        whiteQueen3.setMove(null, 7, 3);
-        GamePlay2.squares[7][3].setText("?");
-        GamePlay2.squares[7][3].setFont(new Font("Serif", Font.BOLD, 36));
-        GamePlay2.squares[7][3].setForeground(whiteQueen3.color);
+        Queen2 whiteQueen3 = new Queen2(7, 4, Color.WHITE);
+        whiteQueen3.setMove(null, 7, 4);
+        GamePlay2.squares[7][4].setText("?");
+        GamePlay2.squares[7][4].setFont(new Font("Serif", Font.BOLD, 36));
+        GamePlay2.squares[7][4].setForeground(whiteQueen3.color);
         chessPieceWhite.add(new Queen2(Color.white));
 
         //Bishop

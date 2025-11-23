@@ -26,6 +26,7 @@ public abstract class ChessPiece2 { //Lớp đặc tính chung của các quân 
             GamePlay2.squares[po.i][po.j].setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
         }
         }
+        
         public void deleteValidMove() {
             List<point> p = this.ValidMoves();
         for (point po:p) {

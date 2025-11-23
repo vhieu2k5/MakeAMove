@@ -37,10 +37,12 @@ public class Rock2 extends ChessPiece2 {
     public List<point> ValidMoves() {
         //throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         List<point> res = new ArrayList<>();
+        this.PotentialMoves = new ArrayList<>();
         int j=this.y;
+
             //Check từ trên xuống
             for (int i=this.x-1;i>=0;i--) {
-
+                this.PotentialMoves.add(new point(i, j));
                 if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
@@ -58,6 +60,7 @@ public class Rock2 extends ChessPiece2 {
             
             //Check từ vị trí hiện tại xuống dưới
             for (int i=this.x+1;i<8;i++) {
+                this.PotentialMoves.add(new point(i, j));
                 if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
@@ -76,6 +79,7 @@ public class Rock2 extends ChessPiece2 {
             //Check từ trái sang
             int i=this.x;
             for (j=this.y-1;j>=0;j--) {
+                this.PotentialMoves.add(new point(i, j));
                 if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
@@ -92,6 +96,7 @@ public class Rock2 extends ChessPiece2 {
             
             //Check bên phải
             for (j=this.y+1;j<8;j++) {
+                this.PotentialMoves.add(new point(i, j));
                 if (Board2.chessBoard[i][j].getName()==null) {
                     res.add(new point(i,j));
                 }
@@ -105,9 +110,12 @@ public class Rock2 extends ChessPiece2 {
                     }
                 }
             }
+     
+
         return res;
     }
     public boolean CanCastle() {
-        return moveCount==0;
+        return moveCount==1;
     }
+
 }
