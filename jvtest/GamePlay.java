@@ -4,6 +4,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+import static jvtest.gameplay02.GamePlay2.BlackArchieve;
+import static jvtest.gameplay02.GamePlay2.CMtext;
+import static jvtest.gameplay02.GamePlay2.WhiteArchieve;
+import static jvtest.gameplay02.GamePlay2.isGameOver;
+import static jvtest.gameplay02.GamePlay2.turn;
 import make_a_move.DAOHistory;
 
 public class GamePlay extends javax.swing.JFrame {
@@ -390,12 +395,35 @@ public class GamePlay extends javax.swing.JFrame {
     }
 
     public void SetArchieve(String sym) {
-        if (turn != Color.BLACK) {
-            BlackArchieve.setText(BlackArchieve.getText() + sym);
-            BlackArchieve.setForeground(Color.BLACK);
-        } else {
-            WhiteArchieve.setText(WhiteArchieve.getText() + sym);
-            WhiteArchieve.setForeground(Color.white);
+        if ("♔".equals(sym)) {
+            timerChess.stop();
+            if (turn == Color.WHITE) {
+                    CMtext.setText("Game Over!!!!!!");
+                    isGameOver = true;
+                    JOptionPane.showMessageDialog(this,
+                            "White Chiến Thắng ",
+                            "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                    if (!isSaved) {
+                        saveResultToDB("Win");
+                    }
+                } else {
+                    CMtext.setText("Game Over!!!!!!");
+                    isGameOver = true;
+                    JOptionPane.showMessageDialog(this,
+                            "Black Chiến Thắng ",
+                            "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                    if (!isSaved) {
+                        saveResultToDB("Lose");
+                    }
+                }
+            } else {
+                if (turn != Color.WHITE) {
+                WhiteArchieve.setText(WhiteArchieve.getText() + sym);
+                WhiteArchieve.setForeground(Color.WHITE);
+            } else {
+                BlackArchieve.setText(BlackArchieve.getText() + sym);
+                BlackArchieve.setForeground(Color.black);
+            }
         }
     }
 

@@ -20,7 +20,7 @@ public class PausePanel2 extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(null);
 
-        ImageIcon bgIcon = new ImageIcon("../MakeAMove/pics/pausePanel.jpg");
+        ImageIcon bgIcon = new ImageIcon("C:\\Users\\PC\\OneDrive\\Documents\\NetBeansProjects\\Make_a_move\\src\\pics\\pausePanel.jpg");
         JLabel pauseGame = new JLabel(bgIcon);
         pauseGame.setBounds(0, 0, 400, 400);
 
