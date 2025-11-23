@@ -359,13 +359,36 @@ public class GamePlay2 extends javax.swing.JFrame {
     }
 
     public void SetArchieve(String sym) {
-        if (turn != Color.BLACK) {
-            BlackArchieve.setText(BlackArchieve.getText() + sym);
-            BlackArchieve.setForeground(Color.BLACK);
+        if ("♔".equals(sym)) {
+
+        if (turn == Color.WHITE) {
+                CMtext.setText("Game Over!!!!!!");
+                isGameOver = true;
+                JOptionPane.showMessageDialog(this,
+                        "White Chiến Thắng ",
+                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                if (!isSaved) {
+                    saveResultToDB("Win");
+                }
+            } else {
+                CMtext.setText("Game Over!!!!!!");
+                isGameOver = true;
+                JOptionPane.showMessageDialog(this,
+                        "Black Chiến Thắng ",
+                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                if (!isSaved) {
+                    saveResultToDB("Lose");
+                }
+            }
         } else {
+            if (turn != Color.WHITE) {
             WhiteArchieve.setText(WhiteArchieve.getText() + sym);
-            WhiteArchieve.setForeground(Color.white);
+            WhiteArchieve.setForeground(Color.WHITE);
+        } else {
+            BlackArchieve.setText(BlackArchieve.getText() + sym);
+            BlackArchieve.setForeground(Color.black);
         }
+    }
     }
 
     public static void Result() {
