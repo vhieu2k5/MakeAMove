@@ -2,6 +2,7 @@ package jvtest;
 
 import java.awt.*;
 import javax.swing.*;
+import jvtest.gameplay02.GamePlay2;
 
 public class PausePanel extends JFrame {
     private GameTimer timerChess;
@@ -20,7 +21,7 @@ public class PausePanel extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(null);
 
-        ImageIcon bgIcon = new ImageIcon("../MakeAMove/pics/pausePanel.jpg");
+        ImageIcon bgIcon = new ImageIcon("../Make_a_move/src/pics/pausePanel.jpg");
         JLabel pauseGame = new JLabel(bgIcon);
         pauseGame.setBounds(0, 0, 400, 400);
 
@@ -50,6 +51,9 @@ public class PausePanel extends JFrame {
         });
 
         replayButton.addActionListener(e -> {
+            
+            GamePlay.isGameOver=false;
+            GamePlay.isCheckedMate=false;
             if (timerChess != null) {
                 timerChess.stop();
             }

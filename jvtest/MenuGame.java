@@ -22,7 +22,7 @@ public class MenuGame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        bgLabel = new JLabel(new ImageIcon("../MakeAMove/pics/co_vua.jpg"));
+        bgLabel = new JLabel(new ImageIcon("../Make_a_move/src/pics/co_vua.jpg"));
         bgLabel.setBounds(0, 0, 600, 700);
         bgLabel.setLayout(null);
         add(bgLabel);
@@ -155,7 +155,7 @@ public class MenuGame extends JFrame {
                 if (check == 1) {
                     level = 0;
                     mode = "person";
-                    String[] options = {"None", "3 phút", "10 phút", "20 phút", "30 phút"};
+                    String[] options = {"None", "50 phút", "70 phút", "90 phút", "100 phút"};
                     String selected = (String) JOptionPane.showInputDialog(
                             MenuGame.this,
                             "⏳ Chọn thời gian cho mỗi bên:",
@@ -167,23 +167,23 @@ public class MenuGame extends JFrame {
                     );
 
                     if (selected != null) {
-                        int minutes = 5;
+                        int minutes = 90;
                         switch (selected) {
 
                             case "None":
                                 minutes = 0;
                                 break;
-                            case "3 phút":
-                                minutes = 3;
+                            case "50 phút":
+                                minutes = 1;
                                 break;
-                            case "10 phút":
-                                minutes = 10;
+                            case "70 phút":
+                                minutes = 70;
                                 break;
-                            case "20 phút":
-                                minutes = 20;
+                            case "90 phút":
+                                minutes = 90;
                                 break;
-                            case "30 phút":
-                                minutes = 30;
+                            case "100 phút":
+                                minutes = 100;
                                 break;
                         }
                         if (minutes < 0) {

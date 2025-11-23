@@ -3,6 +3,7 @@ package jvtest.gameplay02;
 import java.awt.*;
 import javax.swing.*;
 import jvtest.*;
+import static jvtest.gameplay02.GamePlay2.CMtext;
 
 public class PausePanel2 extends JFrame {
     // private GameTimer timerChess;
@@ -11,6 +12,7 @@ public class PausePanel2 extends JFrame {
     public PausePanel2( GamePlay2 gamePlay2) {
         // this.timerChess = timerChess;
         this.gamePlay2 = gamePlay2;
+        CMtext.setText("");
 
         setTitle("Pause Game");
         setSize(400, 400);
@@ -70,4 +72,3 @@ public class PausePanel2 extends JFrame {
         });
     }
 }
-

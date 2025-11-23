@@ -72,4 +72,3 @@ public class PausePanel2 extends JFrame {
         });
     }
 }
-

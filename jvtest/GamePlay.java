@@ -45,6 +45,10 @@ public class GamePlay extends javax.swing.JFrame {
         this.currentUserID = currentUserID;
         this.currentUserName = currentUserName;
         this.gameMode = gameMode;
+        
+        this.isGameOver = false;
+        this.isCheckedMate = false;
+        this.turn = Color.white;
 
         whiteTimerLabel = new JLabel("White: " + String.format("%02d:00", minutes));
         blackTimerLabel = new JLabel("Black: " + String.format("%02d:00", minutes));
@@ -74,16 +78,17 @@ public class GamePlay extends javax.swing.JFrame {
 
                 @Override
                 public void onTimeUp(String side) {
-                    JOptionPane.showMessageDialog(GamePlay.this,
+                    String winner = side.equalsIgnoreCase("White") ? "Black" : "White";
 
-                        side + " Chiến Thắng ",
+                    JOptionPane.showMessageDialog(GamePlay.this,
+                        winner + " Chiến Thắng (đối thủ hết giờ)",
                         "Game Over", JOptionPane.INFORMATION_MESSAGE);
 
                     if (!isSaved) {
-                        if (side.equalsIgnoreCase("White")) {
-                            saveResultToDB("Win");   // nếu người chơi là White thắng
+                        if (winner.equalsIgnoreCase("White")) {
+                            saveResultToDB("Win");  
                         } else {
-                            saveResultToDB("Lose");  // nếu người chơi là Black thắng
+                            saveResultToDB("Lose");  
                         }
                         isGameOver = true;
                     }
@@ -155,26 +160,6 @@ public class GamePlay extends javax.swing.JFrame {
 
     public void Warning() {
 
-        if (Board.blackKing4.isCheck()) {
-            CMtext.setText("CHECKMATE!");
-            boolean check = BlackisLose();
-            if (check) {
-                CMtext.setText("You Lose!!!!!!");
-                isGameOver = true;
-                JOptionPane.showMessageDialog(this,
-                        "Black Chiến Thắng ",
-                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
-                //Database
-                if (!isSaved) {
-                    saveResultToDB("Lose");
-                }
-                //
-            }
-        } else if (CMtext.getText().compareTo("CHECKMATE!") == 0) {
-
-            CMtext.setText("");
-        }
-
         Board.getAllValidMoves(Color.white.toString());
 
         if (Board.blackKing4.isCheck()) {
@@ -202,6 +187,14 @@ public class GamePlay extends javax.swing.JFrame {
             if (check) {
                 CMtext.setText("You Lose!!!!!!");
                 isGameOver = true;
+                 JOptionPane.showMessageDialog(this,
+                        "Black Chiến Thắng ",
+                        "Game Over", JOptionPane.INFORMATION_MESSAGE);
+                //Database
+                if (!isSaved) {
+                    saveResultToDB("Lose");
+                }
+                //
             }
         } else if (CMtext.getText().contains("CHECKMATE")) {
             CMtext.setText("");
@@ -219,11 +212,11 @@ public class GamePlay extends javax.swing.JFrame {
         DAOHistory dao = new DAOHistory();
         boolean ok = dao.saveGameRes(gameMode, currentUserID, currentUserName, result);
         if(ok){
-            System.out.println("Đã lưu lịch sử: " + result);
+            System.out.println("Da luu lich su choi: " + result);
             isSaved = true;
         }
         else{
-            System.err.println("Lưu lịch sử thất bại");
+            System.err.println("Luu lich su that bai");
         }
     }
         
@@ -251,7 +244,7 @@ public class GamePlay extends javax.swing.JFrame {
 
     public void WhiteLevelBotMove(int level) {
         StockfishBot bot = new StockfishBot();
-        bot.startEngine("../MakeAMove/jvtest/engine/stockfish-windows-x86-64-avx2.exe");
+        bot.startEngine("C:\\Users\\PC\\OneDrive\\Documents\\NetBeansProjects\\Make_a_move\\src\\jvtest\\engine\\stockfish-windows-x86-64-avx2.exe");
         String fen = Board.generateFEN(turn);
         String move = bot.getBestMove(fen, level);
         Move bestMove = Board.translateChessCode(move);

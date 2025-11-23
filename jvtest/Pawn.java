@@ -108,12 +108,11 @@ public class Pawn extends ChessPiece { //Quân tốt
             if (this.x == 6) {
                 point p = new point(this.x + 1 * reverse, this.y);
                 if (Board.chessBoard[p.i][p.j].getName() == null) {
-                    
                     res.add(p);
-                }
-                point p2 = new point(this.x + 2 * reverse, this.y);
-                if (Board.chessBoard[p2.i][p2.j].getName() == null) {
-                    res.add(p2);
+                    point p2 = new point(this.x + 2 * reverse, this.y);
+                    if (Board.chessBoard[p2.i][p2.j].getName() == null) {
+                        res.add(p2);
+                    }
                 }
                 switch (this.y) {
                     case 0:

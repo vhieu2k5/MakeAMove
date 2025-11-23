@@ -193,7 +193,7 @@ public class Board { //Lớp bàn cờ
     }
 
     public void InitChessPlay() {
-
+        GamePlay.CMtext.setText("");
         //King
         // blackKing4 = new King(0,3,Color.BLACK);
         blackKing4.setMove(null, 0, 3);
